@@ -1,0 +1,37 @@
+// Variables
+window.canvas = document.getElementById("drawing-canvas");
+window.ctx = canvas.getContext("2d");
+window.ctX = canvas.getContext("2d");
+window.drawingThing = null;
+window.boxes = {};
+window.forms = {};
+window.inputs = {};
+window.texts = {};
+//var boxes = JSON.parse(localStorage.getItem("boxes")) || [];
+window.isDragging = false;
+window.selectedBox = null;
+window.selectedText = null; 
+window.selectedInput = null;
+window.boxColor = "black";
+window.saveButton = document.getElementById("saveButton");
+window.buttonBox = document.getElementById("boxB");
+window.xMouse = null;
+window.yMouse = null;
+window.xCurrentMouse = null;
+window.yCurrentMouse = null; 
+window.xEnd = null;
+window.yEnd = null;
+window.boxWidth = null;
+window.boxHeight = null;
+window.box = null;
+window.text = null;
+window.form = null;
+window.input = null;
+window.resize = false;
+window.isOverBoxParamaters = false; 
+window.isOverBox = false; 
+window.mouseDown = false;
+window.borderRadius = 10;
+window.inputDialogue = null;
+window.lastText=null;
+
