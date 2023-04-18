@@ -7,6 +7,7 @@ export class BoxClass {
     this.color = color;
     this.outline = outline;
     this.selected = selected;
+
     
   }
 
