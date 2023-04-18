@@ -1,11 +1,12 @@
-const express = require('express');
-const cheerio = require('cheerio');
-const bodyParser = require('body-parser');
-const crypto = require('crypto');
-const request = require('request');
+import express from 'express';
+import cheerio from 'cheerio';
+import bodyParser from 'body-parser';
+import crypto from 'crypto';
+import request from 'request';
+import fs from "fs";
+
 const app = express();
 app.use(bodyParser.json());
-const fs = require('fs');
 
 function writeHtmlToFile(body) {
   fs.writeFile(__dirname + '/public/output.html', body, (err) => {
@@ -68,14 +69,4 @@ request(options, (err, response, body) => {
   }
 });
 
-// Serve static files from public directory
-app.use(express.static(__dirname + "/public"));
 
-const path = require('path');
-const express = require('express');
-const app = express();
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-app.listen(process.env.PORT || 8080);

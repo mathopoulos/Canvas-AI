@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useEffect, useState } from 'react';
-import MyComponent from './MyComponent.jsx';
+import MyComponent from '/src/components/MyComponent.jsx';
 
 
 export default function App() {
