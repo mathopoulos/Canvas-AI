@@ -5,34 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <meta name="viewport" content="width=1250">
     <title>Canvas</title>
-    <link href="/src/app.css" rel="stylesheet" type="text/css" />
+    
   </head>
   <body style= "position: relative;"> 
+    <div id="root"></div>
+    <script type="module" src="/src/index.jsx"></script>
     
 <div id="text-container">Primary</div>
   <canvas id="drawing-canvas" width="1100" height="600"></canvas>
   <button id="focused"><img id="plusImage" src="images/plus.svg" alt="box-icon" /></button>
-  <div id = "fileSave" style="display: flex; flex-direction: row;">
-    <div id="titleDiv" style="display: flex; flex-direction: row;">
-    <img id="titleImage" src="images/view-list.svg" alt="box-icon" />
-    <img id="lineImage" src="images/line.svg" alt="box-icon" />
-  <h3 id="title">Username Input</h3>
-      <div class="dropdown">
-  <button class="dropbtn"><img id="downImage" src="images/down.svg" alt="box-icon" /></button>
-  <div class="dropdown-content">
-    <a id = "exportButton" href="#">Export Code</a>
-    <a id = "saveButton" href="#">Save</a>
-  </div>
-</div>
-    </div>
-    
-    <div id="messageDiv"></div>
-    <div id="rightTopNav">  
-      <img id="profile" src="images/profile.svg" alt="box-icon" />
-       <button id="shareButton">Share</button>
-
-    </div>
-</div>
   <div style="display: flex; flex-direction: row;">
   <div id="toolpanel">
     <div id="icons">
@@ -80,7 +61,7 @@
 
 
   <button id=clear>Clear Canvas</button>
-  <script type = "module" src ="/src/index.js"></script>
+  <script type = "module" src ="/src/index.jsx"></script>
   <script type = "module" src ="/src/variables.mjs"></script>
   <script type = "module" src ="/src/navigation.mjs"></script>
   <script type = "module" src ="/src/boxes.mjs"></script>
@@ -96,7 +77,6 @@
   <!--<script type = "module" src ="/src/codeSync.mjs"></script>
   <script type = "module" src ="/src/codeSyncBack.mjs"></script>-->
     
-    <div id="root"></div>
-    <script type="module" src="/src/index.jsx"></script>
+    
   </body>
 </html>

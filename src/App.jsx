@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useEffect, useState } from 'react';
-import MyComponent from '/src/components/MyComponent.jsx';
+import TopNavigation from '/src/components/TopNavigation.jsx';
 
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <main>
-      <MyComponent />
+      <TopNavigation />
     </main>
   );
 }

@@ -251,7 +251,7 @@ flex-direction: row;
 }
 
 #title {
-  z-index: 20;
+  z-index: 17;
   padding-top: 4px;
   margin-top: 0px; 
   margin-bottom: 0px; 
@@ -261,6 +261,7 @@ flex-direction: row;
   font-display: block;
   font-size: 14px;
   opacity: 0.5;
+
 }
 
 #titleImage{
@@ -286,16 +287,24 @@ flex-direction: row;
   max-height: 15px; 
 }
 
-#titleDiv {
-  z-index: 18;
+.titleDiv {
+  poition: absolute;
+  display: flex;
+  flex-direction: row;
+  z-index: 17;
   margin-left: 10px; 
   margin-top: 10px; 
   padding-top: 3px; 
   padding-left: 10px; 
   width: 15%;
-  background-color: #ece9e9;
+  background-color: #ece9e9 !important;
   border: 0.5px solid #858585;
   border-radius: 5px;
+}
+
+.topDiv {
+  display: flex;
+  flex-direction: row;
 }
 
 #profile {
