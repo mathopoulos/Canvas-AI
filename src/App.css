@@ -4,10 +4,10 @@ html {
 }
 
 #drawing-canvas {
-  position: absolute; 
+  position: absolute;
   border: solid 2px #ffffff;
   z-index: 1;
-
+  background-color: #F9FAFB;
   }
 
 .pointer {
