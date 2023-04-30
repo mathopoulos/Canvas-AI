@@ -1,7 +1,4 @@
 // Variables
-window.canvas = document.getElementById("drawing-canvas");
-window.ctx = canvas.getContext("2d");
-window.ctX = canvas.getContext("2d");
 window.drawingThing = null;
 window.boxes = {};
 window.forms = {};

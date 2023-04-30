@@ -1,7 +1,7 @@
 import './App.css'
 import React, { useEffect, useState } from 'react';
 import TopNavigation from '/src/components/TopNavigation.jsx';
-import DrawingCanvas from '/src/components/DrawingCanvas.jsx';
+import Canvas from '/src/components/Canvas.jsx';
 
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
   return (
     <main>
       <TopNavigation />
-      <DrawingCanvas width={1300} height={900} />
+      <Canvas />
 
     </main>
   );

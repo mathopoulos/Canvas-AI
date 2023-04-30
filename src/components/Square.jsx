@@ -1,11 +1,4 @@
-import React, { useRef, useEffect } from "react";
-
-export default function Square(props) {
-  const { x, y, size, ctx } = props;
-
-  useEffect(() => {
-    ctx.fillRect(x, y, size, size);
-  }, [ctx, x, y, size]);
-
-  return null;
-}
+export const drawSquare = (ctx, x, y, size) => {
+  ctx.fillStyle = 'blue';
+  ctx.fillRect(x - size / 2, y - size / 2, size, size);
+};
