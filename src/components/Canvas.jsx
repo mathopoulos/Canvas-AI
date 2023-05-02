@@ -4,6 +4,8 @@ import { drawSquare } from './Square.jsx';
 import { drawCircle } from './Circle.jsx';
 import { drawInput } from './Input.jsx';
 import { findShapeUnderCursor } from './helpers.jsx';
+import ElementDetails from '/src/components/elementDetails.jsx';
+
 
 
 function Canvas() {
@@ -114,6 +116,7 @@ const handleMouseUp = () => {
           top: '220px'
         }}
       />
+      <ElementDetails />
     </div>
   );
 }

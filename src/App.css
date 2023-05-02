@@ -35,6 +35,16 @@ cursor: col-resize;
 
 }
 
+#toolpanelButtons:hover {
+  background-color: #f3f1f1;
+  border-radius: 10px;
+  cursor:pointer;
+}
+
+.active {
+  background-color: grey;
+}
+
 #icons {
   padding-top: 11px;
   margin-left: 15px; 
@@ -337,35 +347,6 @@ flex-direction: row;
 }
 
 
-#textB:hover {
-  background-color: #f3f1f1;
-  border-radius: 10px;
-  cursor:pointer;
-}
-
-#selector:hover {
-  background-color: #f3f1f1;
-  border-radius: 10px;
-  cursor:pointer;
-}
-
-#shapes:hover {
-  background-color: #f3f1f1;
-    border-radius: 10px;
-    cursor:pointer;
-}
-
-#formB:hover {
-  background-color: #f3f1f1;
-    border-radius: 10px;
-    cursor:pointer;
-}
-
-#box:hover {
-  background-color: #f3f1f1;
-  border-radius: 10px;
-  cursor:pointer;
-}
 
 input[type=text] {
   border: none;
