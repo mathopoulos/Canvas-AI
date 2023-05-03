@@ -30,7 +30,7 @@ useEffect(() => {
     } else if (shape.type === 'circle') {
       drawCircle(context, shape.x, shape.y, shape.radius);
     } else if (shape.type === 'input') {
-      drawInput(context, 200, 50, shape.x, shape.y, 5);
+      drawInput(context, shape.width, shape.height, shape.x, shape.y, 5);
     }
   }
 }, [shapes]);
@@ -94,6 +94,29 @@ const handleMouseUp = () => {
   setDragging(false);
 };
 
+const handleHeightChange = (e) => {
+  if (selectedShapeIndex !== null) {
+    const newHeight = parseFloat(e.target.value);
+    if (!isNaN(newHeight)) {
+      const updatedShapes = shapes.map((shape, index) =>
+        index === selectedShapeIndex ? { ...shape, height: newHeight } : shape
+      );
+      setShapes(updatedShapes);
+    }
+  }
+};
+
+const handleWidthChange = (e) => {
+  if (selectedShapeIndex !== null) {
+    const newWidth = parseFloat(e.target.value);
+    if (!isNaN(newWidth)) {
+      const updatedShapes = shapes.map((shape, index) =>
+        index === selectedShapeIndex ? { ...shape, width: newWidth } : shape
+      );
+      setShapes(updatedShapes);
+    }
+  }
+};  
 
 
 
@@ -116,7 +139,7 @@ const handleMouseUp = () => {
           top: '220px'
         }}
       />
-      <ElementDetails />
+      <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} />
     </div>
   );
 }

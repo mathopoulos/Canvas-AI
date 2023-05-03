@@ -83,6 +83,8 @@ canvas.addEventListener("mousemove", function(){
   isOverInput(xCurrentMouse, yCurrentMouse);
 })
 
+
+///THIS IS THE CODE I NEED TO INCLUDE IN MY NEW DETAIL ELEMENTS 
 //updates the height of selectedinput when the height input changes
 let heightInput = document.getElementById("height");
 heightInput.addEventListener("change", function() {
