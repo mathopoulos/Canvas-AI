@@ -24,13 +24,14 @@ useEffect(() => {
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (const shape of shapes) {
+  for (const [index, shape] of shapes.entries()) {
     if (shape.type === 'square') {
       drawSquare(context, shape.x, shape.y, shape.size);
     } else if (shape.type === 'circle') {
       drawCircle(context, shape.x, shape.y, shape.radius);
     } else if (shape.type === 'input') {
-      drawInput(context, shape.width, shape.height, shape.x, shape.y, 5);
+      const isSelected = selectedShapeIndex === index;
+      drawInput(context, shape.width, shape.height, shape.x, shape.y, 5, isSelected);
     }
   }
 }, [shapes]);
