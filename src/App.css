@@ -56,6 +56,7 @@ cursor: col-resize;
 }
 
 
+
 h3 {
   padding-top: 0%;
   margin-left: 3%;
@@ -468,3 +469,49 @@ input[type=text]:focus {
   color: #832BDB; 
 
 }
+
+
+.resize-handle {
+  position: absolute;
+  background: #832bdb;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.resize-handle[data-resize="left"],
+.resize-handle[data-resize="right"] {
+  width: 6px;
+  height: 100%;
+}
+
+.resize-handle[data-resize="top"],
+.resize-handle[data-resize="bottom"] {
+  width: 100%;
+  height: 6px;
+}
+
+.resize-handle[data-resize="left"] {
+  left: -3px;
+}
+
+.resize-handle[data-resize="right"] {
+  right: -3px;
+}
+
+.resize-handle[data-resize="top"] {
+  top: -3px;
+}
+
+.resize-handle[data-resize="bottom"] {
+  bottom: -3px;
+}
+
+.resizing-box {
+  position: absolute;
+  display: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: transparent;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+

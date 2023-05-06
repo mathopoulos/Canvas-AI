@@ -22,3 +22,28 @@ export const findShapeUnderCursor = (shapes, x, y) => {
   }
   return null;
 };
+
+export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
+  if (resizingBoxRef.current === null) {
+    return;
+  }
+
+  const resizingBox = resizingBoxRef.current;
+
+  if (selectedIndex === null) {
+    resizingBox.style.display = 'none';
+    return;
+  }
+
+  const selectedShape = shapes[selectedIndex];
+
+  if (selectedShape.type === 'input') {
+    resizingBox.style.display = 'block';
+    resizingBox.style.left = `${selectedShape.x}px`;
+    resizingBox.style.top = `${selectedShape.y}px`;
+    resizingBox.style.width = `${selectedShape.width}px`;
+    resizingBox.style.height = `${selectedShape.height}px`;
+  } else {
+    resizingBox.style.display = 'none';
+  }
+};
