@@ -5,7 +5,7 @@ import { drawCircle } from './Circle.jsx';
 import { drawInput } from './Input.jsx';
 import { findShapeUnderCursor } from './helpers.jsx';
 import ElementDetails from '/src/components/elementDetails.jsx';
-import { updateResizingBox } from './helpers.jsx';
+import { updateResizingBox, updateCursor } from './helpers.jsx';
 
 
 
@@ -127,77 +127,70 @@ const handleWidthChange = (e) => {
   }
 };  
 
-  const handleResizeMouseDown = (e) => {
-  if (e.target.dataset.resize) {
-    setResizingEdge(e.target.dataset.resize);
-    e.stopPropagation(); // Prevent triggering the canvas event
+const handleResizeMouseDown = (e) => {
+  console.log("test");
+  const resizingEdgeElement = e.target.closest('[data-resize]');
+  console.log(resizingEdgeElement);
+  const resizingEdge = resizingEdgeElement ? resizingEdgeElement.dataset.resize : null;
+
+  if (resizingEdge) {
+    setResizingEdge(resizingEdge);
+    setResizing(true);
+    e.stopPropagation();
   }
 };
 
 const handleResizeMouseMove = (e) => {
-  const resizingBox = resizingBoxRef.current;
-  const { x, y, width, height } = resizingBox.getBoundingClientRect();
-  const buffer = 3;
-  const isOnRightEdge = Math.abs(e.clientX - (x + width)) < buffer;
-  const isOnLeftEdge = Math.abs(e.clientX - x) < buffer;
-  const isOnTopEdge = Math.abs(e.clientY - y) < buffer;
-  const isOnBottomEdge = Math.abs(e.clientY - (y + height)) < buffer;
+  if (resizing && resizingEdge && selectedShapeIndex !== null) {
+    const shape = shapes[selectedShapeIndex];
+    const updatedShape = { ...shape };
+    const { offsetX, offsetY } = e.nativeEvent;
 
-  if (resizing) {
-    const deltaX = e.clientX - initialMousePosition.current.x;
-    const deltaY = e.clientY - initialMousePosition.current.y;
-
-    setShapes((prevShapes) => {
-      const newShapes = [...prevShapes];
-      const shape = newShapes[selectedShapeIndex];
-      shape.width += deltaX;
-      shape.height += deltaY;
-      return newShapes;
-    });
-
-    initialMousePosition.current = { x: e.clientX, y: e.clientY };
-    updateResizingBox(resizingBoxRef, selectedShapeIndex, shapes);
-  } else {
-    if (isOnRightEdge || isOnLeftEdge) {
-      resizingBox.style.cursor = 'ew-resize';
-    } else if (isOnTopEdge || isOnBottomEdge) {
-      resizingBox.style.cursor = 'ns-resize';
-    } else {
-      resizingBox.style.cursor = 'default';
+    if (resizingEdge === 'left') {
+      const newWidth = shape.x + shape.width - offsetX;
+      updatedShape.x = offsetX;
+      updatedShape.width = newWidth;
+    } else if (resizingEdge === 'right') {
+      updatedShape.width = offsetX - shape.x;
+    } else if (resizingEdge === 'top') {
+      const newHeight = shape.y + shape.height - offsetY;
+      updatedShape.y = offsetY;
+      updatedShape.height = newHeight;
+    } else if (resizingEdge === 'bottom') {
+      updatedShape.height = offsetY - shape.y;
     }
+
+    const newShapes = [...shapes];
+    newShapes[selectedShapeIndex] = updatedShape;
+    setShapes(newShapes);
   }
 };
 
-
-
-
 const handleResizeMouseUp = () => {
   setResizingEdge(null);
+  setResizing(false);
 };
-
-  
-
-
 
 
 return (
   <div>
     <Toolbar setShape={setShapeType} />
-    <div style={{ position: 'relative', width: '310px', height: '100px', border: '1px solid black', left: '320px', top: '220px' }}>
+    <div style={{ position: 'relative', width: '310px', height: '100px', border: '1px solid black', left: '320px', top: '220px' }} onMouseMove={(e) => updateCursor(resizingBoxRef, e)
+    }>
       <canvas
         ref={canvasRef}
         onClick={handleClick}
         onMouseDown={(e) => {
           handleMouseDown(e);
-          handleResizeMouseDown(e);
+          
         }}
         onMouseMove={(e) => {
           handleMouseMove(e);
-          handleResizeMouseMove(e);
+          
         }}
         onMouseUp={(e) => {
           handleMouseUp(e);
-          handleResizeMouseUp(e);
+          
         }}
         width="310"
         height="100"
@@ -206,13 +199,19 @@ return (
         }}
       />
       <div
-        ref={resizingBoxRef}
-        className="resizing-box"
-onMouseDown={handleResizeMouseDown}
+  ref={resizingBoxRef}
+  className="resizing-box"
+  onMouseDown={handleResizeMouseDown}
   onMouseMove={handleResizeMouseMove}
   onMouseUp={handleResizeMouseUp}
-      >
-      </div>
+>
+  <div className="resize-edge left" data-resize="left"></div>
+  <div className="resize-edge right" data-resize="right"></div>
+  <div className="resize-edge top" data-resize="top"></div>
+  <div className="resize-edge bottom" data-resize="bottom"></div>
+</div>
+
+
     </div>
     <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} />
   </div>

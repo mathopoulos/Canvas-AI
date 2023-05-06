@@ -470,48 +470,50 @@ input[type=text]:focus {
 
 }
 
-
-.resize-handle {
+.resize-edge {
   position: absolute;
-  background: #832bdb;
-  cursor: pointer;
-  z-index: 2;
+  background-color: transparent;
+  z-index: 100;
 }
 
-.resize-handle[data-resize="left"],
-.resize-handle[data-resize="right"] {
-  width: 6px;
+.left {
+  top: 0;
+  left: -5px;
+  width: 10px;
   height: 100%;
+  cursor: ew-resize;
 }
 
-.resize-handle[data-resize="top"],
-.resize-handle[data-resize="bottom"] {
+.right {
+  top: 0;
+  right: -5px;
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+}
+
+.top {
+  top: -5px;
+  left: 0;
   width: 100%;
-  height: 6px;
+  height: 10px;
+  cursor: ns-resize;
 }
 
-.resize-handle[data-resize="left"] {
-  left: -3px;
+.bottom {
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  cursor: ns-resize;
 }
 
-.resize-handle[data-resize="right"] {
-  right: -3px;
-}
-
-.resize-handle[data-resize="top"] {
-  top: -3px;
-}
-
-.resize-handle[data-resize="bottom"] {
-  bottom: -3px;
-}
 
 .resizing-box {
   position: absolute;
   display: none;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid #832BDB ;
   background: transparent;
-  pointer-events: none;
   box-sizing: border-box;
 }
 

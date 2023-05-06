@@ -47,3 +47,27 @@ export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
     resizingBox.style.display = 'none';
   }
 };
+
+export const updateCursor = (resizingBoxRef, e) => {
+  const resizingBox = resizingBoxRef.current;
+  if (resizingBox) {
+    const { left, top, width, height } = resizingBox.getBoundingClientRect();
+    const buffer = 5;
+    const isOnRightEdge = Math.abs(e.clientX - (left + width)) < buffer;
+    const isOnLeftEdge = Math.abs(e.clientX - left) < buffer;
+    const isOnTopEdge = Math.abs(e.clientY - top) < buffer;
+    const isOnBottomEdge = Math.abs(e.clientY - (top + height)) < buffer;
+    const isInsideBox = e.clientX > left && e.clientX < left + width && e.clientY > top && e.clientY < top + height;
+
+    if (isOnRightEdge || isOnLeftEdge) {
+      document.body.style.cursor = 'ew-resize';
+    } else if (isOnTopEdge || isOnBottomEdge) {
+      document.body.style.cursor = 'ns-resize';
+    } else if (isInsideBox) {
+      document.body.style.cursor = 'pointer';
+    } else {
+      resizingBox.style.cursor = 'default';
+    }
+  }
+};
+
