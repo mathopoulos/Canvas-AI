@@ -98,17 +98,21 @@ const handleMouseMove = (e) => {
     const updatedShape = { ...shape, x: offsetX - dragOffset.x, y: offsetY - dragOffset.y };
     const newShapes = [...shapes];
     newShapes[selectedShapeIndex] = updatedShape;
-    setShapes(newShapes);
 
-    // Update the resizing box position directly
-    if (shape.type === 'input') {
-      resizingBoxRef.current.style.left = `${updatedShape.x}px`;
-      resizingBoxRef.current.style.top = `${updatedShape.y}px`;
-      resizingBoxRef.current.style.width = `${updatedShape.width}px`;
-      resizingBoxRef.current.style.height = `${updatedShape.height}px`;
-    }
+    requestAnimationFrame(() => {
+      setShapes(newShapes);
+
+      // Update the resizing box position directly
+      if (shape.type === 'input') {
+        resizingBoxRef.current.style.left = `${updatedShape.x}px`;
+        resizingBoxRef.current.style.top = `${updatedShape.y}px`;
+        resizingBoxRef.current.style.width = `${updatedShape.width}px`;
+        resizingBoxRef.current.style.height = `${updatedShape.height}px`;
+      }
+    });
   }
 };
+
 
 
 
