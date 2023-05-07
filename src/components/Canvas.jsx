@@ -20,6 +20,12 @@ function Canvas() {
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
+useEffect(() => {
+  window.addEventListener('mouseup', handleMouseUp);
+  return () => {
+    window.removeEventListener('mouseup', handleMouseUp);
+  };
+}, []);
 
 
 useEffect(() => {
@@ -93,6 +99,14 @@ const handleMouseMove = (e) => {
     const newShapes = [...shapes];
     newShapes[selectedShapeIndex] = updatedShape;
     setShapes(newShapes);
+
+    // Update the resizing box position directly
+    if (shape.type === 'input') {
+      resizingBoxRef.current.style.left = `${updatedShape.x}px`;
+      resizingBoxRef.current.style.top = `${updatedShape.y}px`;
+      resizingBoxRef.current.style.width = `${updatedShape.width}px`;
+      resizingBoxRef.current.style.height = `${updatedShape.height}px`;
+    }
   }
 };
 
