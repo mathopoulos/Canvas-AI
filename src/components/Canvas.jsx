@@ -19,6 +19,8 @@ function Canvas() {
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [initialOffsetX, setInitialOffsetX] = useState(null);
+
 
 useEffect(() => {
   window.addEventListener('mouseup', handleMouseUp);
@@ -146,7 +148,6 @@ const handleWidthChange = (e) => {
 };  
 
 const handleResizeMouseDown = (e) => {
-  console.log("test");
   const resizingEdgeElement = e.target.closest('[data-resize]');
   console.log(resizingEdgeElement);
   const resizingEdge = resizingEdgeElement ? resizingEdgeElement.dataset.resize : null;
@@ -159,15 +160,24 @@ const handleResizeMouseDown = (e) => {
 };
 
 const handleResizeMouseMove = (e) => {
-  if (resizing && resizingEdge && selectedShapeIndex !== null) {
+if (resizing && resizingEdge && selectedShapeIndex !== null) {
     const shape = shapes[selectedShapeIndex];
     const updatedShape = { ...shape };
-    const { offsetX, offsetY } = e.nativeEvent;
+    const { pageX, pageY } = e;
+
+    const canvas = canvasRef.current;
+    const canvasRect = canvas.getBoundingClientRect();
+
+    const offsetX = pageX - canvasRect.left;
+    const offsetY = pageY - canvasRect.top;
 
     if (resizingEdge === 'left') {
-      const newWidth = shape.x + shape.width - offsetX;
+      const deltaX = offsetX - shape.x;
+      const newWidth = shape.width - deltaX;
       updatedShape.x = offsetX;
       updatedShape.width = newWidth;
+
+
     } else if (resizingEdge === 'right') {
       updatedShape.width = offsetX - shape.x;
     } else if (resizingEdge === 'top') {
@@ -178,11 +188,13 @@ const handleResizeMouseMove = (e) => {
       updatedShape.height = offsetY - shape.y;
     }
 
+
     const newShapes = [...shapes];
     newShapes[selectedShapeIndex] = updatedShape;
     setShapes(newShapes);
   }
 };
+
 
 const handleResizeMouseUp = () => {
   setResizingEdge(null);
