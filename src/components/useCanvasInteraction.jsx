@@ -25,6 +25,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.width = 200;
         newShape.height = 50;
         newShape.borderRadius = 5;
+        newShape.strokeWidth = 3;
       }
 
       setShapes([...shapes, newShape]);
@@ -100,12 +101,24 @@ const handleWidthChange = (e) => {
     const newWidth = parseFloat(e.target.value);
     if (!isNaN(newWidth)) {
       const updatedShapes = shapes.map((shape, index) =>
-        index === selectedShapeIndex ? { ...shape, width: newWidth } : shape
+        index === selectedShapeIndex ? { ...shape, strokeWidth: newWidth } : shape
       );
       setShapes(updatedShapes);
     }
   }
 };  
+
+const handleStrokeWidthChange = (e) => {
+  if (selectedShapeIndex !== null) {
+    const newWidth = parseFloat(e.target.value);
+    if (!isNaN(newWidth)) {
+      const updatedShapes = shapes.map((shape, index) =>
+        index === selectedShapeIndex ? { ...shape, strokeWidth: newWidth } : shape
+      );
+      setShapes(updatedShapes);
+    }
+  }
+};    
 
 const handleResizeMouseDown = (e) => {
   const resizingEdgeElement = e.target.closest('[data-resize]');
@@ -179,5 +192,7 @@ return {
     handleResizeMouseUp,
     handleHeightChange,
     handleWidthChange,
+    handleStrokeWidthChange,
+  
   };
 };

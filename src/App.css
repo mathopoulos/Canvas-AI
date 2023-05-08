@@ -91,7 +91,7 @@ h4 {
   border-radius: 10px;
   background-color: #ffffff;
   border: none;
-  height: 400px;
+  height: 415px;
   box-shadow: 0 0 5px #bdbdbd;
   
 }
@@ -120,6 +120,7 @@ h4 {
   height: 150px; 
   margin-top: 0px;
   padding-top: 20px;
+
 }
 
 #positionTitle {
@@ -187,9 +188,22 @@ h4 {
 
 }
 
+#strokeWidth {
+  width: 50px;
+  text-align: left;
+  font-family: "Helvetica";
+  font-weight: normal; 
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #eaeaeb;
+  padding-left: 10px;
+  padding-top: 4px; 
+  padding-bottom: 4px; 
+  color: #545454;
+
+}
+
 #colorPicker {
-  display: none;
-  margin-top: 15px;
   cursor: pointer;
 
 }

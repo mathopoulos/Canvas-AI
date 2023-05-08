@@ -1,9 +1,8 @@
 import React from 'react';
 import Canvas from './Canvas.jsx';
-
 import '/src/App.css';
 
-function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange}) {
+function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange, onStrokeWidthChange}) {
   const selectedShape = selectedIndex !== null ? shapes[selectedIndex] : null;
   
   return (
@@ -31,8 +30,25 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange}
               onChange={onWidthChange}/>
           </div>
         </div>
-        <div>
-          <input type="color" id="colorPicker" defaultValue="black" />
+      </div>
+      <div className="section">
+        <label id="positionTitle">Border</label>
+        <div id="xInputDiv">
+          <label id = "xLabel" htmlFor="height">Stroke</label>
+          <div id="xInputWrapper">
+            <input 
+              type="text" 
+              id="strokeWidth" 
+              name="xValue" 
+              value={selectedShape ? selectedShape.strokeWidth : ''} 
+              onChange={onStrokeWidthChange}/>
+          </div>
+        </div>
+        <div id="xInputDiv">
+          <label id = "xLabel" htmlFor="width">Color</label>
+          <div id="xInputWrapper">
+            <input type="color" id="colorPicker" defaultValue="black" />
+          </div>
         </div>
       </div>
     </div>
@@ -40,3 +56,4 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange}
 }
 
 export default ElementDetails;
+

@@ -31,6 +31,8 @@ function Canvas() {
   handleResizeMouseUp,
   handleHeightChange,
   handleWidthChange,
+  handleStrokeWidthChange
+  
 } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
 
 
@@ -64,7 +66,7 @@ return (
         onMouseUp={handleResizeMouseUp}
       />
     </div>
-    <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} />
+    <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange}  />
   </div>
 );
 }
