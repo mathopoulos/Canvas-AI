@@ -74,3 +74,18 @@ export const updateCursor = (resizingBoxRef, e) => {
   }
 };
 
+export const createNewShape = (shapeType, offsetX, offsetY) => {
+  const newShape = { x: offsetX, y: offsetY, type: shapeType };
+
+  if (shapeType === 'square') {
+    newShape.size = 50;
+  } else if (shapeType === 'circle') {
+    newShape.radius = 25;
+  } else if (shapeType === 'input') {
+    newShape.width = 200;
+    newShape.height = 50;
+    newShape.borderRadius = 5;
+  }
+
+  return newShape;
+};
