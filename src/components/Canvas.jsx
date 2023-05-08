@@ -3,6 +3,7 @@ import Toolbar from './Toolbar.jsx';
 import { drawSquare } from './Square.jsx';
 import { drawCircle } from './Circle.jsx';
 import { drawInput } from './Input.jsx';
+import { drawShapes } from './shapeDrawing.jsx';
 import { findShapeUnderCursor } from './helpers.jsx';
 import ElementDetails from '/src/components/elementDetails.jsx';
 import { updateResizingBox, updateCursor } from './helpers.jsx';
@@ -35,16 +36,8 @@ useEffect(() => {
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (const [index, shape] of shapes.entries()) {
-    if (shape.type === 'square') {
-      drawSquare(context, shape.x, shape.y, shape.size);
-    } else if (shape.type === 'circle') {
-      drawCircle(context, shape.x, shape.y, shape.radius);
-    } else if (shape.type === 'input') {
-      const isSelected = selectedShapeIndex === index;
-      drawInput(context, shape.width, shape.height, shape.x, shape.y, 5, isSelected);
-    }
-  };
+  drawShapes(context, shapes, selectedShapeIndex);
+
 // Update the resizing box position and size
   updateResizingBox(resizingBoxRef, selectedShapeIndex, shapes);
 }, [shapes, resizingBoxRef, selectedShapeIndex]);
