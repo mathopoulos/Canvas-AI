@@ -1,7 +1,7 @@
-export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth) => {
+export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor) => {
 
     ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle = "grey";
+    ctx.strokeStyle = strokeColor;
     ctx.beginPath();
     ctx.moveTo(x + borderRadius, y);
     ctx.lineTo(x + width - borderRadius, y);

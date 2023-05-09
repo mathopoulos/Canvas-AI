@@ -2,7 +2,7 @@ import React from 'react';
 import Canvas from './Canvas.jsx';
 import '/src/App.css';
 
-function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange, onStrokeWidthChange}) {
+function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange, onStrokeWidthChange, onStrokeColorChange}) {
   const selectedShape = selectedIndex !== null ? shapes[selectedIndex] : null;
   
   return (
@@ -47,7 +47,11 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange,
         <div id="xInputDiv">
           <label id = "xLabel" htmlFor="width">Color</label>
           <div id="xInputWrapper">
-            <input type="color" id="colorPicker" defaultValue="black" />
+            <input 
+              type="color" 
+              id="colorPicker" 
+              value={selectedShape ? selectedShape.strokeColor : ''} 
+              onChange={onStrokeColorChange} />
           </div>
         </div>
       </div>

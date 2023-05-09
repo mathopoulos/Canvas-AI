@@ -1,6 +1,3 @@
-
-
-
 export const findShapeUnderCursor = (shapes, x, y) => {
   for (let i = shapes.length - 1; i >= 0; i--) {
     const shape = shapes[i];
