@@ -133,7 +133,19 @@ const handleStrokeColorChange = (e) => {
       setShapes(updatedShapes);
     }
   }
-};     
+};    
+
+const handleBorderRadiusChange = (e) => {
+  if (selectedShapeIndex !== null) {
+    const newBorderRadius = parseFloat(e.target.value);
+    if (!isNaN(newBorderRadius)) {
+      const updatedShapes = shapes.map((shape, index) =>
+        index === selectedShapeIndex ? { ...shape, borderRadius: newBorderRadius } : shape
+      );
+      setShapes(updatedShapes);
+    }
+  }
+};    
 
 const handleResizeMouseDown = (e) => {
   const resizingEdgeElement = e.target.closest('[data-resize]');
@@ -208,7 +220,8 @@ return {
     handleHeightChange,
     handleWidthChange,
     handleStrokeWidthChange,
-    handleStrokeColorChange
+    handleStrokeColorChange, 
+    handleBorderRadiusChange
   
   };
 };

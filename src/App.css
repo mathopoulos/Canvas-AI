@@ -91,7 +91,7 @@ h4 {
   border-radius: 10px;
   background-color: #ffffff;
   border: none;
-  height: 415px;
+  height: 460px;
   box-shadow: 0 0 5px #bdbdbd;
   
 }
@@ -118,6 +118,14 @@ h4 {
 .section {
   border-bottom: solid 1px #cdcbcb;
   height: 150px; 
+  margin-top: 0px;
+  padding-top: 20px;
+
+}
+
+.section2 {
+  border-bottom: solid 1px #cdcbcb;
+  height: 200px; 
   margin-top: 0px;
   padding-top: 20px;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Canvas from './Canvas.jsx';
 import '/src/App.css';
 
-function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange, onStrokeWidthChange, onStrokeColorChange}) {
+function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange, onStrokeWidthChange, onStrokeColorChange, onBorderRadiusChange}) {
   const selectedShape = selectedIndex !== null ? shapes[selectedIndex] : null;
   
   return (
@@ -31,7 +31,7 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange,
           </div>
         </div>
       </div>
-      <div className="section">
+      <div className="section2">
         <label id="positionTitle">Border</label>
         <div id="xInputDiv">
           <label id = "xLabel" htmlFor="height">Stroke</label>
@@ -52,6 +52,17 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange,
               id="colorPicker" 
               value={selectedShape ? selectedShape.strokeColor : ''} 
               onChange={onStrokeColorChange} />
+          </div>
+        </div>
+                <div id="xInputDiv">
+          <label id = "xLabel" htmlFor="height">Radius</label>
+          <div id="xInputWrapper">
+            <input 
+              type="text" 
+              id="strokeWidth" 
+              name="xValue" 
+              value={selectedShape ? selectedShape.borderRadius : ''} 
+              onChange={onBorderRadiusChange}/>
           </div>
         </div>
       </div>
