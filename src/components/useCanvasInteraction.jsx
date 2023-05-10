@@ -27,6 +27,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.borderRadius = 5;
         newShape.strokeWidth = 3;
         newShape.strokeColor = "#545454";
+        newShape.fillStyleColor = "#FFFFFF";
       }
 
       setShapes([...shapes, newShape]);
@@ -135,6 +136,20 @@ const handleStrokeColorChange = (e) => {
   }
 };    
 
+const handleFillStyleColorChange = (e) => {
+  if (selectedShapeIndex !== null) {
+    const newColor = e.target.value;
+    console.log(newColor);
+    if (newColor!== "") {
+      const updatedShapes = shapes.map((shape, index) =>
+        index === selectedShapeIndex ? { ...shape, fillStyleColor: newColor } : shape
+      );
+      console.log(updatedShapes);
+      setShapes(updatedShapes);
+    }
+  }
+};      
+
 const handleBorderRadiusChange = (e) => {
   if (selectedShapeIndex !== null) {
     const newBorderRadius = parseFloat(e.target.value);
@@ -221,7 +236,8 @@ return {
     handleWidthChange,
     handleStrokeWidthChange,
     handleStrokeColorChange, 
-    handleBorderRadiusChange
+    handleBorderRadiusChange, 
+    handleFillStyleColorChange
   
   };
 };
