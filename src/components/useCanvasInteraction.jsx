@@ -24,11 +24,11 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
       } else if (shapeType === 'input') {
         newShape.width = 200;
         newShape.height = 50;
-        newShape.borderRadius = 0;
+        newShape.borderRadius = 1;
         newShape.strokeWidth = 3;
         newShape.strokeColor = "#545454";
         newShape.fillStyleColor = "#FFFFFF";
-        newShape.borderSides = {top: false, right: false, bottom: false, left: true};
+        newShape.borderSides = {top: true, right: true, bottom: true, left: true};
       }
 
       setShapes([...shapes, newShape]);
