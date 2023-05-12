@@ -11,7 +11,7 @@ export const drawShapes = (context, shapes, selectedShapeIndex) => {
       drawCircle(context, shape.x, shape.y, shape.radius);
     } else if (shape.type === 'input') {
       const isSelected = selectedShapeIndex === index;
-      drawInput(context, shape.width, shape.height, shape.x, shape.y, shape.borderRadius , isSelected, shape.strokeWidth, shape.strokeColor, shape.fillStyleColor);
+      drawInput(context, shape.width, shape.height, shape.x, shape.y, shape.borderRadius , isSelected, shape.strokeWidth, shape.strokeColor, shape.fillStyleColor, {top: true, right: true, bottom: true, left: true});
     }
   }
 };
