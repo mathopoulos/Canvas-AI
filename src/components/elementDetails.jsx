@@ -65,6 +65,17 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange,
               onChange={onBorderRadiusChange}/>
           </div>
         </div>
+        <div id="xInputDiv">
+          <label id = "xLabel" htmlFor="height">Sides</label>
+          <div id="sideIcons">
+      <button id="toolpanelButtons2" onClick={() => setShape('circle')}  ><img id="toolpanelButtons3" src="images/Left.svg" alt="box-icon" /></button>
+      <button id="toolpanelButtons2" onClick={() => setShape('circle')}><img id="toolpanelButtons3" src="images/Top.svg" alt="box-icon" /></button>
+            </div>
+       <div id="sideIcons2">
+        <button id="toolpanelButtons2" onClick={() => setShape('circle')}><img id="toolpanelButtons3" src="images/Bottom.svg" alt="box-icon" /></button>
+      <button id="toolpanelButtons2" onClick={() => setShape('circle')}><img id="toolpanelButtons3" src="images/Right.svg" alt="box-icon" /></button>     
+            </div>
+        </div>
       </div>
             <div className="section3">
         <label id="positionTitle">Background</label>

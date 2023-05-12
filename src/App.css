@@ -41,6 +41,19 @@ cursor: col-resize;
   cursor:pointer;
 }
 
+
+#toolpanelButtons2 {
+  width: 25px;
+  height: 25px;
+}
+
+#toolpanelButtons3 {
+  padding: 1px;
+  width: 20px;
+  height: 20px;
+}
+
+
 .active {
   background-color: grey;
 }
@@ -49,6 +62,16 @@ cursor: col-resize;
   padding-top: 11px;
   margin-left: 15px; 
 
+}
+
+#sideIcons {
+  padding-top: 0px;
+  margin-left: 5px; 
+}
+
+#sideIcons2 {
+  padding-top: 0px;
+  margin-left: 80px; 
 }
 
 #chevron-up {
@@ -84,14 +107,14 @@ h4 {
   right: 0;
   z-index: 3;
   margin-left: 3%;
-  margin-top: 4%;
+  margin-top: 2%;
   margin-right: 1%;
   width: 160px;
   font-family: "Helvetica";
   border-radius: 10px;
   background-color: #ffffff;
   border: none;
-  height: 570px;
+  height: 650px;
   box-shadow: 0 0 5px #bdbdbd;
   
 }
@@ -125,7 +148,7 @@ h4 {
 
 .section2 {
   border-bottom: solid 1px #cdcbcb;
-  height: 200px; 
+  height: 280px; 
   margin-top: 0px;
   padding-top: 20px;
 
@@ -228,7 +251,7 @@ h4 {
   z-index: 20; 
   position: absolute;
   left: 0;
-  margin-top: 4%;
+  margin-top: 2%;
   margin-left: 1%;
   padding-top: 15px; 
   width: 150px;
