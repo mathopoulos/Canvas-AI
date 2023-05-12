@@ -69,11 +69,11 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange,
           <label id = "xLabel" htmlFor="height">Sides</label>
           <div id="sideIcons">
       <button id="toolpanelButtons2" onClick={() => onLeftBorderChange()}><img id="toolpanelButtons3" src="images/Left.svg" alt="box-icon" /></button>
-      <button id="toolpanelButtons2" onClick={() => onRightBorderChange()}><img id="toolpanelButtons3" src="images/Top.svg" alt="box-icon" /></button>
+      <button id="toolpanelButtons2" onClick={() => onRightBorderChange()}><img id="toolpanelButtons3" src="images/Right.svg" alt="box-icon" /></button>
             </div>
        <div id="sideIcons2">
-        <button id="toolpanelButtons2" onClick={() => onTopBorderChange()} ><img id="toolpanelButtons3" src="images/Bottom.svg" alt="box-icon" /></button>
-      <button id="toolpanelButtons2" onClick={() => onBottomBorderChange()}><img id="toolpanelButtons3" src="images/Right.svg" alt="box-icon" /></button>     
+        <button id="toolpanelButtons2" onClick={() => onTopBorderChange()} ><img id="toolpanelButtons3" src="images/Top.svg" alt="box-icon" /></button>
+      <button id="toolpanelButtons2" onClick={() => onBottomBorderChange()}><img id="toolpanelButtons3" src="images/Bottom.svg" alt="box-icon" /></button>     
             </div>
         </div>
       </div>
