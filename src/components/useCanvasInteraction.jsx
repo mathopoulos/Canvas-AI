@@ -104,7 +104,7 @@ const handleWidthChange = (e) => {
     const newWidth = parseFloat(e.target.value);
     if (!isNaN(newWidth)) {
       const updatedShapes = shapes.map((shape, index) =>
-        index === selectedShapeIndex ? { ...shape, strokeWidth: newWidth } : shape
+        index === selectedShapeIndex ? { ...shape, width: newWidth } : shape
       );
       setShapes(updatedShapes);
     }

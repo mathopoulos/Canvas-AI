@@ -36,8 +36,7 @@ const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange
           type="text" 
           id="strokeWidth" 
           name="xValue" 
-          value={selectedShape ? selectedShape.strokeWidth : ''} 
-          onChange={onStrokeWidthChange} />
+          value={selectedShape ? selectedShape.strokeWidth : ''} onChange={onStrokeWidthChange} />
       </div>
     </div>
     <div id="xInputDiv">
