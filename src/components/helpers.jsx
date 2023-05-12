@@ -86,3 +86,4 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
 
   return newShape;
 };
+

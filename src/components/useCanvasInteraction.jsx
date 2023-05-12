@@ -149,7 +149,52 @@ const handleFillStyleColorChange = (e) => {
       setShapes(updatedShapes);
     }
   }
-};      
+}; 
+
+const handleLeftBorderChange = (e) => {
+    if (selectedShapeIndex !== null) {
+        const updatedShapes = shapes.map((shape, index) =>
+            index === selectedShapeIndex 
+                ? { ...shape, borderSides: { ...shape.borderSides, left: !shape.borderSides.left } } 
+                : shape
+        );
+        setShapes(updatedShapes);
+    }
+};
+  
+const handleRightBorderChange = (e) => {
+    if (selectedShapeIndex !== null) {
+        const updatedShapes = shapes.map((shape, index) =>
+            index === selectedShapeIndex 
+                ? { ...shape, borderSides: { ...shape.borderSides, right: !shape.borderSides.right } } 
+                : shape
+        );
+        setShapes(updatedShapes);
+    }
+};
+
+const handleTopBorderChange = (e) => {
+    if (selectedShapeIndex !== null) {
+        const updatedShapes = shapes.map((shape, index) =>
+            index === selectedShapeIndex 
+                ? { ...shape, borderSides: { ...shape.borderSides, top: !shape.borderSides.top } } 
+                : shape
+        );
+        setShapes(updatedShapes);
+    }
+};
+  
+const handleBottomBorderChange = (e) => {
+    if (selectedShapeIndex !== null) {
+        const updatedShapes = shapes.map((shape, index) =>
+            index === selectedShapeIndex 
+                ? { ...shape, borderSides: { ...shape.borderSides, bottom: !shape.borderSides.bottom } } 
+                : shape
+        );
+        setShapes(updatedShapes);
+    }
+};
+  
 
 const handleBorderRadiusChange = (e) => {
   if (selectedShapeIndex !== null) {
@@ -238,7 +283,11 @@ return {
     handleStrokeWidthChange,
     handleStrokeColorChange, 
     handleBorderRadiusChange, 
-    handleFillStyleColorChange
+    handleFillStyleColorChange,
+    handleLeftBorderChange, 
+    handleRightBorderChange, 
+    handleTopBorderChange, 
+    handleBottomBorderChange
   
   };
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import Canvas from './Canvas.jsx';
 import '/src/App.css';
 
-function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange, onStrokeWidthChange, onStrokeColorChange, onBorderRadiusChange, onFillStyleColorChange}) {
+function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange, onStrokeWidthChange, onStrokeColorChange, onBorderRadiusChange, onFillStyleColorChange, onLeftBorderChange, onRightBorderChange, onTopBorderChange, onBottomBorderChange}) {
   const selectedShape = selectedIndex !== null ? shapes[selectedIndex] : null;
   
   return (
@@ -68,12 +68,12 @@ function ElementDetails({ selectedIndex, shapes , onHeightChange, onWidthChange,
         <div id="xInputDiv">
           <label id = "xLabel" htmlFor="height">Sides</label>
           <div id="sideIcons">
-      <button id="toolpanelButtons2" onClick={() => setShape('circle')}  ><img id="toolpanelButtons3" src="images/Left.svg" alt="box-icon" /></button>
-      <button id="toolpanelButtons2" onClick={() => setShape('circle')}><img id="toolpanelButtons3" src="images/Top.svg" alt="box-icon" /></button>
+      <button id="toolpanelButtons2" onClick={() => onLeftBorderChange()}><img id="toolpanelButtons3" src="images/Left.svg" alt="box-icon" /></button>
+      <button id="toolpanelButtons2" onClick={() => onRightBorderChange()}><img id="toolpanelButtons3" src="images/Top.svg" alt="box-icon" /></button>
             </div>
        <div id="sideIcons2">
-        <button id="toolpanelButtons2" onClick={() => setShape('circle')}><img id="toolpanelButtons3" src="images/Bottom.svg" alt="box-icon" /></button>
-      <button id="toolpanelButtons2" onClick={() => setShape('circle')}><img id="toolpanelButtons3" src="images/Right.svg" alt="box-icon" /></button>     
+        <button id="toolpanelButtons2" onClick={() => onTopBorderChange()} ><img id="toolpanelButtons3" src="images/Bottom.svg" alt="box-icon" /></button>
+      <button id="toolpanelButtons2" onClick={() => onBottomBorderChange()}><img id="toolpanelButtons3" src="images/Right.svg" alt="box-icon" /></button>     
             </div>
         </div>
       </div>
