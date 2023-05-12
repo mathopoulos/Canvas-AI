@@ -38,8 +38,8 @@ function Canvas() {
   handleLeftBorderChange,
   handleRightBorderChange, 
   handleTopBorderChange, 
-  handleBottomBorderChange  
-  
+  handleBottomBorderChange, 
+  handleDeleteShape  
 } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
 
 
@@ -49,6 +49,21 @@ useEffect(() => {
     window.removeEventListener('mouseup', handleMouseUp);
   };
 }, []);
+
+useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Backspace') {
+        handleDeleteShape();
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [handleDeleteShape]);  
 
 
 useCanvasUpdate(canvasRef, resizingBoxRef, shapes, selectedShapeIndex);

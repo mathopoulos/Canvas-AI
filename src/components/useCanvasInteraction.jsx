@@ -262,12 +262,36 @@ const handleResizeMouseUp = () => {
   setResizing(false);
 };
 
+const handleDeleteShape = () => {
+  if (selectedShapeIndex !== null) {
+    const updatedShapes = shapes.filter((shape, index) => index !== selectedShapeIndex);
+    setShapes(updatedShapes);
+    setSelectedShapeIndex(null); // Deselect the shape after deleting
+  }
+};  
+
 useEffect(() => {
     window.addEventListener('mouseup', handleMouseUp);
     return () => {
       window.removeEventListener('mouseup', handleMouseUp);
     };
   }, []);  
+
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (e.key === 'Delete') {
+      handleDeleteShape();
+    }
+  }
+
+  window.addEventListener('keydown', handleKeyDown);
+
+  // Clean up the event listener when the component is unmounted
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+  }
+}, [handleDeleteShape]); // add handleDeleteShape to the dependency array
+
 
 
 return {
@@ -287,7 +311,9 @@ return {
     handleLeftBorderChange, 
     handleRightBorderChange, 
     handleTopBorderChange, 
-    handleBottomBorderChange
+    handleBottomBorderChange, 
+    handleDeleteShape
+    
   
   };
 };
