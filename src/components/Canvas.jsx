@@ -6,6 +6,7 @@ import { drawInput } from './Input.jsx';
 import { drawShapes } from './shapeDrawing.jsx';
 import { findShapeUnderCursor, createNewShape } from './helpers.jsx';
 import ElementDetails from '/src/components/elementDetails.jsx';
+import LayersPanel from './LayersPanel.jsx';
 import { updateResizingBox, updateCursor } from './helpers.jsx';
 import { useCanvasInteraction } from './useCanvasInteraction.jsx';
 import { useCanvasUpdate } from './useCanvasUpdate.jsx';
@@ -88,7 +89,9 @@ return (
         onMouseUp={handleResizeMouseUp}
       />
     </div>
+    <LayersPanel shapes={shapes}/> 
     <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange}/>
+    
   </div>
     );
 }

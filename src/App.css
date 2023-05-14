@@ -587,3 +587,6 @@ input[type=text]:focus {
   pointer-events: none;
 }
 
+#layersContent {
+  padding-top: 15px;
+}

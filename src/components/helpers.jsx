@@ -1,3 +1,7 @@
+let inputCounter = 1;
+let squareCounter = 1;
+let circleCounter = 1;
+
 export const findShapeUnderCursor = (shapes, x, y) => {
   for (let i = shapes.length - 1; i >= 0; i--) {
     const shape = shapes[i];
@@ -73,16 +77,20 @@ export const updateCursor = (resizingBoxRef, e) => {
 
 export const createNewShape = (shapeType, offsetX, offsetY) => {
   const newShape = { x: offsetX, y: offsetY, type: shapeType };
-
   if (shapeType === 'square') {
+    newShape.name = `Square ${squareCounter}`;
     newShape.size = 50;
   } else if (shapeType === 'circle') {
+    newShape.name = `Circle ${circleCounter}`;
     newShape.radius = 25;
   } else if (shapeType === 'input') {
+    newShape.name = `Input ${inputCounter}`;
     newShape.width = 200;
     newShape.height = 50;
     newShape.borderRadius = 5;
+    inputCounter++; // Increment the counter for the next input
   }
+
 
   return newShape;
 };
