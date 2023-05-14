@@ -18,7 +18,7 @@ export const useCanvasUpdate = (canvasRef, resizingBoxRef, shapes, selectedShape
 
     context.scale(dpr, dpr);
 
-    drawShapes(context, shapes, selectedShapeIndex);
+    drawShapes(context, shapes, selectedShapeIndex); // pass selectedShapeIndex to drawShapes
 
     updateResizingBox(resizingBoxRef, selectedShapeIndex, shapes);
   }, [canvasRef, resizingBoxRef, shapes, selectedShapeIndex]);
