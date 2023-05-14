@@ -4,6 +4,7 @@ import TopNavigation from '/src/components/TopNavigation.jsx';
 import Canvas from '/src/components/Canvas.jsx';
 
 
+
 export default function App() {
   const [text, setText] = useState('');
 

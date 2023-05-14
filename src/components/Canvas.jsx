@@ -89,7 +89,7 @@ return (
         onMouseUp={handleResizeMouseUp}
       />
     </div>
-    <LayersPanel shapes={shapes}/> 
+    <LayersPanel shapes={ shapes } />
     <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange}/>
     
   </div>
