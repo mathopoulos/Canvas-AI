@@ -8,9 +8,11 @@ export default function LayersPanel({ shapes }) {
       <div id="layersPanel">
         <label id="layersTitle">Layers</label>
         <div id="layersLine"></div>
-        <div id="layersContent">
+        <div id="layers" style={{padding:'10px 0px 0px 0px' }}>
         {shapes.map((shape, index) => (
-          <div key={index} style={{ padding: '10px 5px 5px 20px' }}>{shape.name}</div>
+          <div key={index} style={{ display: "flex", alignItems: "center", padding: '10px 5px 5px 20px' }}>
+            <img src="images/layerIcon.svg" style={{ marginRight: "5px" }} /> {shape.name}
+          </div>
         ))}
           </div>
       </div>
