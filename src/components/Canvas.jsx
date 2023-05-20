@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Toolbar from './Toolbar.jsx';
+import TopNavigation from './TopNavigation';
 import { drawSquare } from './Square.jsx';
 import { drawCircle } from './Circle.jsx';
 import { drawInput } from './Input.jsx';
@@ -73,6 +74,7 @@ useCanvasUpdate(canvasRef, resizingBoxRef, shapes, selectedShapeIndex);
 
 return (
   <div>
+    <TopNavigation shapes={shapes}/>
     <Toolbar setShape={setShapeType} />
     <div style={{ position: 'relative', width: '310px', height: '100px', border: '1px solid grey', borderRadius: '10px', left: '320px', top: '175px' }} onMouseMove={(e) => updateCursor(resizingBoxRef, e)}>
       <CanvasElement

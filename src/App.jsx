@@ -16,7 +16,6 @@ export default function App() {
 
   return (
     <main>
-      <TopNavigation />
       <Canvas />
 
     </main>
