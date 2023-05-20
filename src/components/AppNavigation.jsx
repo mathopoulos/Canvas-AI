@@ -8,11 +8,10 @@ export default function AppNavigation() {
         <img id="titleImage" src="/public/images/view-list.svg" alt="box-icon" />
         <img id="lineImage" src="/public/images/line.svg" alt="box-icon" />
         <h3 id="title">Username Input</h3>
-        <div className="dropdown">
+        <div className="dropdown1">
           <button className="dropbtn"><img id="downImage" src="/public/images/down.svg" alt="box-icon" /></button>
           <div className="dropdown-content">
-            <a id="exportButton" href="#">Export Code</a>
-            <a id="saveButton" href="#">Save</a>
+
           </div>
         </div>
       </div>

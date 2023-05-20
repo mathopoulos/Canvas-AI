@@ -11,6 +11,7 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
         <input 
           type="text" 
           id="height" 
+          id = "elementInput"
           name="xValue" 
           value={selectedShape ? selectedShape.height : ''} 
           onChange={onHeightChange} />
@@ -19,7 +20,7 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
     <div id="xInputDiv">
       <label id="xLabel" htmlFor="width">Width</label>
       <div id="xInputWrapper">
-        <input type="text" id="width" name="xValue" value={selectedShape ? selectedShape.width : ''}
+        <input type="text" id = "elementInput" id="width" name="xValue" value={selectedShape ? selectedShape.width : ''}
           onChange={onWidthChange} />
       </div>
     </div>
@@ -34,7 +35,8 @@ const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange
       <div id="xInputWrapper">
         <input 
           type="text" 
-          id="strokeWidth" 
+          id="strokeWidth"
+          id = "elementInput"
           name="xValue" 
           value={selectedShape ? selectedShape.strokeWidth : ''} onChange={onStrokeWidthChange} />
       </div>
@@ -55,6 +57,7 @@ const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange
         <input 
           type="text" 
           id="borderRadius" 
+          id = "elementInput"
           name="xValue" 
           value={selectedShape ? selectedShape.borderRadius : ''} 
           onChange={onBorderRadiusChange} />
@@ -95,13 +98,13 @@ const BackgroundSection = ({ selectedShape, onFillStyleColorChange }) => (
 function ElementDetails({ selectedIndex, shapes, ...rest }) {
   const [selectedSections, setSelectedSections] = useState([]);
   const [filter, setFilter] = useState('');
-  const [dropdownVisible, setDropdownVisible] = useState(false); // new piece of state
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const selectedShape = selectedIndex !== null ? shapes[selectedIndex] : null;
 
   const options = [
-    { value: 'size', label: 'Size Section' },
-    { value: 'border', label: 'Border Section' },
-    { value: 'background', label: 'Background Section' },
+    { value: 'size', label: 'Size' },
+    { value: 'border', label: 'Border' },
+    { value: 'background', label: 'Background' },
   ];
 
   const handleCheckboxChange = (event) => {
@@ -118,15 +121,15 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
-    setDropdownVisible(true); // show dropdown when user starts typing
+    setDropdownVisible(true);
   };
 
   const handleInputBlur = () => {
-    setDropdownVisible(false); // hide dropdown when user clicks outside the search box
+    setDropdownVisible(false);
   };
 
   const handleInputFocus = () => {
-    setDropdownVisible(true); // show dropdown when user clicks on the search box
+    setDropdownVisible(true);
   };
 
   const filteredOptions = options.filter(option => option.label.toLowerCase().includes(filter.toLowerCase()));
@@ -137,14 +140,14 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
         <input 
           type="text" 
           className="dropdown-input" 
-          placeholder="Select sections..." 
+          placeholder="Search" 
           value={filter} 
           onChange={handleFilterChange}
           onBlur={handleInputBlur}
           onFocus={handleInputFocus}
         />
         {dropdownVisible && (
-          <div className="dropdown-content">
+          <div className="dropdown-content" onMouseDown={e => e.preventDefault()}>
             {filteredOptions.map(option => (
               <label key={option.value} className="dropdown-item">
                 <input 

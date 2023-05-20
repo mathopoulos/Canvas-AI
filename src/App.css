@@ -415,19 +415,18 @@ flex-direction: row;
   height: 20px; 
 }
 
-
-
-input[type=text] {
+#elementInput {
   border: none;
   outline: none;
   background-color: #F9FAFB;
 }
 
-input[type=text]:focus {
+#elementInput:focus {
   border: none;
   outline: none;
   background-color: #F9FAFB;
 }
+
 
 #messageDiv {
   z-index: 100;
@@ -449,42 +448,6 @@ input[type=text]:focus {
   border-radius: 5px;
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-  z-index: 21; 
-
-
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #ffffff;
-  right: 0;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  z-index: 20; 
-  border-radius: 5px;
-
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
 
 #text-container {
   z-index: 30;
@@ -620,20 +583,27 @@ dropbtn {
 
 .dropdown-input {
   box-sizing: border-box;
-  width: 100%;
-  padding: 12px 16px;
+  width: 90%;
+  padding: 8px 16px;
+  margin-top: 10px; 
+  margin-left: 8px;
+  border-radius: 10px;
+  background-color: #ffffff;
   border: 1px solid #ddd;
+  font-size: 14px;
 }
 
 .dropdown-content {
   display: block;
   position: absolute;
   background-color: #f6f6f6;
-  min-width: 230px;
+  max-width: 150px;
   overflow: auto;
   border: 1px solid #ddd;
   z-index: 1;
   margin-top: 5px;
+  margin-left: 15px;
+  border-radius: 10px;
 }
 
 .dropdown-item {
@@ -643,6 +613,8 @@ dropbtn {
   text-decoration: none;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  background-color: #ffffff;
 }
 
 .dropdown-item:last-child {
@@ -650,5 +622,6 @@ dropbtn {
 }
 
 .dropdown-item:hover {
-  background-color: #ddd;
+  background-color: #f2f2f2;
 }
+
