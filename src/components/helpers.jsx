@@ -140,22 +140,68 @@ export const syncCode = (shapes) => {
   `;
 
   // Get messageDiv and check if it already has a success message
-  const messageDiv = document.querySelector('#messageDiv');
-  const successMsg = messageDiv.querySelector('p');
+  //const messageDiv = document.querySelector('#messageDiv');
+  //const successMsg = messageDiv.querySelector('p');
 
   // Only add a new success message if it doesn't exist already
-  if (!successMsg) {
-    const exportSuccessfulMsg = document.createElement('p');
-    exportSuccessfulMsg.textContent = 'Success!';
-    messageDiv.appendChild(exportSuccessfulMsg);
-    setTimeout(() => {
-      messageDiv.removeChild(exportSuccessfulMsg); // Remove the success message after 5 seconds
-    }, 3000);
-  }
+  //if (!successMsg) {
+  //if () {
+    //const exportSuccessfulMsg = document.createElement('p');
+    //exportSuccessfulMsg.textContent = 'Success!';
+    //messageDiv.appendChild(exportSuccessfulMsg);
+    //setTimeout(() => {
+      //messageDiv.removeChild(exportSuccessfulMsg); // Remove the success message after 5 seconds
+    //}, 3000);
+  //}
 
   // -------- END SYNC CODE ------------ //
 
-  console.log(html);
+
+  const str = html;
+  const base64 = btoa(str); // Encodes str in base64
+
+const token = "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"; // Replace with your Github personal access token
+const owner = "mathopoulos"; // Replace with the repository owner
+const repo = "canvas_data"; // Replace with the repository name
+const path = "index.html"; // Replace with the file path you want to create/update
+const message = "update file"; // Replace with the commit message
+const newContent = html; // Replace with the new file's content
+
+// Get the current file content and its SHA hash
+fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+  headers: {
+    Authorization: `token ${token}`,
+    Accept: "application/vnd.github.v3+json",
+  },
+})
+  .then((response) => response.json())
+  .then((data) => {
+    const currentContent = atob(data.content);
+    const currentSHA = data.sha;
+
+    // Update the file with the new content
+    const updatedContent = newContent;
+    const updatedContentBase64 = btoa(updatedContent);
+    const body = {
+      message: message,
+      content: updatedContentBase64,
+      sha: currentSHA,
+    };
+    fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json",
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  })
+  .catch((err) => console.log(err));
+  
 };
 
 
