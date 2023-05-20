@@ -91,6 +91,7 @@ return (
     </div>
     <LayersPanel 
           shapes={shapes} 
+          setShapes={setShapes}
           setSelectedShapeIndex={setSelectedShapeIndex}  // passing function as prop to LayersPanel component 
         />
     <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange}/>

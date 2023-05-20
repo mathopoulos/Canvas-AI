@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Canvas from './Canvas.jsx';
 import '/src/App.css';
 
-export default function LayersPanel({ shapes, setSelectedShapeIndex }) { // added setSelectedShapeIndex as prop
+export default function LayersPanel({ shapes, setSelectedShapeIndex, setShapes }) { // added setShapes as prop
   const [layers, setLayers] = useState([]);
 
   useEffect(() => {
@@ -19,11 +19,12 @@ export default function LayersPanel({ shapes, setSelectedShapeIndex }) { // adde
 
   const handleDrop = (event, index) => {
     event.preventDefault();
-    const draggedIndex = event.dataTransfer.getData('text/plain');
+    const draggedIndex = parseInt(event.dataTransfer.getData('text/plain'));
     const updatedLayers = [...layers];
     const [draggedLayer] = updatedLayers.splice(draggedIndex, 1);
     updatedLayers.splice(index, 0, draggedLayer);
     setLayers(updatedLayers);
+    setShapes(updatedLayers); // update shapes in the parent component
 
     setSelectedShapeIndex(index); // set the selectedShapeIndex to the dropped index
   };

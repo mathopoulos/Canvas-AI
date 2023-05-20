@@ -95,3 +95,9 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
   return newShape;
 };
 
+export const updateShapeIndexes = (shapes, newOrder) => {
+  return newOrder.map((newIndex, oldIndex) => {
+    const shape = shapes[oldIndex];
+    return { ...shape, index: newIndex };
+  });
+};
