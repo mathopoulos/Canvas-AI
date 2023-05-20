@@ -1,7 +1,4 @@
-//Imports
-import { rerenderObjects, clearCanvas } from './render.mjs';
 
-import { InputClass, isOverInput } from './input.mjs';
 
 let currentHtml = ""; 
 

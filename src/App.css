@@ -387,8 +387,9 @@ flex-direction: row;
   margin-top: 10px; 
   padding-top: 3px; 
   padding-left: 10px; 
+  padding-bottom: 3px;
   width: 15%;
-  background-color: #ece9e9 !important;
+  background-color: #f2f2f2 !important;
   border: 0.5px solid #858585;
   border-radius: 5px;
 }
@@ -642,8 +643,8 @@ dropbtn {
 
 /* Dropdown Button */
 .dropbtn-top {
-  background-color: #ece9e9;
-  color: #ece9e9;
+  background-color: #f2f2f2;
+  color: #f2f2f2;
   font-size: 16px;
   border: none;
 }
@@ -659,7 +660,7 @@ dropbtn {
   display: none;
   position: absolute;
   left: -60px;
-  background-color: #ece9e9;
+  background-color: #e6e6e6;
   min-width: 100px;
   min-height: 30px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -675,13 +676,13 @@ dropbtn {
 }
 
 /* Change color of dropdown links on hover */
-.topNav-dropdown-content a:hover {background-color: #ece9e9;}
+.topNav-dropdown-content a:hover {background-color: #e6e6e6;}
 
 /* Show the dropdown menu on hover */
 .dropdown-top:hover .topNav-dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown-top:hover .dropbtn-top {background-color: #ece9e9;}
+.dropdown-top:hover .dropbtn-top {background-color: #e6e6e6;}
 
 #exportButton{
   padding-top: 5px;
