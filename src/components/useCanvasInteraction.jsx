@@ -9,7 +9,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
   const handleClick = (e) => {
-  if (!dragging) {
+  if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
     if (shapeIndex === null) {
