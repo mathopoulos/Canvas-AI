@@ -114,7 +114,9 @@ h4 {
   border-radius: 10px;
   background-color: #ffffff;
   border: none;
-  height: 650px;
+  height: auto; 
+  min-height: 100px;
+  padding-bottom: 5px;
   box-shadow: 0 0 5px #bdbdbd;
   
 }
@@ -139,7 +141,7 @@ h4 {
 }
 
 .section {
-  border-bottom: solid 1px #cdcbcb;
+  border-bottom: solid 1px #ededed;
   height: 150px; 
   margin-top: 0px;
   padding-top: 20px;
@@ -147,7 +149,7 @@ h4 {
 }
 
 .section2 {
-  border-bottom: solid 1px #cdcbcb;
+  border-bottom: solid 1px #ededed;
   height: 280px; 
   margin-top: 0px;
   padding-top: 20px;
@@ -155,7 +157,7 @@ h4 {
 }
 
 .section3 {
-  border-bottom: solid 1px #cdcbcb;
+  border-bottom: solid 1px #ededed;
   height: 90px; 
   margin-top: 0px;
   padding-top: 20px;
@@ -277,11 +279,13 @@ h4 {
   margin-top: 2%;
   margin-left: 1%;
   padding-top: 15px; 
+  padding-bottom: 15px;
   width: 150px;
   border-radius: 10px;
   background-color: #ffffff;
   border: none;
-  height: 400px;
+  height: auto; 
+  min-height: 100px;
   box-shadow: 0 0 5px #bdbdbd;
 
 }
