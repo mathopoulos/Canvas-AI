@@ -11,7 +11,6 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
         <input 
           type="text" 
           id="height" 
-          id = "elementInput"
           name="xValue" 
           value={selectedShape ? selectedShape.height : ''} 
           onChange={onHeightChange} />
@@ -36,7 +35,6 @@ const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange
         <input 
           type="text" 
           id="strokeWidth"
-          id = "elementInput"
           name="xValue" 
           value={selectedShape ? selectedShape.strokeWidth : ''} onChange={onStrokeWidthChange} />
       </div>
@@ -57,7 +55,6 @@ const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange
         <input 
           type="text" 
           id="borderRadius" 
-          id = "elementInput"
           name="xValue" 
           value={selectedShape ? selectedShape.borderRadius : ''} 
           onChange={onBorderRadiusChange} />
