@@ -590,3 +590,65 @@ input[type=text]:focus {
 #layersContent {
   padding-top: 15px;
 }
+
+dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+#myInput {
+  margin-top: 10px;
+  margin-left: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 10px 10px 10px 45px;
+  border: 1px solid #ddd;
+  width:150px;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+#myInput:focus {outline: 1px solid #ddd;}
+
+.dropdown-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  z-index: 1;
+  margin-top: 5px;
+}
+
+.dropdown-item {
+  display: block;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: #ddd;
+}

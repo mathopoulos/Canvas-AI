@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Canvas from './Canvas.jsx';
 import '/src/App.css';
 
@@ -91,17 +91,77 @@ const BackgroundSection = ({ selectedShape, onFillStyleColorChange }) => (
   </div>
 );
 
+
 function ElementDetails({ selectedIndex, shapes, ...rest }) {
+  const [selectedSections, setSelectedSections] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [dropdownVisible, setDropdownVisible] = useState(false); // new piece of state
   const selectedShape = selectedIndex !== null ? shapes[selectedIndex] : null;
+
+  const options = [
+    { value: 'size', label: 'Size Section' },
+    { value: 'border', label: 'Border Section' },
+    { value: 'background', label: 'Background Section' },
+  ];
+
+  const handleCheckboxChange = (event) => {
+    const value = event.target.value;
+
+    setSelectedSections(prev => {
+      if (prev.includes(value)) {
+        return prev.filter(section => section !== value);
+      } else {
+        return [...prev, value];
+      }
+    });
+  };
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+    setDropdownVisible(true); // show dropdown when user starts typing
+  };
+
+  const handleInputBlur = () => {
+    setDropdownVisible(false); // hide dropdown when user clicks outside the search box
+  };
+
+  const handleInputFocus = () => {
+    setDropdownVisible(true); // show dropdown when user clicks on the search box
+  };
+
+  const filteredOptions = options.filter(option => option.label.toLowerCase().includes(filter.toLowerCase()));
 
   return (
     <div id="colorPickerPanel">
-      <div id="searchArea">
-        <input type="text" id="search" value="Search" />
+      <div className="dropdown">
+        <input 
+          type="text" 
+          className="dropdown-input" 
+          placeholder="Select sections..." 
+          value={filter} 
+          onChange={handleFilterChange}
+          onBlur={handleInputBlur}
+          onFocus={handleInputFocus}
+        />
+        {dropdownVisible && (
+          <div className="dropdown-content">
+            {filteredOptions.map(option => (
+              <label key={option.value} className="dropdown-item">
+                <input 
+                  type="checkbox" 
+                  value={option.value} 
+                  checked={selectedSections.includes(option.value)}
+                  onChange={handleCheckboxChange}
+                />
+                {option.label}
+              </label>
+            ))}
+          </div>
+        )}
       </div>
-      <SizeSection selectedShape={selectedShape} {...rest} />
-      <BorderSection selectedShape={selectedShape} {...rest} />
-      <BackgroundSection selectedShape={selectedShape} {...rest} />
+      {selectedSections.includes('size') && <SizeSection selectedShape={selectedShape} {...rest} />}
+      {selectedSections.includes('border') && <BorderSection selectedShape={selectedShape} {...rest} />}
+      {selectedSections.includes('background') && <BackgroundSection selectedShape={selectedShape} {...rest} />}
     </div>
   );
 }
