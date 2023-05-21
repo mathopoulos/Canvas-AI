@@ -42,6 +42,8 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   }
 };
 
+  
+
 
 
 
@@ -265,9 +267,9 @@ const handleResizeMouseUp = () => {
 
 const handleDeleteShape = () => {
   if (selectedShapeIndex !== null) {
-    //const updatedShapes = shapes.filter((shape, index) => index !== selectedShapeIndex);
-    //setShapes(updatedShapes);
-    //setSelectedShapeIndex(null); // Deselect the shape after deleting
+    const updatedShapes = shapes.filter((shape, index) => index !== selectedShapeIndex);
+    setShapes(updatedShapes);
+    setSelectedShapeIndex(null); // Deselect the shape after deleting
   }
 };  
 
@@ -289,7 +291,7 @@ useEffect(() => {
 //change to 'Delete'  
 useEffect(() => {
   const handleKeyDown = (e) => {
-    if (e.key === 'Delete') {
+    if (e.key === 'Backspace' && document.activeElement.tagName !== 'INPUT') {
       handleDeleteShape();
     }
   }

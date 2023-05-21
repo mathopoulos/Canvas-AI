@@ -55,7 +55,7 @@ useEffect(() => {
 
 useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Backspace') {
+      if (e.key === 'Backspace' && document.activeElement.tagName !== 'INPUT') {
         handleDeleteShape();
       }
     }
