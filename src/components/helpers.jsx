@@ -109,7 +109,7 @@ export const syncCode = (shapes) => {
   let inputsHTML = '';
   shapes.forEach((shape) => {
     if (shape.type === 'input') {
-      inputsHTML += `<input type="text" id="${shape.name}" name="${shape.name}" style="position:absolute; left:${shape.x}px; top:${shape.y}px; width:${shape.width}px; height:${shape.height}px; border-radius:${shape.borderRadius}px;">\n`;
+inputsHTML += `<input type="text" id="${shape.name}" name="${shape.name}" placeholder="${shape.placeholderText}" style="position:absolute; left:${shape.x}px; top:${shape.y}px; width:${shape.width}px; height:${shape.height}px; border-radius:${shape.borderRadius}px; stroke-width:${shape.strokeWidth}px; border-color:${shape.strokeColor}; background-color:${shape.fillStyleColor}">\n`;
     }
   });
 
@@ -160,7 +160,7 @@ export const syncCode = (shapes) => {
   const str = html;
   const base64 = btoa(str); // Encodes str in base64
 
-const token = "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"; // Replace with your Github personal access token
+const token = "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"; // Replace with your Github personal access token
 const owner = "mathopoulos"; // Replace with the repository owner
 const repo = "canvas_data"; // Replace with the repository name
 const path = "index.html"; // Replace with the file path you want to create/update
