@@ -41,7 +41,8 @@ function Canvas() {
   handleRightBorderChange, 
   handleTopBorderChange, 
   handleBottomBorderChange, 
-  handleDeleteShape  
+  handleDeleteShape, 
+  handlePlaceholderTextChange
 } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
 
 
@@ -96,7 +97,7 @@ return (
           setShapes={setShapes}
           setSelectedShapeIndex={setSelectedShapeIndex}  // passing function as prop to LayersPanel component 
         />
-    <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange}/>
+    <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange} onPlaceholderTextChange={handlePlaceholderTextChange} />
     
   </div>
     );

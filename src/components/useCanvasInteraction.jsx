@@ -271,6 +271,14 @@ const handleDeleteShape = () => {
   }
 };  
 
+const handlePlaceholderTextChange = (e) => {
+  const updatedShapes = shapes.map((shape, index) =>
+    index === selectedShapeIndex ? { ...shape, placeholderText: e.target.value } : shape
+  );
+  setShapes(updatedShapes);
+};
+    
+
 useEffect(() => {
     window.addEventListener('mouseup', handleMouseUp);
     return () => {
@@ -314,7 +322,8 @@ return {
     handleRightBorderChange, 
     handleTopBorderChange, 
     handleBottomBorderChange, 
-    handleDeleteShape
+    handleDeleteShape,
+    handlePlaceholderTextChange,
     
   
   };

@@ -26,7 +26,7 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
   </div>
 );
 
-const PlaceholderTextSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
+const PlaceholderTextSection = ({ selectedShape, onPlaceholderTextChange }) => (
   <div className="section4">
     <label id="positionTitle">Placeholder</label>
     <div id="xInputDiv">
@@ -37,7 +37,7 @@ const PlaceholderTextSection = ({ selectedShape, onHeightChange, onWidthChange }
           id="placeholderText" 
           name="xValue" 
           value={selectedShape ? selectedShape.placeholderText : ''} 
-          onChange={onHeightChange} />
+          onChange={onPlaceholderTextChange} />
       </div>
     </div>
   </div>
