@@ -160,7 +160,7 @@ inputsHTML += `<input type="text" id="${shape.name}" name="${shape.name}" placeh
   const str = html;
   const base64 = btoa(str); // Encodes str in base64
 
-const token = "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"; // Replace with your Github personal access token
+const token = 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; // Replace with your Github personal access token
 const owner = "mathopoulos"; // Replace with the repository owner
 const repo = "canvas_data"; // Replace with the repository name
 const path = "index.html"; // Replace with the file path you want to create/update
