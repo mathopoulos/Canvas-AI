@@ -1,4 +1,4 @@
-export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides) => {
+export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText) => {
 
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = fillStyleColor;
@@ -66,4 +66,11 @@ export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, st
     ctx.arcTo(x, y, x + borderRadius, y, borderRadius);
     ctx.closePath();
     ctx.fill();
+
+    // Draws placeholder text defined for input 
+    ctx.font = "14px Helvetica";
+    ctx.fillStyle = "grey";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(placeholderText, x + 10, y + height / 2);
 };

@@ -29,6 +29,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.strokeColor = "#545454";
         newShape.fillStyleColor = "#FFFFFF";
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
+        newShape.placeholderText ="Placeholder";
       }
 
       setShapes([...shapes, newShape]);

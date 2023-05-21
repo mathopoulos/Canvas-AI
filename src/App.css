@@ -164,6 +164,13 @@ h4 {
 
 }
 
+.section4{
+  border-bottom: solid 1px #ededed;
+  height: 100px; 
+  margin-top: 0px;
+  padding-top: 20px;
+}
+
 #positionTitle {
   font-family: "Helvetica";
   font-weight: bold; 
@@ -192,6 +199,19 @@ h4 {
 
 }
 
+#placeholderTextLabel{
+  float: left;
+  width: 35px;
+  text-align: left;
+  margin-right: 0px;
+  font-family: "Helvetica";
+  font-weight: lighter; 
+  font-size: 14px;
+  padding-left: 20px;
+  color: #616161;
+  margin-top: 5px;
+}
+
 #xInputWrapper {
   overflow: hidden;
 
@@ -212,8 +232,21 @@ h4 {
   color: #545454;
   border: 1px solid #ddd;
 
+}
 
-
+#placeholderText {
+  width: 80px;
+  text-align: left;
+  font-family: "Helvetica";
+  font-weight: normal; 
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  padding-left: 10px;
+  padding-top: 4px; 
+  padding-bottom: 4px; 
+  color: #545454;
+  border: 1px solid #ddd;
 }
 
 #width {

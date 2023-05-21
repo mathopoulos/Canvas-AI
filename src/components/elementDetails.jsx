@@ -26,6 +26,23 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
   </div>
 );
 
+const PlaceholderTextSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
+  <div className="section4">
+    <label id="positionTitle">Placeholder</label>
+    <div id="xInputDiv">
+      <label id="placeholderTextLabel" htmlFor="placeholderText">Text</label>
+      <div id="xInputWrapper">
+        <input 
+          type="text" 
+          id="placeholderText" 
+          name="xValue" 
+          value={selectedShape ? selectedShape.placeholderText : ''} 
+          onChange={onHeightChange} />
+      </div>
+    </div>
+  </div>
+);
+
 const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange, onBorderRadiusChange, onLeftBorderChange, onRightBorderChange, onTopBorderChange, onBottomBorderChange }) => (
   <div className="section2">
     <label id="positionTitle">Border</label>
@@ -102,6 +119,7 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
     { value: 'size', label: 'Size' },
     { value: 'border', label: 'Border' },
     { value: 'background', label: 'Background' },
+    { value: 'placeholder', label: 'Placeholder' },
   ];
 
   const handleCheckboxChange = (event) => {
@@ -161,7 +179,8 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
       </div>
       {selectedSections.includes('size') && <SizeSection selectedShape={selectedShape} {...rest} />}
       {selectedSections.includes('border') && <BorderSection selectedShape={selectedShape} {...rest} />}
-      {selectedSections.includes('background') && <BackgroundSection selectedShape={selectedShape} {...rest} />}
+      {selectedSections.includes('background') && <BackgroundSection selectedShape={selectedShape} {...rest}  />}
+      {selectedSections.includes('placeholder') && <PlaceholderTextSection selectedShape={selectedShape} {...rest}/>}
     </div>
   );
 }
