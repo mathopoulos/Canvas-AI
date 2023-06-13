@@ -4,9 +4,81 @@ import bodyParser from 'body-parser';
 import crypto from 'crypto';
 import request from 'request';
 import fs from "fs";
+import { graphqlHTTP } from 'express-graphql';
+import { buildSchema } from "graphql";
+
+console.log(graphqlHTTP);
 
 const app = express();
 app.use(bodyParser.json());
+
+
+const schema = buildSchema(`
+  type Query {
+    shapes: [Input]
+  }
+  type Mutation {
+    addInput(type: String!, width: Int!, height: Int!): Input
+  }
+  type Input {
+    id: ID!
+    type: String!
+    width: Int!
+    height: Int!
+  }
+`);
+
+const shapesPromise = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile('./shapes.json', 'utf8', (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        try {
+          const shapesData = JSON.parse(data);
+          const shapes = shapesData.shapes || [];
+          resolve(shapes);
+        } catch (parseErr) {
+          reject(parseErr);
+        }
+      }
+    });
+  });
+};
+
+const root = {
+  shapes: () => {
+    return shapesPromise(); // Call shapesPromise as a function to read the latest shapes
+  },
+  addInput: ({ type, width, height }) => {
+    const newInput = {
+      id: crypto.randomUUID(),
+      type,
+      width,
+      height,
+    };
+    return shapesPromise().then(data => {
+      // iterate over shapes array here
+      for (let shape of data) {
+        // do something with each shape
+        console.log(shape);
+      }
+      const updatedShapes = [...data, newInput];
+      const jsonData = JSON.stringify({ shapes: updatedShapes });
+      fs.writeFile('./shapes.json', jsonData, (error) => {
+        if (error) {
+          console.log('Error Writing', error);
+        } else {
+          console.log('Written Successfully!');
+        }
+      });
+      return newInput;
+    });
+  },
+};
+
+
+
 
 function writeHtmlToFile(body) {
   fs.writeFile(__dirname + '/public/output.html', body, (err) => {
@@ -69,4 +141,15 @@ request(options, (err, response, body) => {
   }
 });
 
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    rootValue: root,
+    graphiql: true,
+  })
+);
 
+app.listen(4000, () => {
+  console.log("Running a GraphQL API server at https://canvas-v3.alexandrosmatho.repl.co/graphql");
+});

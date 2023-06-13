@@ -1,3 +1,32 @@
+import { request } from 'graphql-request';
+
+const addShape = async (title, description, color, shape) => {
+  const mutation = `
+    mutation AddShape($title: String!, $description: String!, $color: String!, $shape: String!) {
+      insert_shapes(objects: {title: $title, description: $description, color: $color, shape: $shape}) {
+        returning {
+          id
+        }
+      }
+    }
+  `;
+
+  const variables = {
+    title: title,
+    description: description,
+    color: color,
+    shape: shape
+  };
+
+  try {
+    const data = await request('https://my-repl.it/@my-username/my-project/api/graphql', mutation, variables);
+    const shapeId = data.insert_shapes.returning[0].id;
+    return shapeId;
+  } catch (error) {
+    console.error('Error adding shape:', error);
+  }
+};
+
 let inputCounter = 1;
 let squareCounter = 1;
 let circleCounter = 1;
@@ -93,6 +122,76 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
 
 
   return newShape;
+};
+
+export const saveInput = async (
+  shapeType,
+  width,
+  height,
+  x,
+  y,
+  borderRadius,
+  strokeWidth,
+  strokeColor,
+  fillStyleColor,
+  borderSides,
+  placeholderText
+) => {
+  const mutation = `
+    mutation AddShape(
+      $shapeType: String!,
+      $width: Int!,
+      $height: Int!,
+      $x: Int!,
+      $y: Int!,
+      $borderRadius: Int!,
+      $strokeWidth: Int!,
+      $strokeColor: String!,
+      $fillStyleColor: String!,
+      $borderSides: String!,
+      $placeholderText: String!
+    ) {
+      insert_shapes(objects: {
+        shapeType: $shapeType,
+        width: $width,
+        height: $height,
+        x: $x,
+        y: $y,
+        borderRadius: $borderRadius,
+        strokeWidth: $strokeWidth,
+        strokeColor: $strokeColor,
+        fillStyleColor: $fillStyleColor,
+        borderSides: $borderSides,
+        placeholderText: $placeholderText
+      }) {
+        returning {
+          id
+        }
+      }
+    }
+  `;
+
+  const variables = {
+    shapeType: shapeType,
+    width: width,
+    height: height,
+    x: x,
+    y: y,
+    borderRadius: borderRadius,
+    strokeWidth: strokeWidth,
+    strokeColor: strokeColor,
+    fillStyleColor: fillStyleColor,
+    borderSides: borderSides,
+    placeholderText: placeholderText,
+  };
+
+  try {
+    const data = await request(process.env.REPLIT_DB_UR, mutation, variables);
+    const shapeId = data.insert_shapes.returning[0].id;
+    return shapeId;
+  } catch (error) {
+    console.error('Error adding shape:', error);
+  }
 };
 
 export const updateShapeIndexes = (shapes, newOrder) => {
