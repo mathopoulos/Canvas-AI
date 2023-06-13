@@ -19,6 +19,7 @@ const schema = buildSchema(`
   }
   type Mutation {
     addInput(type: String!, width: Int!, height: Int!): Input
+    updateInput(id: ID!, type: String!, width: Int!, height: Int!): Input
   }
   type Input {
     id: ID!
@@ -48,7 +49,7 @@ const shapesPromise = () => {
 
 const root = {
   shapes: () => {
-    return shapesPromise(); // Call shapesPromise as a function to read the latest shapes
+    return shapesPromise();
   },
   addInput: ({ type, width, height }) => {
     const newInput = {
@@ -58,14 +59,9 @@ const root = {
       height,
     };
     return shapesPromise().then(data => {
-      // iterate over shapes array here
-      for (let shape of data) {
-        // do something with each shape
-        console.log(shape);
-      }
       const updatedShapes = [...data, newInput];
       const jsonData = JSON.stringify({ shapes: updatedShapes });
-      fs.writeFile('./shapes.json', jsonData, (error) => {
+      fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
         if (error) {
           console.log('Error Writing', error);
         } else {
@@ -73,6 +69,31 @@ const root = {
         }
       });
       return newInput;
+    });
+  },
+  updateInput: ({ id, type, width, height }) => {
+    return shapesPromise().then(data => {
+      const updatedShapes = data.map(shape => {
+        if (shape.id === id) {
+          return {
+            ...shape,
+            type,
+            width,
+            height,
+          };
+        }
+        return shape;
+      });
+      const jsonData = JSON.stringify({ shapes: updatedShapes });
+      fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
+        if (error) {
+          console.log('Error Writing', error);
+        } else {
+          console.log('Written Successfully!');
+        }
+      });
+      const updatedShape = updatedShapes.find(shape => shape.id === id);
+      return updatedShape;
     });
   },
 };
