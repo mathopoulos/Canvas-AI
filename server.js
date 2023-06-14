@@ -6,11 +6,17 @@ import request from 'request';
 import fs from "fs";
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from "graphql";
+import cors from 'cors'; // <-- Import CORS module here
 
 console.log(graphqlHTTP);
 
 const app = express();
 app.use(bodyParser.json());
+
+// <-- Use CORS middleware here
+app.use(cors({
+  origin: 'https://canvas-v-3-alexandrosmatho.replit.app' // only allow this origin
+}));
 
 
 const schema = buildSchema(`
@@ -18,14 +24,21 @@ const schema = buildSchema(`
     shapes: [Input]
   }
   type Mutation {
-    addInput(type: String!, width: Int!, height: Int!): Input
-    updateInput(id: ID!, type: String!, width: Int!, height: Int!): Input
+    addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!): Input
+    updateInput(id: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!): Input
   }
   type Input {
     id: ID!
     type: String!
     width: Int!
     height: Int!
+    x: Int!
+    y: Int!
+    borderRadius: Int!
+    strokeWidth: Int!
+    strokeColor: String!
+    fillStyleColor: String!
+    placeholderText: String!
   }
 `);
 
@@ -51,12 +64,19 @@ const root = {
   shapes: () => {
     return shapesPromise();
   },
-  addInput: ({ type, width, height }) => {
+  addInput: ({ type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText }) => {
     const newInput = {
       id: crypto.randomUUID(),
       type,
       width,
       height,
+      x, 
+      y, 
+      borderRadius,
+      strokeWidth,
+      strokeColor,
+      fillStyleColor,
+      placeholderText,
     };
     return shapesPromise().then(data => {
       const updatedShapes = [...data, newInput];
@@ -71,7 +91,7 @@ const root = {
       return newInput;
     });
   },
-  updateInput: ({ id, type, width, height }) => {
+  updateInput: ({ id, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText }) => {
     return shapesPromise().then(data => {
       const updatedShapes = data.map(shape => {
         if (shape.id === id) {
@@ -80,6 +100,13 @@ const root = {
             type,
             width,
             height,
+            x, 
+            y, 
+            borderRadius,
+            strokeWidth,
+            strokeColor,
+            fillStyleColor,
+            placeholderText,
           };
         }
         return shape;

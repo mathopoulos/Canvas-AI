@@ -1,61 +1,6 @@
-import { saveInput } from "./helpers";
-
-const ADD_SHAPE_MUTATION = `
-mutation insert_input(
-      $shapeType: String!,
-      $width: Int!,
-      $height: Int!,
-      $x: Int!,
-      $y: Int!,
-      $borderRadius: Int!,
-      $strokeWidth: Int!,
-      $strokeColor: String!,
-      $fillStyleColor: String!,
-      $borderSides: String!,
-      $placeholderText: String! 
-    ) {
-  insert_input(objects: {shapeType: $shapeType, width:$width, height:$height, x:$x, y:$y, borderRadius:$borderRadius, strokeWidth:$strokeWidth, strokeColor:$strokeColor, fillStyleColor:$fillStyleColor, borderSides:$borderSides, placeholderText:$placeholderText }) {
-    id
-  }
-}`;
-const addShape = async( shapeType,
-              width,
-              height,
-              x,
-              y,
-              borderRadius,
-              strokeWidth,
-              strokeColor,
-              fillStyleColor,
-              borderSides,
-              placeholderText) => {
-  const variables = { shapeType: shapeType,
-              width: width,
-              height: height,
-              x: x,
-              y: y,
-              borderRadius: borderRadius,
-              strokeWidth: strokeWidth,
-              strokeColor: strokeColor,
-              fillStyleColor: fillStyleColor,
-              borderSides: borderSides,
-              placeholderText: placeholderText};
-  try {
-    const response = await fetch('/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: ADD_SHAPE_MUTATION, variables }),
-    });
-    const { data } = await response.json();
-    return data.insert_shapes;
-  } catch (error) {
-    console.error('Error adding shape:', error);
-  }
-}
-
+import { addNewInput, saveInput } from "./helpers";
 
 export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText) => {
-
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = fillStyleColor;
 
