@@ -5,7 +5,7 @@ import { drawSquare } from './Square.jsx';
 import { drawCircle } from './Circle.jsx';
 import { drawInput } from './Input.jsx';
 import { drawShapes } from './shapeDrawing.jsx';
-import { findShapeUnderCursor, createNewShape } from './helpers.jsx';
+import { findShapeUnderCursor, createNewShape, getAllInputs } from './helpers.jsx';
 import ElementDetails from '/src/components/elementDetails.jsx';
 import LayersPanel from './LayersPanel.jsx';
 import { updateResizingBox, updateCursor } from './helpers.jsx';
@@ -45,6 +45,13 @@ function Canvas() {
   handlePlaceholderTextChange
 } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
 
+useEffect(() => {
+  getAllInputs(shapes).then((response) => {
+    const shapesData = response.shapes;
+    setShapes(shapesData);
+});  
+}, []);  
+  
 
 useEffect(() => {
   window.addEventListener('mouseup', handleMouseUp);

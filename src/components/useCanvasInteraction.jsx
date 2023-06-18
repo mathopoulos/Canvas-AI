@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from './helpers.jsx';
 import { createNewShape } from './helpers.jsx';
-import { addNewInput } from './helpers.jsx';
+import { addNewInput, getAllInputs } from './helpers.jsx';
 
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
   const [resizingEdge, setResizingEdge] = useState(null);
@@ -32,6 +32,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
         newShape.placeholderText ="Placeholder";
         addNewInput(newShape).then(response => console.log(response));
+        getAllInputs().then(response => console.log(response));
       }
 
       setShapes([...shapes, newShape]);

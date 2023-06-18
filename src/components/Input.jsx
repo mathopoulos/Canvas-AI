@@ -1,5 +1,3 @@
-import { addNewInput, saveInput } from "./helpers";
-
 export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText) => {
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = fillStyleColor;
@@ -7,7 +5,7 @@ export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, st
     // Start the path at the top left, just before the corner
     ctx.beginPath();
     ctx.moveTo(x + borderRadius, y);
-
+    console.log(strokeColor);
     // Top border
     if (borderSides.top) {
         ctx.strokeStyle = strokeColor;

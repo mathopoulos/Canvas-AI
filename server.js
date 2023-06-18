@@ -24,9 +24,24 @@ const schema = buildSchema(`
     shapes: [Input]
   }
   type Mutation {
-    addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!): Input
-    updateInput(id: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!): Input
+    addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput): Input
+    updateInput(id: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput): Input
   }
+
+  type BorderSides {
+    top: Boolean!
+    right: Boolean!
+    bottom: Boolean!
+    left: Boolean!
+  }
+
+    input BorderSidesInput {
+    top: Boolean!
+    right: Boolean!
+    bottom: Boolean!
+    left: Boolean!
+  }
+  
   type Input {
     id: ID!
     type: String!
@@ -39,6 +54,7 @@ const schema = buildSchema(`
     strokeColor: String!
     fillStyleColor: String!
     placeholderText: String!
+    borderSides: BorderSides
   }
 `);
 
@@ -64,7 +80,7 @@ const root = {
   shapes: () => {
     return shapesPromise();
   },
-  addInput: ({ type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText }) => {
+  addInput: ({ type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides }) => {
     const newInput = {
       id: crypto.randomUUID(),
       type,
@@ -77,6 +93,7 @@ const root = {
       strokeColor,
       fillStyleColor,
       placeholderText,
+      borderSides,
     };
     return shapesPromise().then(data => {
       const updatedShapes = [...data, newInput];
@@ -91,7 +108,7 @@ const root = {
       return newInput;
     });
   },
-  updateInput: ({ id, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText }) => {
+  updateInput: ({ id, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides }) => {
     return shapesPromise().then(data => {
       const updatedShapes = data.map(shape => {
         if (shape.id === id) {
@@ -107,6 +124,7 @@ const root = {
             strokeColor,
             fillStyleColor,
             placeholderText,
+            borderSides,
           };
         }
         return shape;

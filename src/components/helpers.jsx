@@ -208,7 +208,7 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
 };
 
 export const addNewInput = async (input) => {
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText } = input;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides } = input;
   
   const mutation = `
     mutation {
@@ -222,7 +222,13 @@ export const addNewInput = async (input) => {
         strokeWidth: ${strokeWidth}, 
         strokeColor: "${strokeColor}", 
         fillStyleColor: "${fillStyleColor}", 
-        placeholderText: "${placeholderText}"
+        placeholderText: "${placeholderText}",
+        borderSides: {
+        top: true,
+        right: true,
+        bottom: true,
+        left: true
+      }
       ) {
         id
         type
@@ -235,6 +241,12 @@ export const addNewInput = async (input) => {
         strokeColor
         fillStyleColor
         placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
       }
     }
   `;
@@ -247,3 +259,39 @@ export const addNewInput = async (input) => {
     return null;
   }
 };
+
+
+export const getAllInputs = async () => {
+  const query = `
+    query {
+      shapes {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+          top
+          right
+          bottom
+         left
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
+    return response;
+  } catch (error) {
+    console.error('Error getting inputs:', error);
+    return null;
+  }
+};
+
