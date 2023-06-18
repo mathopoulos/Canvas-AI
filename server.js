@@ -25,7 +25,7 @@ const schema = buildSchema(`
   }
   type Mutation {
     addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput): Input
-    updateInput(id: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput): Input
+    updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput): Input
   }
 
   type BorderSides {
@@ -44,7 +44,7 @@ const schema = buildSchema(`
   
   type Input {
     id: ID!
-    type: String!
+    type: String
     width: Int!
     height: Int!
     x: Int!
@@ -108,42 +108,31 @@ const root = {
       return newInput;
     });
   },
-  updateInput: ({ id, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides }) => {
-    return shapesPromise().then(data => {
-      const updatedShapes = data.map(shape => {
-        if (shape.id === id) {
-          return {
-            ...shape,
-            type,
-            width,
-            height,
-            x, 
-            y, 
-            borderRadius,
-            strokeWidth,
-            strokeColor,
-            fillStyleColor,
-            placeholderText,
-            borderSides,
-          };
-        }
-        return shape;
-      });
-      const jsonData = JSON.stringify({ shapes: updatedShapes });
-      fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
-        if (error) {
-          console.log('Error Writing', error);
-        } else {
-          console.log('Written Successfully!');
-        }
-      });
-      const updatedShape = updatedShapes.find(shape => shape.id === id);
-      return updatedShape;
+updateInput: ({ id, ...updates }) => {
+  return shapesPromise().then(data => {
+    const updatedShapes = data.map(shape => {
+      if (shape.id === id) {
+        return {
+          ...shape,
+          ...updates
+        };
+      }
+      return shape;
     });
-  },
+    const jsonData = JSON.stringify({ shapes: updatedShapes });
+    fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
+      if (error) {
+        console.log('Error Writing', error);
+      } else {
+        console.log('Written Successfully!');
+      }
+    });
+    const updatedShape = updatedShapes.find(shape => shape.id === id);
+    return updatedShape;
+  });
+},
+
 };
-
-
 
 
 function writeHtmlToFile(body) {

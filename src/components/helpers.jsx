@@ -295,3 +295,42 @@ export const getAllInputs = async () => {
   }
 };
 
+export const updateInputHeight = async (id, height) => {
+  //const id = id;
+  //const width = width;
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        height: ${height}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};

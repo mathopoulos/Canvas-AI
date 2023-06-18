@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from './helpers.jsx';
 import { createNewShape } from './helpers.jsx';
-import { addNewInput, getAllInputs } from './helpers.jsx';
+import { addNewInput, getAllInputs, updateInputHeight } from './helpers.jsx';
 
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
   const [resizingEdge, setResizingEdge] = useState(null);
@@ -101,6 +101,11 @@ const handleHeightChange = (e) => {
         index === selectedShapeIndex ? { ...shape, height: newHeight } : shape
       );
       setShapes(updatedShapes);
+      let updatedShape = updatedShapes[selectedShapeIndex];
+      console.log(updatedShape);
+      console.log(updatedShapes);
+      updateInputHeight(updatedShape.id, updatedShape.height);
+
     }
   }
 };
