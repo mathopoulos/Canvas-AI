@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from './helpers.jsx';
 import { createNewShape } from './helpers.jsx';
 import {getAllInputs} from './graphql/queries.jsx';
-import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor } from './graphql/mutations.jsx';
+import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius } from './graphql/mutations.jsx';
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
@@ -175,6 +175,8 @@ const handleLeftBorderChange = (e) => {
                 : shape
         );
         setShapes(updatedShapes);
+      let updatedShape = updatedShapes[selectedShapeIndex];
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
     }
 };
   
@@ -186,6 +188,8 @@ const handleRightBorderChange = (e) => {
                 : shape
         );
         setShapes(updatedShapes);
+        let updatedShape = updatedShapes[selectedShapeIndex];
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
     }
 };
 
@@ -197,6 +201,8 @@ const handleTopBorderChange = (e) => {
                 : shape
         );
         setShapes(updatedShapes);
+        let updatedShape = updatedShapes[selectedShapeIndex];
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
     }
 };
   
@@ -208,6 +214,8 @@ const handleBottomBorderChange = (e) => {
                 : shape
         );
         setShapes(updatedShapes);
+        let updatedShape = updatedShapes[selectedShapeIndex];
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
     }
 };
   
@@ -220,6 +228,8 @@ const handleBorderRadiusChange = (e) => {
         index === selectedShapeIndex ? { ...shape, borderRadius: newBorderRadius } : shape
       );
       setShapes(updatedShapes);
+      let updatedShape = updatedShapes[selectedShapeIndex];
+      updateInputBorderRadius(updatedShape.id, updatedShape.borderRadius);
     }
   }
 };    

@@ -244,3 +244,85 @@ export const updateInputFillStyleColor = async (id, fillStyleColor) => {
     return null;
   }
 };
+
+export const updateInputBorderSides = async (id, borderSides) => {
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        borderSides: {
+          top: ${borderSides.top},
+          right: ${borderSides.right},
+          bottom: ${borderSides.bottom},
+          left: ${borderSides.left}
+        } 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+
+export const updateInputBorderRadius = async (id, borderRadius) => {
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        borderRadius: ${borderRadius}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
