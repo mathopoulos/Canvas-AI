@@ -406,3 +406,62 @@ export const updateInputSize = async (id, height, width) => {
     return null;
   }
 };
+
+//deleteInput
+
+export const deleteInput = async (id) => {
+  
+  const mutation = `
+    mutation {
+      deleteInput(
+        id: "${id}",
+      )
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.deleteInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+export const updateInputPlaceholderText = async (id, placeholderText) => {
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        placeholderText: "${placeholderText}", 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};

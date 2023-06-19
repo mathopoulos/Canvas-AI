@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from './helpers.jsx';
 import { createNewShape } from './helpers.jsx';
 import {getAllInputs} from './graphql/queries.jsx';
-import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize } from './graphql/mutations.jsx';
+import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText } from './graphql/mutations.jsx';
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
@@ -294,9 +294,13 @@ const handleResizeMouseUp = () => {
 
 const handleDeleteShape = () => {
   if (selectedShapeIndex !== null) {
+    let deletedShape = shapes[selectedShapeIndex];
     const updatedShapes = shapes.filter((shape, index) => index !== selectedShapeIndex);
+    console.log(deletedShape.id)
+    deleteInput(deletedShape.id);
     setShapes(updatedShapes);
     setSelectedShapeIndex(null); // Deselect the shape after deleting
+    
   }
 };  
 
@@ -305,6 +309,9 @@ const handlePlaceholderTextChange = (e) => {
     index === selectedShapeIndex ? { ...shape, placeholderText: e.target.value } : shape
   );
   setShapes(updatedShapes);
+  let updatedShape = updatedShapes[selectedShapeIndex];
+  updateInputPlaceholderText(updatedShape.id, updatedShape.placeholderText);
+
 };
     
 

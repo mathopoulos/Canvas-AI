@@ -23,9 +23,10 @@ const schema = buildSchema(`
   type Query {
     shapes: [Input]
   }
-  type Mutation {
+type Mutation {
     addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput): Input
     updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput): Input
+    deleteInput(id: ID!): Boolean
   }
 
   type BorderSides {
@@ -131,7 +132,20 @@ updateInput: ({ id, ...updates }) => {
     return updatedShape;
   });
 },
-
+deleteInput: ({ id }) => {
+    return shapesPromise().then(data => {
+      const updatedShapes = data.filter(shape => shape.id !== id);
+      const jsonData = JSON.stringify({ shapes: updatedShapes });
+      fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
+        if (error) {
+          console.log('Error Writing', error);
+        } else {
+          console.log('Written Successfully!');
+        }
+      });
+      return true;
+    });
+  },
 };
 
 
