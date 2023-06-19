@@ -205,3 +205,42 @@ export const updateInputStrokeColor = async (id, strokeColor) => {
     return null;
   }
 };
+
+
+export const updateInputFillStyleColor = async (id, fillStyleColor) => {
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        fillStyleColor: "${fillStyleColor}", 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
