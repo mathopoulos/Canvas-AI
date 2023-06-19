@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from './helpers.jsx';
 import { createNewShape } from './helpers.jsx';
 import {getAllInputs} from './graphql/queries.jsx';
-import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition } from './graphql/mutations.jsx';
+import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize } from './graphql/mutations.jsx';
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
@@ -281,6 +281,8 @@ if (resizing && resizingEdge && selectedShapeIndex !== null) {
     const newShapes = [...shapes];
     newShapes[selectedShapeIndex] = updatedShape;
     setShapes(newShapes);
+    let changedShape = newShapes[selectedShapeIndex]
+    updateInputSize(changedShape.id, changedShape.height, changedShape.width);
   }
 };
 

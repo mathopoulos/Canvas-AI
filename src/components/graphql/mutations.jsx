@@ -367,3 +367,42 @@ export const updateInputPosition = async (id, x, y) => {
     return null;
   }
 };
+
+export const updateInputSize = async (id, height, width) => {
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        height: ${height}, 
+        width: ${width}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
