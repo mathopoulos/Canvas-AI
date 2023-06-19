@@ -1,6 +1,6 @@
 import React from 'react';
 import '/src/App.css';
-import {syncCode} from './helpers.jsx';
+import {syncCode} from '/src/components/helpers.jsx';
 
 
 export default function AppNavigation(props) {

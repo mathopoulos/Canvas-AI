@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Canvas from './Canvas.jsx';
+import Canvas from '/src/components/canvas/Canvas.jsx';
 import '/src/App.css';
 
 const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (

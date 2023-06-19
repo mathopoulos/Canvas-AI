@@ -1,18 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Toolbar from './Toolbar.jsx';
-import TopNavigation from './TopNavigation';
-import { drawSquare } from './Square.jsx';
-import { drawCircle } from './Circle.jsx';
-import { drawInput } from './Input.jsx';
-import { drawShapes } from './shapeDrawing.jsx';
-import { findShapeUnderCursor, createNewShape} from './helpers.jsx';
-import {getAllInputs} from './graphql/queries.jsx';
-import ElementDetails from '/src/components/elementDetails.jsx';
-import LayersPanel from './LayersPanel.jsx';
-import { updateResizingBox, updateCursor } from './helpers.jsx';
-import { useCanvasInteraction } from './useCanvasInteraction.jsx';
-import { useCanvasUpdate } from './useCanvasUpdate.jsx';
-import { ResizingBox, CanvasElement } from './CanvasElements.jsx';
+import Toolbar from '/src/components/canvas/Toolbar.jsx';
+import TopNavigation from '/src/components/navigation/TopNavigation';
+import { drawSquare } from '/src/components/drawingComponents/Square.jsx';
+import { drawCircle } from '/src/components/drawingComponents/Circle.jsx';
+import { drawInput } from '/src/components/drawingComponents/Input.jsx';
+import { drawShapes } from '/src/components/drawingComponents/shapeDrawing.jsx';
+import { findShapeUnderCursor, createNewShape} from '/src/components/helpers.jsx';
+import {getAllInputs} from '/src/components/graphql/queries.jsx';
+import ElementDetails from '/src/components/canvas/elementDetails.jsx';
+import LayersPanel from '/src/components/canvas/LayersPanel.jsx';
+import { updateResizingBox, updateCursor } from '/src/components/helpers.jsx';
+import { useCanvasInteraction } from '/src/components/canvas/useCanvasInteraction.jsx';
+import { useCanvasUpdate } from '/src/components/canvas/useCanvasUpdate.jsx';
+import { ResizingBox, CanvasElement } from '/src/components/canvas/CanvasElements.jsx';
 
 
 

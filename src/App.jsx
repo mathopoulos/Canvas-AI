@@ -1,7 +1,7 @@
 import './App.css'
 import React, { useEffect, useState } from 'react';
-import TopNavigation from '/src/components/TopNavigation.jsx';
-import Canvas from '/src/components/Canvas.jsx';
+import TopNavigation from '/src/components/navigation/TopNavigation.jsx';
+import Canvas from '/src/components/canvas/Canvas.jsx';
 
 
 

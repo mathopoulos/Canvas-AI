@@ -1,7 +1,7 @@
 // shapeDrawing.js
-import { drawSquare } from './Square.jsx';
-import { drawCircle } from './Circle.jsx';
-import { drawInput } from './Input.jsx';
+import { drawSquare } from '/src/components/drawingComponents/Square.jsx';
+import { drawCircle } from '/src/components/drawingComponents/Circle.jsx';
+import { drawInput } from '/src/components/drawingComponents/Input.jsx';
 
 export const drawShapes = (context, shapes, selectedShapeIndex, newInput) => {
   for (const [index, shape] of shapes.entries()) {

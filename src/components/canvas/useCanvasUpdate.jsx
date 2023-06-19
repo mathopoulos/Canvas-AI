@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { drawShapes } from './shapeDrawing.jsx';
-import { updateResizingBox } from './helpers.jsx';
+import { drawShapes } from '/src/components/drawingComponents/shapeDrawing.jsx';
+import { updateResizingBox } from '/src/components/helpers.jsx';
 
 export const useCanvasUpdate = (canvasRef, resizingBoxRef, shapes, selectedShapeIndex) => {
   useEffect(() => {
