@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from './helpers.jsx';
 import { createNewShape } from './helpers.jsx';
 import {getAllInputs} from './graphql/queries.jsx';
-import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth } from './graphql/mutations.jsx';
+import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor } from './graphql/mutations.jsx';
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
@@ -147,6 +147,8 @@ const handleStrokeColorChange = (e) => {
       );
       console.log(updatedShapes);
       setShapes(updatedShapes);
+      let updatedShape = updatedShapes[selectedShapeIndex];
+      updateInputStrokeColor(updatedShape.id, updatedShape.strokeColor);
     }
   }
 };    
