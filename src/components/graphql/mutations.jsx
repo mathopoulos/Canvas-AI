@@ -326,3 +326,44 @@ export const updateInputBorderRadius = async (id, borderRadius) => {
     return null;
   }
 };
+
+//updateInputPosition
+
+export const updateInputPosition = async (id, x, y) => {
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        x: ${x}, 
+        y: ${y}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
