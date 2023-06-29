@@ -1,6 +1,6 @@
 import React from 'react';
 import '/src/App.css';
-import {syncCode} from '/src/components/helpers.jsx';
+import {syncCodeFunction} from '/src/components/helpers.jsx';
 
 
 export default function AppNavigation(props) {
@@ -10,7 +10,7 @@ export default function AppNavigation(props) {
     event.preventDefault();
     console.log('Shapes:', shapes);
 
-    syncCode(shapes);}
+    syncCodeFunction();}
   
   return (
       <div className="titleDiv">

@@ -159,11 +159,26 @@ inputsHTML += `<input type="text" id="${shape.name}" name="${shape.name}" placeh
 
   // -------- END SYNC CODE ------------ //
 
+  // Make an HTTP GET request to the server
+fetch('/myToken')
+  .then(response => response.json())
+  .then(data => {
+    // Access the value of myVariable from the response data
+    const token = data.myToken;
+    console.log(token); // "Hello World"
+    // Use the value in your frontend component as needed
+    // ...
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
 
   const str = html;
   const base64 = btoa(str); // Encodes str in base64
 
-const token = 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; // Replace with your Github personal access token
+  //const token = "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";
+ // Replace with your Github personal access token
 const owner = "mathopoulos"; // Replace with the repository owner
 const repo = "canvas_data"; // Replace with the repository name
 const path = "index.html"; // Replace with the file path you want to create/update
@@ -181,6 +196,7 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
   .then((data) => {
     const currentContent = atob(data.content);
     const currentSHA = data.sha;
+    console.log(currentSHA);
 
     // Update the file with the new content
     const updatedContent = newContent;
@@ -370,3 +386,26 @@ export const updateInputWidth = async (id, width) => {
     return null;
   }
 };
+
+export function syncCodeFunction() {
+  
+fetch('https://canvas-v3.alexandrosmatho.repl.co/graphql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  body: JSON.stringify({
+    query: `
+      mutation {
+        syncCode {
+          status
+          message
+        }
+      }
+    `,
+  }),
+})
+  .then(r => r.json())
+  .then(data => console.log('data returned:', data));
+}

@@ -7,8 +7,8 @@ import fs from "fs";
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from "graphql";
 import cors from 'cors'; // <-- Import CORS module here
+import syncCode from './syncCode.js';
 
-console.log(graphqlHTTP);
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,8 +27,14 @@ type Mutation {
     addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput): Input
     updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput): Input
     deleteInput(id: ID!): Boolean
+    syncCode: Status
   }
 
+  type Status {
+    status: String!
+    message: String
+  }
+  
   type BorderSides {
     top: Boolean!
     right: Boolean!
@@ -146,6 +152,17 @@ deleteInput: ({ id }) => {
       return true;
     });
   },
+syncCode: () => {
+    if(syncCode()) {
+      return {
+        status: 'success',
+        message: 'Synced successfully'
+      }
+    
+    } else {
+      return 'Sync failed'
+  };
+},
 };
 
 
@@ -221,4 +238,10 @@ app.use(
 
 app.listen(4000, () => {
   console.log("Running a GraphQL API server at https://canvas-v3.alexandrosmatho.repl.co/graphql");
+});
+
+// Pass the variable to the frontend component using res.locals
+app.use((req, res, next) => {
+  res.locals.myToken = myToken;
+  next();
 });
