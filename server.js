@@ -176,7 +176,7 @@ function writeHtmlToFile(body) {
   });
 }
 
-const GITHUB_TOKEN = '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';
+const GITHUB_TOKEN = '';
 const WEBHOOK_SECRET = 'nienatail39849u;2etina';
 
 app.post('/webhook', (req, res) => {
