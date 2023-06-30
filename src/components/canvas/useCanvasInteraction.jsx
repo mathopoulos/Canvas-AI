@@ -31,6 +31,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.fillStyleColor = "#FFFFFF";
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
         newShape.placeholderText ="Placeholder";
+        //newShape.name = "Input";
         addNewInput(newShape).then(response => console.log(response));
         getAllInputs().then(response => console.log(response));
       }

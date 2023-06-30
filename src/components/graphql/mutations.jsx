@@ -1,7 +1,7 @@
 import { request } from 'graphql-request';
 
 export const addNewInput = async (input) => {
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides } = input;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, name, borderSides} = input;
   
   const mutation = `
     mutation {
@@ -16,6 +16,7 @@ export const addNewInput = async (input) => {
         strokeColor: "${strokeColor}", 
         fillStyleColor: "${fillStyleColor}", 
         placeholderText: "${placeholderText}",
+        name: "${name}",
         borderSides: {
         top: true,
         right: true,
@@ -34,6 +35,7 @@ export const addNewInput = async (input) => {
         strokeColor
         fillStyleColor
         placeholderText
+        name
         borderSides {
         top
         right

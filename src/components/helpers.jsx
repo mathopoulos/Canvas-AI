@@ -106,7 +106,7 @@ export const updateShapeIndexes = (shapes, newOrder) => {
 };
 
 export const addNewInput = async (input) => {
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides } = input;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name } = input;
   
   const mutation = `
     mutation {
@@ -121,12 +121,14 @@ export const addNewInput = async (input) => {
         strokeColor: "${strokeColor}", 
         fillStyleColor: "${fillStyleColor}", 
         placeholderText: "${placeholderText}",
+        name: "${name}",
         borderSides: {
         top: true,
         right: true,
         bottom: true,
         left: true
       }
+      
       ) {
         id
         type
@@ -139,6 +141,7 @@ export const addNewInput = async (input) => {
         strokeColor
         fillStyleColor
         placeholderText
+        name
         borderSides {
         top
         right
@@ -180,6 +183,7 @@ export const getAllInputs = async () => {
           bottom
          left
         }
+        name
       }
     }
   `;

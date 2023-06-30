@@ -24,8 +24,8 @@ const schema = buildSchema(`
     shapes: [Input]
   }
 type Mutation {
-    addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput): Input
-    updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput): Input
+    addInput(type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput, name: String!): Input
+    updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput, name: String): Input
     deleteInput(id: ID!): Boolean
     syncCode: Status
   }
@@ -62,6 +62,7 @@ type Mutation {
     fillStyleColor: String!
     placeholderText: String!
     borderSides: BorderSides
+    name: String!
   }
 `);
 
@@ -87,7 +88,7 @@ const root = {
   shapes: () => {
     return shapesPromise();
   },
-  addInput: ({ type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides }) => {
+  addInput: ({ type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name }) => {
     const newInput = {
       id: crypto.randomUUID(),
       type,
@@ -101,6 +102,7 @@ const root = {
       fillStyleColor,
       placeholderText,
       borderSides,
+      name, 
     };
     return shapesPromise().then(data => {
       const updatedShapes = [...data, newInput];
@@ -241,7 +243,7 @@ app.listen(4000, () => {
 });
 
 // Pass the variable to the frontend component using res.locals
-app.use((req, res, next) => {
-  res.locals.myToken = myToken;
-  next();
-});
+//app.use((req, res, next) => {
+//  res.locals.myToken = myToken;
+//  next();
+//});

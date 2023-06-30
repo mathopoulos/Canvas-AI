@@ -15,6 +15,7 @@ export const getAllInputs = async () => {
         strokeColor
         fillStyleColor
         placeholderText
+        name
         borderSides {
           top
           right
