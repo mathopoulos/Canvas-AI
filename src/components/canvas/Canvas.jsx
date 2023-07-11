@@ -85,7 +85,7 @@ return (
   <div>
     <TopNavigation shapes={shapes}/>
     <Toolbar setShape={setShapeType} />
-    <div style={{ position: 'relative', width: '310px', height: '100px', border: '1px solid grey', borderRadius: '10px', left: '320px', top: '175px' }} onMouseMove={(e) => updateCursor(resizingBoxRef, e)}>
+    <div style={{ position: 'relative', width: '310px', height: '100px', border: '1px solid grey', borderRadius: '10px', left: '320px', top: '150px' }} onMouseMove={(e) => updateCursor(resizingBoxRef, e)}>
       <CanvasElement
         ref={canvasRef}
         onClick={handleClick}

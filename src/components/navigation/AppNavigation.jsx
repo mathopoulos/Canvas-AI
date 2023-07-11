@@ -16,7 +16,7 @@ export default function AppNavigation(props) {
       <div className="titleDiv">
         <img id="titleImage" src="/images/view-list.svg" alt="box-icon" />
         <img id="lineImage" src="/images/line.svg" alt="box-icon" />
-        <h3 id="title">Username Input</h3>
+        <h3 id="title">Component Builder</h3>
         <div className="dropdown-top">
           <button className="dropbtn-top"><img id="downImage" src="/images/down.svg" alt="box-icon" /></button>
           <div className="topNav-dropdown-content">
