@@ -8,6 +8,19 @@ import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from "graphql";
 import cors from 'cors'; // <-- Import CORS module here
 import syncCode from './syncCode.js';
+import pg from 'pg';
+const { Pool } = pg;
+
+const pool = new Pool({
+  user: 'neon',
+  host: process.env['PGHOST'],
+  database: 'neondb',
+  password: process.env['PGPASSWORD'],
+  port: 5432,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 
 const app = express();
@@ -67,93 +80,52 @@ type Mutation {
 `);
 
 const shapesPromise = () => {
-  return new Promise((resolve, reject) => {
-    fs.readFile('./shapes.json', 'utf8', (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        try {
-          const shapesData = JSON.parse(data);
-          const shapes = shapesData.shapes || [];
-          resolve(shapes);
-        } catch (parseErr) {
-          reject(parseErr);
-        }
-      }
-    });
-  });
+  return pool.query('SELECT data FROM shape_data')
+    .then(res => res.rows.map(row => row.data))
+    .catch(e => console.error(e.stack));
 };
+
 
 const root = {
   shapes: () => {
     return shapesPromise();
   },
-  addInput: ({ type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name }) => {
-    const newInput = {
-      id: crypto.randomUUID(),
-      type,
-      width,
-      height,
-      x, 
-      y, 
-      borderRadius,
-      strokeWidth,
-      strokeColor,
-      fillStyleColor,
-      placeholderText,
-      borderSides,
-      name, 
-    };
-    return shapesPromise().then(data => {
-      const updatedShapes = [...data, newInput];
-      const jsonData = JSON.stringify({ shapes: updatedShapes });
-      fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
-        if (error) {
-          console.log('Error Writing', error);
-        } else {
-          console.log('Written Successfully!');
-        }
-      });
-      return newInput;
-    });
-  },
-updateInput: ({ id, ...updates }) => {
-  return shapesPromise().then(data => {
-    const updatedShapes = data.map(shape => {
-      if (shape.id === id) {
-        return {
-          ...shape,
-          ...updates
-        };
-      }
-      return shape;
-    });
-    const jsonData = JSON.stringify({ shapes: updatedShapes });
-    fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
-      if (error) {
-        console.log('Error Writing', error);
-      } else {
-        console.log('Written Successfully!');
-      }
-    });
-    const updatedShape = updatedShapes.find(shape => shape.id === id);
-    return updatedShape;
-  });
+addInput: ({ type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name }) => {
+  const newInput = {
+    id: crypto.randomUUID(),
+    type,
+    width,
+    height,
+    x, 
+    y, 
+    borderRadius,
+    strokeWidth,
+    strokeColor,
+    fillStyleColor,
+    placeholderText,
+    borderSides,
+    name, 
+  };
+  return pool.query('INSERT INTO shape_data(data) VALUES($1) RETURNING data', [newInput])
+    .then(res => res.rows[0].data)
+    .catch(e => console.error(e.stack));
 },
+
+updateInput: ({ id, ...updates }) => {
+  return pool.query('UPDATE shape_data SET data = data || $1 WHERE data->>\'id\' = $2 RETURNING data', [updates, id])
+    .then(res => res.rows[0].data)
+    .catch(e => console.error(e.stack));
+},
+
 deleteInput: ({ id }) => {
-    return shapesPromise().then(data => {
-      const updatedShapes = data.filter(shape => shape.id !== id);
-      const jsonData = JSON.stringify({ shapes: updatedShapes });
-      fs.writeFile('./shapes.json', jsonData, 'utf8', (error) => {
-        if (error) {
-          console.log('Error Writing', error);
-        } else {
-          console.log('Written Successfully!');
-        }
-      });
-      return true;
+  return pool.query('DELETE FROM shape_data WHERE data->>\'id\' = $1', [id])
+    .then(res => true)
+    .catch(e => {
+      console.error(e.stack);
+      return false;
     });
-  },
+},
+
 syncCode: () => {
     if(syncCode()) {
       return {
