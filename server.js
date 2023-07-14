@@ -43,6 +43,8 @@ type Mutation {
     syncCode: Status
   }
 
+  
+
   type Status {
     status: String!
     message: String
