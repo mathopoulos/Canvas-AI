@@ -86,6 +86,7 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
     newShape.name = `Circle ${circleCounter}`;
     newShape.radius = 25;
   } else if (shapeType === 'input') {
+    newShape.type = 'input';
     newShape.name = `Input ${inputCounter}`;
     newShape.width = 200;
     newShape.height = 50;

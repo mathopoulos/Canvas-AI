@@ -6,7 +6,7 @@ import { drawCircle } from '/src/components/drawingComponents/Circle.jsx';
 import { drawInput } from '/src/components/drawingComponents/Input.jsx';
 import { drawShapes } from '/src/components/drawingComponents/shapeDrawing.jsx';
 import { findShapeUnderCursor, createNewShape} from '/src/components/helpers.jsx';
-import {getAllInputs} from '/src/components/graphql/queries.jsx';
+import {getAllInputs, getAllInputsOfComponent} from '/src/components/graphql/queries.jsx';
 import ElementDetails from '/src/components/canvas/elementDetails.jsx';
 import LayersPanel from '/src/components/canvas/LayersPanel.jsx';
 import { updateResizingBox, updateCursor } from '/src/components/helpers.jsx';
@@ -47,8 +47,8 @@ function Canvas() {
 } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
 
 useEffect(() => {
-  getAllInputs(shapes).then((response) => {
-    const shapesData = response.shapes;
+  getAllInputsOfComponent().then((response) => {
+    const shapesData = response.inputsByComponent;
     setShapes(shapesData);
 });  
 }, []);  

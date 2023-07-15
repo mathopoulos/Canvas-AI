@@ -1,11 +1,72 @@
 import { request } from 'graphql-request';
 
-export const addNewInput = async (input) => {
+export const addNewComponent = async (name) => {
+  const mutation = `
+    mutation {
+      addComponent(
+        name: "${name}", 
+      ) {
+        id
+        name
+        inputs {
+          id
+          type
+          width
+          height
+          x
+          y
+          borderRadius
+          strokeWidth
+          strokeColor
+          fillStyleColor
+          placeholderText
+          borderSides {
+            top
+            right
+            bottom
+            left
+          }
+          name
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addComponent;
+  } catch (error) {
+    console.error('Error adding new component:', error);
+    return null;
+  }
+};
+
+export const deleteComponent = async (id) => {
+  const mutation = `
+    mutation {
+      deleteComponent(
+        id: "${id}", 
+      )
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.deleteComponent;
+  } catch (error) {
+    console.error('Error deleting component:', error);
+    return null;
+  }
+};
+
+
+export const addNewInput = async (parentId, input) => {
   const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, name, borderSides} = input;
   
   const mutation = `
     mutation {
       addInput(
+        parentId: "${parentId}", 
         type: "${type}", 
         width: ${width}, 
         height: ${height}, 

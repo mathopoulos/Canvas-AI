@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
-import {getAllInputs} from '/src/components/graphql/queries.jsx';
-import { addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText } from '/src/components/graphql/mutations.jsx';
+import {getAllInputs, getAllInputsOfComponent} from '/src/components/graphql/queries.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText } from '/src/components/graphql/mutations.jsx';
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
@@ -23,6 +23,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
       } else if (shapeType === 'circle') {
         newShape.radius = 25;
       } else if (shapeType === 'input') {
+        newShape.type = 'input';
         newShape.width = 200;
         newShape.height = 50;
         newShape.borderRadius = 1;
@@ -32,8 +33,9 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
         newShape.placeholderText ="Placeholder";
         //newShape.name = "Input";
-        addNewInput(newShape).then(response => console.log(response));
-        getAllInputs().then(response => console.log(response));
+        //addNewComponent("Test Component");
+        addNewInput("8428165a-cf86-403d-acc0-331c28320ebd", newShape).then(response => console.log(response));
+        getAllInputsOfComponent().then(response => console.log(response));
       }
 
       setShapes([...shapes, newShape]);
