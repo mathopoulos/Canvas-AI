@@ -61,7 +61,7 @@ const toggleVisibility = (type) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <div id="layersPanel">
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', height: '40px' }}>
         <label id="layersTitle" onClick={() => toggleVisibility('layers')} style={{ opacity: activePanel === 'layers' ? 1.0 : 0.3 }}>
           Layers
         </label>
