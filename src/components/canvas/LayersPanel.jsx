@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Canvas from '/src/components/canvas/Canvas.jsx';
 import {getAllComponentsNameAndId, getComponent} from '/src/components/graphql/queries.jsx';
+import {addNewComponent} from '/src/components/graphql/mutations.jsx';
 import '/src/App.css';
 
 export default function LayersPanel({ shapes, setSelectedShapeIndex, setShapes, components, setComponents}) { 
@@ -28,7 +29,17 @@ useEffect(() => {
 useEffect(() => {
   }, [activePanel]);
 
-
+  const addNewComponentToDBAndState = async (componentName) => {
+  try {
+    // this addNewComponent is the one defined in your mutations.js file
+    const newComponent = await addNewComponent(componentName); 
+    if(newComponent !== null) {
+      setComponents(prevComponents => [...prevComponents, newComponent]);
+    } 
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
   const handleDragStart = (event, index) => {
     event.dataTransfer.setData('text/plain', index);
@@ -66,7 +77,7 @@ const toggleVisibility = (type) => {
  activePanel === 'components' ? 1.0 : 0.3 }}>
           Components
         </label>
-        <img src="images/plus.svg" style={{width: '20px', marginLeft: '10px', opacity: 1.0, display: activePanel === 'components' ? 'block' : 'none' }} />
+        <img src="images/plus.svg" style={{width: '20px', marginLeft: '10px', opacity: 1.0, display: activePanel === 'components' ? 'block' : 'none' }} onClick={() => addNewComponentToDBAndState("Test Component 2")} />
         </div>
         <div id="layersLine"></div>
         <div id="layers" style={{ padding: '10px 0px 0px 0px', display: activePanel === 'layers' ? 'block' : 'none' }}>
@@ -106,7 +117,10 @@ const toggleVisibility = (type) => {
               cursor: 'move'
             }}
           >
-              <img src="images/layerIcon.svg" style={{ marginRight: '5px' }} /> {component.name}
+              <img 
+    src="images/layerIcon.svg" 
+    style={{ marginRight: '5px' }} 
+/> {component.name}
             </div>
           ))}
         </div>
