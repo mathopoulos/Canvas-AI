@@ -74,10 +74,10 @@ export const getAllComponentsNameAndId = async () => {
   }
 };  
 
-export const getAllInputsOfComponent = async () => {
+export const getAllInputsOfComponent = async (componentId) => {
   const query = `
     query {
-  inputsByComponent(componentId: "8428165a-cf86-403d-acc0-331c28320ebd") {
+  inputsByComponent(componentId: "${componentId}") {
     id
     name
     type

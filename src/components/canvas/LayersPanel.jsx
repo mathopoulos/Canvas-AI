@@ -13,9 +13,7 @@ useEffect(() => {
 const fetchComponents = async () => {
       try {
         const response = await getAllComponentsNameAndId();
-        console.log("Response: ", response); // log the entire response
         setComponents(response.components); // Update the components state in the parent component
-        console.log("Components: ", components); // log the components state after setting it
       } catch (error) {
         console.error('Error:', error);
       }
@@ -28,7 +26,6 @@ useEffect(() => {
 }, [components]);
 
 useEffect(() => {
-    console.log(`Active Panel: ${activePanel}`);
   }, [activePanel]);
 
 
@@ -100,6 +97,7 @@ const toggleVisibility = (type) => {
             onDragStart={(event) => handleDragStart(event, component.id)}
             onDragOver={(event) => handleDragOver(event, component.id)}
             onDrop={(event) => handleDrop(event, component.id)}
+            onClick={() => setSelectedComponent(component.id)}
             style={{
               display: 'flex',
               alignItems: 'center',

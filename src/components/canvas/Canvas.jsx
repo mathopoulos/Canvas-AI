@@ -20,6 +20,7 @@ function Canvas() {
   const canvasRef = useRef(null);
   const resizingBoxRef = useRef(null);
   const [components, setComponents] = useState([]);
+  const [selectedComponent, setSelectedComponent] = useState(null);
   const [shapes, setShapes] = useState([]);
   const [shapeType, setShapeType] = useState('input');
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
@@ -48,7 +49,7 @@ function Canvas() {
 } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
 
 useEffect(() => {
-  getAllInputsOfComponent().then((response) => {
+    getAllInputsOfComponent("8428165a-cf86-403d-acc0-331c28320ebd").then((response) => {
     const shapesData = response.inputsByComponent;
     setShapes(shapesData);
 });  
@@ -106,7 +107,8 @@ return (
           setShapes={setShapes}
           setSelectedShapeIndex={setSelectedShapeIndex}
       components={components}
-  setComponents={setComponents}// passing function as prop to LayersPanel component 
+  setComponents={setComponents}
+      setSelectedComponent={setSelectedComponent}// passing function as prop to LayersPanel component 
         />
     <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange} onPlaceholderTextChange={handlePlaceholderTextChange} />
   </div>
