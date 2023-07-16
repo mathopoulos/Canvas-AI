@@ -47,13 +47,16 @@ function Canvas() {
   handleDeleteShape, 
   handlePlaceholderTextChange
 } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
-
+  
 useEffect(() => {
-    getAllInputsOfComponent("8428165a-cf86-403d-acc0-331c28320ebd").then((response) => {
-    const shapesData = response.inputsByComponent;
-    setShapes(shapesData);
-});  
-}, []);  
+    if(selectedComponent !== null) {
+      getAllInputsOfComponent(selectedComponent).then((response) => {
+        const shapesData = response.inputsByComponent;
+        setShapes(shapesData);
+      });  
+    }
+}, [selectedComponent]); 
+
   
 
 useEffect(() => {

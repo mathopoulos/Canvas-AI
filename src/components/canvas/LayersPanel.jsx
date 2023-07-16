@@ -4,7 +4,7 @@ import {getAllComponentsNameAndId, getComponent} from '/src/components/graphql/q
 import {addNewComponent} from '/src/components/graphql/mutations.jsx';
 import '/src/App.css';
 
-export default function LayersPanel({ shapes, setSelectedShapeIndex, setShapes, components, setComponents}) { 
+export default function LayersPanel({ shapes, setSelectedShapeIndex, setShapes, components, setComponents, setSelectedComponent}) { 
   const [layers, setLayers] = useState([]);
 const [activePanel, setActivePanel] = useState('layers'); // 'layers' or 'components'
 
