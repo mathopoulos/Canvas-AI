@@ -46,7 +46,7 @@ function Canvas() {
   handleBottomBorderChange, 
   handleDeleteShape, 
   handlePlaceholderTextChange
-} = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex);
+} = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent);
   
 useEffect(() => {
     if(selectedComponent !== null) {

@@ -3,7 +3,7 @@ import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputs, getAllInputsOfComponent} from '/src/components/graphql/queries.jsx';
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText } from '/src/components/graphql/mutations.jsx';
-export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex) => {
+export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -34,7 +34,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.placeholderText ="Placeholder";
         //newShape.name = "Input";
         //addNewComponent("Test Component");
-        addNewInput("8428165a-cf86-403d-acc0-331c28320ebd", newShape).then(response => console.log(response));
+        addNewInput(selectedComponent, newShape).then(response => console.log(response));
         getAllInputsOfComponent().then(response => console.log(response));
       }
 
