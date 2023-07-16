@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Canvas from '/src/components/canvas/Canvas.jsx';
-import {getAllComponentsNameAndId} from '/src/components/graphql/queries.jsx';
+import {getAllComponentsNameAndId, getComponent} from '/src/components/graphql/queries.jsx';
 import '/src/App.css';
 
-export default function LayersPanel({ shapes, setSelectedShapeIndex, setShapes }) { 
+export default function LayersPanel({ shapes, setSelectedShapeIndex, setShapes, components, setComponents}) { 
   const [layers, setLayers] = useState([]);
-  const [components, setComponents] = useState([]);
 const [activePanel, setActivePanel] = useState('layers'); // 'layers' or 'components'
 
 useEffect(() => {
   setLayers(shapes);
   
-  const fetchComponents = async () => {
-    try {
-      const response = await getAllComponentsNameAndId();
-      console.log("Response: ", response); // log the entire response
-      setComponents(response.components); // access components property directly
-      console.log("Components: ", components); // log the components state after setting it
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+const fetchComponents = async () => {
+      try {
+        const response = await getAllComponentsNameAndId();
+        console.log("Response: ", response); // log the entire response
+        setComponents(response.components); // Update the components state in the parent component
+        console.log("Components: ", components); // log the components state after setting it
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
 
-  fetchComponents();
-}, [shapes]);
+    fetchComponents();
+  }, [shapes, setComponents]);
 
 useEffect(() => {
 }, [components]);
@@ -53,6 +52,7 @@ useEffect(() => {
 
     setSelectedShapeIndex(index);
   };
+
 
 const toggleVisibility = (type) => {
     setActivePanel(type);

@@ -36,6 +36,7 @@ const schema = buildSchema(`
   type Query {
     shapes: [Input]
     components: [Component]
+    component(id: ID!): Component
     inputsByComponent(componentId: ID!): [Input]
   }
 type Mutation {
@@ -102,6 +103,11 @@ const root = {
   },
   components: () => {
     return shapesPromise();
+  },
+  component: ({ id }) => {
+    return pool.query('SELECT data FROM component_data WHERE data->>\'id\' = $1', [id])
+      .then(res => res.rows.length > 0 ? res.rows[0].data : null)
+      .catch(e => console.error(e.stack));
   },
   inputsByComponent: ({ componentId }) => {
     return shapesPromise()

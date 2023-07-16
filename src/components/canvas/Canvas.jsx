@@ -19,6 +19,7 @@ import { ResizingBox, CanvasElement } from '/src/components/canvas/CanvasElement
 function Canvas() {
   const canvasRef = useRef(null);
   const resizingBoxRef = useRef(null);
+  const [components, setComponents] = useState([]);
   const [shapes, setShapes] = useState([]);
   const [shapeType, setShapeType] = useState('input');
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
@@ -103,10 +104,11 @@ return (
     <LayersPanel 
           shapes={shapes} 
           setShapes={setShapes}
-          setSelectedShapeIndex={setSelectedShapeIndex}  // passing function as prop to LayersPanel component 
+          setSelectedShapeIndex={setSelectedShapeIndex}
+      components={components}
+  setComponents={setComponents}// passing function as prop to LayersPanel component 
         />
     <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange} onPlaceholderTextChange={handlePlaceholderTextChange} />
-    
   </div>
     );
 }

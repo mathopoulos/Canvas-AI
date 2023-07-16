@@ -108,3 +108,29 @@ export const getAllInputsOfComponent = async () => {
     return null;
   }
 };
+
+
+export const getComponent = async (id) => {
+  const query = `
+query {
+  component(id:${id}) {
+    id
+    name
+  }
+}
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
+    return response;
+  } catch (error) {
+    console.error('Error getting inputs:', error);
+    return null;
+  }
+};
+
+
+
+
+
+
