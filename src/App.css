@@ -18,6 +18,17 @@ cursor: pointer;
 cursor: col-resize;
 }
 
+#dragIcon {
+  opacity: 0.2;
+}
+
+#delete {
+  padding-left: 10px;
+  opacity: 0.2;
+  width: 20px;
+  display: none;
+}
+
 #toolpanel {
   z-index: 3; 
   width: 410px;
@@ -313,7 +324,7 @@ h4 {
   margin-left: 1%;
   padding-top: 15px; 
   padding-bottom: 15px;
-  width: 200px;
+  width: 210px;
   border-radius: 10px;
   background-color: #ffffff;
   border: none;

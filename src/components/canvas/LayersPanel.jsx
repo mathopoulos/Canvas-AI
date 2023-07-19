@@ -61,6 +61,16 @@ useEffect(() => {
     setSelectedShapeIndex(index);
   };
 
+const handleMouseEnter = (event) => {
+    const deleteIcon = event.currentTarget.querySelector('#delete');
+    deleteIcon.style.display = 'block';
+  };
+
+const handleMouseLeave = (event) => {
+    const deleteIcon = event.currentTarget.querySelector('#delete');
+    deleteIcon.style.display = 'none';
+  };  
+
 
 const toggleVisibility = (type) => {
     setActivePanel(type);
@@ -108,6 +118,8 @@ const toggleVisibility = (type) => {
             onDragStart={(event) => handleDragStart(event, component.id)}
             onDragOver={(event) => handleDragOver(event, component.id)}
             onDrop={(event) => handleDrop(event, component.id)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             onClick={() => setSelectedComponent(component.id)}
             style={{
               display: 'flex',
@@ -117,10 +129,14 @@ const toggleVisibility = (type) => {
               cursor: 'move'
             }}
           >
-              <img 
+              <img id = "dragIcon"
     src="images/layerIcon.svg" 
     style={{ marginRight: '5px' }} 
-/> {component.name}
+/> {component.name} 
+            <img id="delete"
+    src="images/trash.svg" 
+    style={{ marginRight: '5px' }} 
+/>
             </div>
           ))}
         </div>
