@@ -19,7 +19,7 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
     <div id="xInputDiv">
       <label id="xLabel" htmlFor="width">Width</label>
       <div id="xInputWrapper">
-        <input type="text" id = "elementInput" id="width" name="xValue" value={selectedShape ? selectedShape.width : ''}
+        <input type="text" id="width" name="xValue" value={selectedShape ? selectedShape.width : ''}
           onChange={onWidthChange} />
       </div>
     </div>

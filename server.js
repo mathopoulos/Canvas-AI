@@ -42,6 +42,7 @@ const schema = buildSchema(`
 type Mutation {
     addComponent(name: String!): Component
     deleteComponent(id: ID!): Boolean
+    updateComponent(id: ID!, name: String!): Component
     addInput(parentId: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, borderSides: BorderSidesInput, name: String!): Input
     updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput, name: String): Input
     deleteInput(id: ID!): Boolean
@@ -124,6 +125,20 @@ const root = {
     .then(res => res.rows[0].data)
     .catch(e => console.error(e.stack));
 },
+updateComponent: async ({ id, name }) => {
+  try {
+    const response = await pool.query(
+      'UPDATE component_data SET data = jsonb_set(data, $1, $2) WHERE data->>\'id\' = $3 RETURNING data',
+      ['{name}', JSON.stringify(name), id]
+    );
+    return response.rows[0].data;
+  } catch (error) {
+    console.error('Error updating component:', error);
+    return null;
+  }
+},
+
+
 deleteComponent: async ({ id }) => {
     try {
       const response = await pool.query('DELETE FROM component_data WHERE data->>\'id\' = $1', [id]);

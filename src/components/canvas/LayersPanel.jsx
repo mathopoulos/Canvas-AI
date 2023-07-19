@@ -7,6 +7,7 @@ import {
 import {
   addNewComponent,
   deleteComponent,
+  updateComponent
 } from '/src/components/graphql/mutations.jsx';
 import '/src/App.css';
 
@@ -103,21 +104,30 @@ export default function LayersPanel({
     setEditComponentName(event.target.value);
   };
 
-  const handleComponentNameBlur = (event) => {
-    const updatedComponent = {
-      ...components.find((component) => component.id === editComponentId),
-      name: editComponentName,
-    };
-    // Perform the update operation here (e.g., call an updateComponent mutation or function)
+const handleComponentNameBlur = async (event) => {
+  const updatedComponent = {
+    ...components.find((component) => component.id === editComponentId),
+    name: editComponentName,
+  };
+  console.log(updatedComponent);
+  try {
+    await updateComponent(updatedComponent.id, updatedComponent.name);
+
     // Update the components state accordingly
     setComponents((prevComponents) =>
       prevComponents.map((component) =>
         component.id === editComponentId ? updatedComponent : component
       )
     );
+
     setEditComponentId(null);
     setEditComponentName("");
-  };
+  } catch (error) {
+    console.error('Error updating component:', error);
+  }
+};
+
+
 
   const toggleVisibility = (type) => {
     setActivePanel(type);

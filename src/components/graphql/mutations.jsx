@@ -59,6 +59,50 @@ export const deleteComponent = async (id) => {
   }
 };
 
+export const updateComponent = async (id, name) => {
+  const mutation = `
+    mutation {
+      updateComponent(
+        id: "${id}", 
+        name: "${name}"
+      ) {
+        id
+        name
+        inputs {
+          id
+          type
+          width
+          height
+          x
+          y
+          borderRadius
+          strokeWidth
+          strokeColor
+          fillStyleColor
+          placeholderText
+          borderSides {
+            top
+            right
+            bottom
+            left
+          }
+          name
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.updateComponent;
+  } catch (error) {
+    console.error('Error updating component:', error);
+    return null;
+  }
+};
+
+
+
 
 export const addNewInput = async (parentId, input) => {
   const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, name, borderSides} = input;
