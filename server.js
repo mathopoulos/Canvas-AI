@@ -124,6 +124,15 @@ const root = {
     .then(res => res.rows[0].data)
     .catch(e => console.error(e.stack));
 },
+deleteComponent: async ({ id }) => {
+    try {
+      const response = await pool.query('DELETE FROM component_data WHERE data->>\'id\' = $1', [id]);
+      return response.rowCount > 0;
+    } catch (error) {
+      console.error('Error:', error);
+      return false;
+    }
+  },  
 addInput: ({parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name }) => {
   const newInput = {
     id: crypto.randomUUID(),

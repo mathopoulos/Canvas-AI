@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Canvas from '/src/components/canvas/Canvas.jsx';
 import {getAllComponentsNameAndId, getComponent} from '/src/components/graphql/queries.jsx';
-import {addNewComponent} from '/src/components/graphql/mutations.jsx';
+import {addNewComponent, deleteComponent} from '/src/components/graphql/mutations.jsx';
 import '/src/App.css';
 
 export default function LayersPanel({ shapes, setSelectedShapeIndex, setShapes, components, setComponents, setSelectedComponent}) { 
@@ -71,6 +71,13 @@ const handleMouseLeave = (event) => {
     deleteIcon.style.display = 'none';
   };  
 
+const handleDeleteComponent = (event, componentId) => {
+    event.stopPropagation(); // Stop event propagation to prevent the parent div's onClick event from triggering
+    deleteComponent(componentId); // Call your deleteComponent mutation or function here
+    // Update the components state accordingly
+    setComponents((prevComponents) => prevComponents.filter((component) => component.id !== componentId));
+  };  
+
 
 const toggleVisibility = (type) => {
     setActivePanel(type);
@@ -133,7 +140,7 @@ const toggleVisibility = (type) => {
     src="images/layerIcon.svg" 
     style={{ marginRight: '5px' }} 
 /> {component.name} 
-            <img id="delete"
+            <img id="delete" onClick={(event) => handleDeleteComponent(event, component.id)}
     src="images/trash.svg" 
     style={{ marginRight: '5px' }} 
 />
@@ -144,4 +151,5 @@ const toggleVisibility = (type) => {
     </div>
   );
 }
+
 
