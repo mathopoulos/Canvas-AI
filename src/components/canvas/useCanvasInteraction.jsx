@@ -36,6 +36,18 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         //addNewComponent("Test Component");
         addNewInput(selectedComponent, newShape).then(response => console.log(response));
         getAllInputsOfComponent().then(response => console.log(response));
+      } else if (shapeType === 'button') {
+        newShape.type = 'button';
+        newShape.width = 100;
+        newShape.height = 40;
+        newShape.borderRadius = 1;
+        newShape.strokeWidth = 3;
+        newShape.strokeColor = "#545454";
+        newShape.fillStyleColor = "#808080";
+        newShape.borderSides = {top: true, right: true, bottom: true, left: true};
+        newShape.placeholderText ="Button";
+        //addNewInput(selectedComponent, newShape).then(response => console.log(response));
+        //getAllInputsOfComponent().then(response => console.log(response));
       }
 
       setShapes([...shapes, newShape]);

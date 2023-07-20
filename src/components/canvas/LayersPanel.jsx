@@ -189,6 +189,7 @@ const handleComponentNameBlur = async (event) => {
             >
               <img
                 src="images/layerIcon.svg"
+                id = "#dragIcon"
                 style={{ marginRight: '5px' }}
               />{' '}
               {shape.name}
@@ -218,6 +219,7 @@ const handleComponentNameBlur = async (event) => {
                 padding: '10px 5px 5px 20px',
                 backgroundColor: 'transparent',
                 cursor: 'move',
+      
               }}
             >
               <img
