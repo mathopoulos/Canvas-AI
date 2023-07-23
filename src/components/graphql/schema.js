@@ -1,5 +1,7 @@
+// Import the necessary function from the "graphql" library to build a GraphQL schema
 import { buildSchema } from "graphql";
 
+// Define the GraphQL schema
 const schema = buildSchema(`
   type Query {
     shapes: [Input]
@@ -59,4 +61,5 @@ type Mutation {
   }
 `);
 
+// Export the defined schema so it can be used in other parts of the application
 export default schema;
