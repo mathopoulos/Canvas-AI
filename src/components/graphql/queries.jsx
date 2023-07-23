@@ -1,6 +1,10 @@
+// Import the request function from the 'graphql-request' library for making GraphQL requests
 import { request } from 'graphql-request';
 
+// Fetch all input shapes from the GraphQL server
 export const getAllInputs = async () => {
+  
+  // Define the GraphQL query to fetch all input shapes
   const query = `
     query {
       shapes {
@@ -27,15 +31,19 @@ export const getAllInputs = async () => {
   `;
 
   try {
+    // Execute the GraphQL query and return the response
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
     return response;
   } catch (error) {
+    // Log and return any errors that occur during the request
     console.error('Error getting inputs:', error);
     return null;
   }
 };
 
+// Fetch all components from the GraphQL server
 export const getAllComponents = async () => {
+  // Define the GraphQL query to fetch all components and their associated inputs
   const query = `{
   components {
     id
@@ -57,6 +65,7 @@ export const getAllComponents = async () => {
   }
 };
 
+// Fetch only the names and IDs of all components from the GraphQL server
 export const getAllComponentsNameAndId = async () => {
   const query = `{
   components {
@@ -74,6 +83,7 @@ export const getAllComponentsNameAndId = async () => {
   }
 };  
 
+// Fetch all inputs associated with a specific component from the GraphQL server
 export const getAllInputsOfComponent = async (componentId) => {
   const query = `
     query {
@@ -109,7 +119,7 @@ export const getAllInputsOfComponent = async (componentId) => {
   }
 };
 
-
+// Fetch a specific component by its ID from the GraphQL server
 export const getComponent = async (id) => {
   const query = `
 query {
