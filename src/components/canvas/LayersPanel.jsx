@@ -11,6 +11,7 @@ import {
 } from '/src/components/graphql/mutations.jsx';
 import '/src/App.css';
 
+// LayersPanel component: Displays a panel with layers and components.
 export default function LayersPanel({
   shapes,
   setSelectedShapeIndex,
@@ -19,11 +20,14 @@ export default function LayersPanel({
   setComponents,
   setSelectedComponent,
 }) {
+
+  // State for layers, active panel, and editing components
   const [layers, setLayers] = useState([]);
   const [activePanel, setActivePanel] = useState('layers'); // 'layers' or 'components'
   const [editComponentId, setEditComponentId] = useState(null);
   const [editComponentName, setEditComponentName] = useState("");
 
+  // Effect to set layers and fetch components from the database
   useEffect(() => {
     setLayers(shapes);
 
@@ -39,10 +43,11 @@ export default function LayersPanel({
     fetchComponents();
   }, [shapes, setComponents]);
 
-  useEffect(() => {}, [components]);
+  // Empty effects for components and activePanel (might be placeholders for future logic)
+  useEffect(() => { }, [components]);
+  useEffect(() => { }, [activePanel]);
 
-  useEffect(() => {}, [activePanel]);
-
+  // Function to add a new component to the database and update the state
   const addNewComponentToDBAndState = async (componentName) => {
     try {
       // this addNewComponent is the one defined in your mutations.js file
@@ -55,6 +60,7 @@ export default function LayersPanel({
     }
   };
 
+  // Drag and drop handlers for layers
   const handleDragStart = (event, index) => {
     event.dataTransfer.setData('text/plain', index);
   };
@@ -75,6 +81,7 @@ export default function LayersPanel({
     setSelectedShapeIndex(index);
   };
 
+  // Handlers for showing and hiding the delete icon on hover
   const handleMouseEnter = (event) => {
     const deleteIcon = event.currentTarget.querySelector('#delete');
     deleteIcon.style.display = 'block';
@@ -85,6 +92,7 @@ export default function LayersPanel({
     deleteIcon.style.display = 'none';
   };
 
+  // Handler to delete a component
   const handleDeleteComponent = (event, componentId) => {
     event.stopPropagation(); // Stop event propagation to prevent the parent div's onClick event from triggering
     deleteComponent(componentId); // Call your deleteComponent mutation or function here
@@ -93,7 +101,7 @@ export default function LayersPanel({
       prevComponents.filter((component) => component.id !== componentId)
     );
   };
-
+  // Handlers for editing component names
   const handleComponentNameDoubleClick = (event, componentId) => {
     setEditComponentId(componentId);
     const component = components.find((component) => component.id === componentId);
@@ -104,35 +112,36 @@ export default function LayersPanel({
     setEditComponentName(event.target.value);
   };
 
-const handleComponentNameBlur = async (event) => {
-  const updatedComponent = {
-    ...components.find((component) => component.id === editComponentId),
-    name: editComponentName,
+  const handleComponentNameBlur = async (event) => {
+    const updatedComponent = {
+      ...components.find((component) => component.id === editComponentId),
+      name: editComponentName,
+    };
+    console.log(updatedComponent);
+    try {
+      await updateComponent(updatedComponent.id, updatedComponent.name);
+
+      // Update the components state accordingly
+      setComponents((prevComponents) =>
+        prevComponents.map((component) =>
+          component.id === editComponentId ? updatedComponent : component
+        )
+      );
+
+      setEditComponentId(null);
+      setEditComponentName("");
+    } catch (error) {
+      console.error('Error updating component:', error);
+    }
   };
-  console.log(updatedComponent);
-  try {
-    await updateComponent(updatedComponent.id, updatedComponent.name);
-
-    // Update the components state accordingly
-    setComponents((prevComponents) =>
-      prevComponents.map((component) =>
-        component.id === editComponentId ? updatedComponent : component
-      )
-    );
-
-    setEditComponentId(null);
-    setEditComponentName("");
-  } catch (error) {
-    console.error('Error updating component:', error);
-  }
-};
 
 
-
+  // Function to toggle visibility between layers and components
   const toggleVisibility = (type) => {
     setActivePanel(type);
   };
 
+  // Render the LayersPanel with layers and components sections
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <div id="layersPanel">
@@ -189,7 +198,7 @@ const handleComponentNameBlur = async (event) => {
             >
               <img
                 src="images/layerIcon.svg"
-                id = "#dragIcon"
+                id="#dragIcon"
                 style={{ marginRight: '5px' }}
               />{' '}
               {shape.name}
@@ -219,7 +228,7 @@ const handleComponentNameBlur = async (event) => {
                 padding: '10px 5px 5px 20px',
                 backgroundColor: 'transparent',
                 cursor: 'move',
-      
+
               }}
             >
               <img
