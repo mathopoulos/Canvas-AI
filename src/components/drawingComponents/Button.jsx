@@ -1,4 +1,6 @@
+// Function to draw a button on a canvas
 export const drawButton = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText) => {
+  // Set the line width and fill style for the button
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = fillStyleColor;
 
