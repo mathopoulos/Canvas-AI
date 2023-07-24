@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Canvas from '/src/components/canvas/Canvas.jsx';
 import '/src/App.css';
 
+// SizeSection component: Displays input fields to adjust the size of a shape.
 const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
   <div className="section">
     <label id="positionTitle">Size</label>
     <div id="xInputDiv">
       <label id="xLabel" htmlFor="height">Height</label>
       <div id="xInputWrapper">
-        <input 
-          type="text" 
-          id="height" 
-          name="xValue" 
-          value={selectedShape ? selectedShape.height : ''} 
+        <input
+          type="text"
+          id="height"
+          name="xValue"
+          value={selectedShape ? selectedShape.height : ''}
           onChange={onHeightChange} />
       </div>
     </div>
@@ -26,54 +27,56 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
   </div>
 );
 
+// PlaceholderTextSection component: Displays input field to adjust the placeholder text of a shape.
 const PlaceholderTextSection = ({ selectedShape, onPlaceholderTextChange }) => (
   <div className="section4">
     <label id="positionTitle">Placeholder</label>
     <div id="xInputDiv">
       <label id="placeholderTextLabel" htmlFor="placeholderText">Text</label>
       <div id="xInputWrapper">
-        <input 
-          type="text" 
-          id="placeholderText" 
-          name="xValue" 
-          value={selectedShape ? selectedShape.placeholderText : ''} 
+        <input
+          type="text"
+          id="placeholderText"
+          name="xValue"
+          value={selectedShape ? selectedShape.placeholderText : ''}
           onChange={onPlaceholderTextChange} />
       </div>
     </div>
   </div>
 );
 
+// BorderSection component: Displays input fields and buttons to adjust the border properties of a shape.
 const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange, onBorderRadiusChange, onLeftBorderChange, onRightBorderChange, onTopBorderChange, onBottomBorderChange }) => (
   <div className="section2">
     <label id="positionTitle">Border</label>
     <div id="xInputDiv">
       <label id="xLabel" htmlFor="strokeWidth">Stroke</label>
       <div id="xInputWrapper">
-        <input 
-          type="text" 
+        <input
+          type="text"
           id="strokeWidth"
-          name="xValue" 
+          name="xValue"
           value={selectedShape ? selectedShape.strokeWidth : ''} onChange={onStrokeWidthChange} />
       </div>
     </div>
     <div id="xInputDiv">
       <label id="xLabel" htmlFor="colorPicker">Color</label>
       <div id="xInputWrapper">
-        <input 
-          type="color" 
-          id="colorPicker" 
-          value={selectedShape ? selectedShape.strokeColor : ''} 
+        <input
+          type="color"
+          id="colorPicker"
+          value={selectedShape ? selectedShape.strokeColor : ''}
           onChange={onStrokeColorChange} />
       </div>
     </div>
     <div id="xInputDiv">
       <label id="xLabel" htmlFor="borderRadius">Radius</label>
       <div id="xInputWrapper">
-        <input 
-          type="text" 
-          id="borderRadius" 
-          name="xValue" 
-          value={selectedShape ? selectedShape.borderRadius : ''} 
+        <input
+          type="text"
+          id="borderRadius"
+          name="xValue"
+          value={selectedShape ? selectedShape.borderRadius : ''}
           onChange={onBorderRadiusChange} />
       </div>
     </div>
@@ -86,22 +89,23 @@ const BorderSection = ({ selectedShape, onStrokeWidthChange, onStrokeColorChange
       <div id="sideIcons2">
         <button id="toolpanelButtons2" onClick={() => onTopBorderChange()} ><img id="toolpanelButtons3" src="images/Top.svg" alt="box-icon" /></button>
         <button id="toolpanelButtons2" onClick={() => onBottomBorderChange()}><img id="toolpanelButtons3" src="images/Bottom.svg" alt="box-icon" /></button>
-     
+
       </div>
     </div>
   </div>
 );
 
+// BackgroundSection component: Displays input field to adjust the background color of a shape.
 const BackgroundSection = ({ selectedShape, onFillStyleColorChange }) => (
   <div className="section3">
     <label id="positionTitle">Background</label>
     <div id="xInputDiv">
-      <label id = "xLabel" htmlFor="colorPicker">Color</label>
+      <label id="xLabel" htmlFor="colorPicker">Color</label>
       <div id="xInputWrapper">
-        <input 
-          type="color" 
-          id="colorPicker" 
-          value={selectedShape ? selectedShape.fillStyleColor : ''} 
+        <input
+          type="color"
+          id="colorPicker"
+          value={selectedShape ? selectedShape.fillStyleColor : ''}
           onChange={onFillStyleColorChange} />
       </div>
     </div>
@@ -109,6 +113,7 @@ const BackgroundSection = ({ selectedShape, onFillStyleColorChange }) => (
 );
 
 
+// ElementDetails component: Displays a panel with various sections to adjust properties of a selected shape.
 function ElementDetails({ selectedIndex, shapes, ...rest }) {
   const [selectedSections, setSelectedSections] = useState([]);
   const [filter, setFilter] = useState('');
@@ -152,11 +157,11 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
   return (
     <div id="colorPickerPanel">
       <div className="dropdown">
-        <input 
-          type="text" 
-          className="dropdown-input" 
-          placeholder="Search" 
-          value={filter} 
+        <input
+          type="text"
+          className="dropdown-input"
+          placeholder="Search"
+          value={filter}
           onChange={handleFilterChange}
           onBlur={handleInputBlur}
           onFocus={handleInputFocus}
@@ -165,9 +170,9 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
           <div className="dropdown-content" onMouseDown={e => e.preventDefault()}>
             {filteredOptions.map(option => (
               <label key={option.value} className="dropdown-item">
-                <input 
-                  type="checkbox" 
-                  value={option.value} 
+                <input
+                  type="checkbox"
+                  value={option.value}
                   checked={selectedSections.includes(option.value)}
                   onChange={handleCheckboxChange}
                 />
@@ -179,8 +184,8 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
       </div>
       {selectedSections.includes('size') && <SizeSection selectedShape={selectedShape} {...rest} />}
       {selectedSections.includes('border') && <BorderSection selectedShape={selectedShape} {...rest} />}
-      {selectedSections.includes('background') && <BackgroundSection selectedShape={selectedShape} {...rest}  />}
-      {selectedSections.includes('placeholder') && <PlaceholderTextSection selectedShape={selectedShape} {...rest}/>}
+      {selectedSections.includes('background') && <BackgroundSection selectedShape={selectedShape} {...rest} />}
+      {selectedSections.includes('placeholder') && <PlaceholderTextSection selectedShape={selectedShape} {...rest} />}
     </div>
   );
 }
