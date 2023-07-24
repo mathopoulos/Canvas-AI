@@ -1,6 +1,8 @@
-// CanvasElements.jsx
+// Importing necessary React module
 import React from 'react';
 
+// ResizingBox component: Represents a box with edges that can be dragged to resize an element.
+// Uses React's forwardRef to get a reference to the DOM element.
 export const ResizingBox = React.forwardRef(({ onMouseDown, onMouseMove, onMouseUp }, ref) => (
   <div
     ref={ref}
@@ -16,6 +18,8 @@ export const ResizingBox = React.forwardRef(({ onMouseDown, onMouseMove, onMouse
   </div>
 ));
 
+// CanvasElement component: Represents the main canvas where shapes are drawn.
+// Uses React's forwardRef to get a reference to the canvas DOM element.
 export const CanvasElement = React.forwardRef(({ onClick, onMouseDown, onMouseMove, onMouseUp }, ref) => (
   <canvas
     ref={ref}
