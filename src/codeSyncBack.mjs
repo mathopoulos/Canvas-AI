@@ -1,5 +1,4 @@
-
-
+// Variable to store the current HTML content for comparison purposes
 let currentHtml = ""; 
 
 //function that reads the html file from output.html
