@@ -1,17 +1,21 @@
+// Import necessary modules and components
 import React from 'react';
 import '/src/App.css';
 import {syncCodeFunction} from '/src/components/helpers.jsx';
 
-
+// Define the AppNavigation functional component
 export default function AppNavigation(props) {
-
+  // Destructure shapes from props
   const { shapes } = props;
+
+  // Define the event handler for the export button click
   const handleExportClick = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default behavior of the event
     console.log('Shapes:', shapes);
 
-    syncCodeFunction();}
-  
+    syncCodeFunction();} // Call the function to synchronize code
+
+  // Render the component
   return (
       <div className="titleDiv">
         <img id="titleImage" src="/images/view-list.svg" alt="box-icon" />
