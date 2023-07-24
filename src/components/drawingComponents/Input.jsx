@@ -1,58 +1,68 @@
+// Function to draw an input field on a canvas
 export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText) => {
+  // Set the line width and fill style for the input field
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = fillStyleColor;
 
-    // Start the path at the top left, just before the corner
+    // Begin drawing the input field from the top left, just before the corner
     ctx.beginPath();
     ctx.moveTo(x + borderRadius, y);
     console.log(strokeColor);
-    // Top border
+  
+    // Check and set the color for the top border
     if (borderSides.top) {
         ctx.strokeStyle = strokeColor;
     } else {
         ctx.strokeStyle = fillStyleColor;
     }
+  // Draw the top border of the input field
     ctx.lineTo(x + width - borderRadius, y);
     ctx.arcTo(x + width, y, x + width, y + borderRadius, borderRadius);
     ctx.stroke();
 
-    // Right border
+    // Check and set the color for the right border
     ctx.beginPath();
     if (borderSides.right) {
         ctx.strokeStyle = strokeColor;
     } else {
         ctx.strokeStyle = fillStyleColor;
     }
+  
+  // Draw the right border of the input field
     ctx.moveTo(x + width, y + borderRadius);
     ctx.lineTo(x + width, y + height - borderRadius);
     ctx.arcTo(x + width, y + height, x + width - borderRadius, y + height, borderRadius);
     ctx.stroke();
 
-    // Bottom border
+    // Check and set the color for the bottom border
     ctx.beginPath();
     if (borderSides.bottom) {
         ctx.strokeStyle = strokeColor;
     } else {
         ctx.strokeStyle = fillStyleColor;
     }
+  
+  // Draw the bottom border of the input field
     ctx.moveTo(x + width - borderRadius, y + height);
     ctx.lineTo(x + borderRadius, y + height);
     ctx.arcTo(x, y + height, x, y + height - borderRadius, borderRadius);
     ctx.stroke();
 
-    // Left border
+    // Check and set the color for the left border
     ctx.beginPath();
     if (borderSides.left) {
         ctx.strokeStyle = strokeColor;
     } else {
         ctx.strokeStyle = fillStyleColor;
     }
+
+  // Draw the left border of the input field
     ctx.moveTo(x, y + height - borderRadius);
     ctx.lineTo(x, y + borderRadius);
     ctx.arcTo(x, y, x + borderRadius, y, borderRadius);
     ctx.stroke();
 
-    // Fill
+    // Fill the input field with the specified fill color
     ctx.beginPath();
     ctx.moveTo(x + borderRadius, y);
     ctx.lineTo(x + width - borderRadius, y);
@@ -66,7 +76,7 @@ export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, st
     ctx.closePath();
     ctx.fill();
 
-    // Draws placeholder text defined for input 
+    // Set the font properties and draw the placeholder text in the center of the input field
     ctx.font = "14px Helvetica";
     ctx.fillStyle = "grey";
     ctx.textAlign = "left";
