@@ -3,21 +3,23 @@ import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputs, getAllInputsOfComponent} from '/src/components/graphql/queries.jsx';
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText } from '/src/components/graphql/mutations.jsx';
+
+// Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
+  // Handle canvas click events
   const handleClick = (e) => {
   if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
     if (shapeIndex === null) {
-      
       const newShape = createNewShape(shapeType, offsetX, offsetY);
 
-
+      // Define properties based on the shape type
       if (shapeType === 'square') {
         newShape.size = 50;
       } else if (shapeType === 'circle') {
@@ -60,11 +62,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   }
 };
 
-  
-
-
-
-
+// Handle mouse down events on the canvas
 const handleMouseDown = (e) => {
   const { offsetX, offsetY } = e.nativeEvent;
   const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
@@ -76,8 +74,7 @@ const handleMouseDown = (e) => {
   }
 };
 
-
-
+// Handle mouse move events on the canvas
 const handleMouseMove = (e) => {
   if (dragging) {
     const { offsetX, offsetY } = e.nativeEvent;
@@ -91,7 +88,7 @@ const handleMouseMove = (e) => {
       let changedShape = newShapes[selectedShapeIndex];
       updateInputPosition(changedShape.id, changedShape.x, changedShape.y);
 
-      // Update the resizing box position directly
+      // Update the resizing box position directly for 'input' type
       if (shape.type === 'input') {
         resizingBoxRef.current.style.left = `${updatedShape.x}px`;
         resizingBoxRef.current.style.top = `${updatedShape.y}px`;
@@ -102,14 +99,13 @@ const handleMouseMove = (e) => {
   }
 };
 
-
-
-
+// Handle mouse up events on the canvas
 const handleMouseUp = () => {
   setResizing(false);
   setDragging(false);
 };
 
+  // Handle height change for a shape
 const handleHeightChange = (e) => {
   if (selectedShapeIndex !== null) {
     const newHeight = parseFloat(e.target.value);
@@ -125,6 +121,7 @@ const handleHeightChange = (e) => {
   }
 };
 
+  // Handle width change for a shape
 const handleWidthChange = (e) => {
   if (selectedShapeIndex !== null) {
     const newWidth = parseFloat(e.target.value);
@@ -330,6 +327,7 @@ const handlePlaceholderTextChange = (e) => {
 };
     
 
+// Add global mouse up event listener  
 useEffect(() => {
     window.addEventListener('mouseup', handleMouseUp);
     return () => {
@@ -337,7 +335,7 @@ useEffect(() => {
     };
   }, []);  
 
-//change to 'Delete'  
+// Add global keydown event listener to handle shape deletion
 useEffect(() => {
   const handleKeyDown = (e) => {
     if (e.key === 'Backspace' && document.activeElement.tagName !== 'INPUT') {
@@ -354,7 +352,7 @@ useEffect(() => {
 }, [handleDeleteShape]); // add handleDeleteShape to the dependency array
 
 
-
+// Return all the handler functions
 return {
     handleClick,
     handleMouseDown,
