@@ -1,7 +1,7 @@
 import React from 'react';
 import '/src/App.css';
 
-
+// Toolbar component: Displays a set of tools/icons that allow the user to select different shapes.
 function Toolbar({ setShape }) {
   
   return (
