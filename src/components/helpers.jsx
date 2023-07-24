@@ -1,10 +1,14 @@
+// Import the request function from the 'graphql-request' library for making GraphQL requests
 import { request } from 'graphql-request';
 
+// Counters to keep track of the number of shapes created
 let inputCounter = 1;
 let squareCounter = 1;
 let circleCounter = 1;
 
+// Function to determine which shape (if any) is under the given x, y coordinates
 export const findShapeUnderCursor = (shapes, x, y) => {
+  // Iterate through the shapes in reverse order (topmost shape first)
   for (let i = shapes.length - 1; i >= 0; i--) {
     const shape = shapes[i];
     if (shape.type === 'square') {
@@ -26,9 +30,11 @@ export const findShapeUnderCursor = (shapes, x, y) => {
       }
     }
   }
+  // Return null if no shape is found under the cursor
   return null;
 };
 
+// Function to update the display and position of the resizing box based on the selected shape
 export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
   if (resizingBoxRef.current === null) {
     return;
@@ -54,6 +60,7 @@ export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
   }
 };
 
+// Function to update the cursor style based on its position relative to the resizing box
 export const updateCursor = (resizingBoxRef, e) => {
   const resizingBox = resizingBoxRef.current;
   if (resizingBox) {
@@ -77,6 +84,7 @@ export const updateCursor = (resizingBoxRef, e) => {
   }
 };
 
+// Function to create a new shape object based on the given type and position
 export const createNewShape = (shapeType, offsetX, offsetY) => {
   const newShape = { x: offsetX, y: offsetY, type: shapeType };
   if (shapeType === 'square') {
@@ -98,7 +106,7 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
   return newShape;
 };
 
-
+// Function to update the index values of shapes based on a new order
 export const updateShapeIndexes = (shapes, newOrder) => {
   return newOrder.map((newIndex, oldIndex) => {
     const shape = shapes[oldIndex];
@@ -106,9 +114,10 @@ export const updateShapeIndexes = (shapes, newOrder) => {
   });
 };
 
+// Function to add a new input shape to the database
 export const addNewInput = async (input) => {
   const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name } = input;
-  
+
   const mutation = `
     mutation {
       addInput(
@@ -162,7 +171,7 @@ export const addNewInput = async (input) => {
   }
 };
 
-
+// Function to retrieve all input shapes from the database
 export const getAllInputs = async () => {
   const query = `
     query {
@@ -198,8 +207,9 @@ export const getAllInputs = async () => {
   }
 };
 
+// Function to update the height of an input shape in the database
 export const updateInputHeight = async (id, height) => {
-  
+
   const mutation = `
     mutation {
       updateInput(
@@ -236,8 +246,9 @@ export const updateInputHeight = async (id, height) => {
   }
 };
 
+// Function to update the width of an input shape in the database
 export const updateInputWidth = async (id, width) => {
-  
+
   const mutation = `
     mutation {
       updateInput(
@@ -274,16 +285,17 @@ export const updateInputWidth = async (id, width) => {
   }
 };
 
+// Function to synchronize the code with the server
 export function syncCodeFunction() {
-  
-fetch('https://canvas-v3.alexandrosmatho.repl.co/graphql', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  },
-  body: JSON.stringify({
-    query: `
+  // Send a GraphQL mutation request to sync the code
+  fetch('https://canvas-v3.alexandrosmatho.repl.co/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
       mutation {
         syncCode {
           status
@@ -291,8 +303,8 @@ fetch('https://canvas-v3.alexandrosmatho.repl.co/graphql', {
         }
       }
     `,
-  }),
-})
-  .then(r => r.json())
-  .then(data => console.log('data returned:', data));
+    }),
+  })
+    .then(r => r.json())
+    .then(data => console.log('data returned:', data));
 }
