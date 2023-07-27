@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
-import {getAllInputs, getAllInputsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText } from '/src/components/graphql/mutations.jsx';
+import {getAllInputs, getAllInputsOfComponent, getAllButtonsOfComponent} from '/src/components/graphql/queries.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton } from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
@@ -47,9 +47,9 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.strokeColor = "#545454";
         newShape.fillStyleColor = "#808080";
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
-        newShape.placeholderText ="Button";
-        //addNewInput(selectedComponent, newShape).then(response => console.log(response));
-        //getAllInputsOfComponent().then(response => console.log(response));
+        newShape.text ="Button";
+        addNewButton(selectedComponent, newShape).then(response => console.log(response));
+        getAllButtonsOfComponent().then(response => console.log(response));
       }
 
       setShapes([...shapes, newShape]);
@@ -308,9 +308,11 @@ const handleDeleteShape = () => {
   if (selectedShapeIndex !== null) {
     let deletedShape = shapes[selectedShapeIndex];
     const updatedShapes = shapes.filter((shape, index) => index !== selectedShapeIndex);
-    console.log(deletedShape.id)
-    deleteInput(deletedShape.id);
-    setShapes(updatedShapes);
+    if(deletedShape.type === "input") {deleteInput(deletedShape.id);}
+    else if (deletedShape.type === "button") {
+      deleteButton(deletedShape.id);
+    }
+    setShapes(updatedShapes) 
     setSelectedShapeIndex(null); // Deselect the shape after deleting
     
   }

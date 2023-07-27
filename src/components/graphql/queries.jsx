@@ -2,7 +2,7 @@
 import { request } from 'graphql-request';
 
 // Fetch all input shapes from the GraphQL server
-export const getAllInputs = async () => {
+export const getAllShapes = async () => {
   
   // Define the GraphQL query to fetch all input shapes
   const query = `
@@ -49,6 +49,11 @@ export const getAllComponents = async () => {
     id
     name
     inputs {
+      id
+      type
+      name
+    }
+    buttons {
       id
       type
       name
@@ -115,6 +120,42 @@ export const getAllInputsOfComponent = async (componentId) => {
     return response;
   } catch (error) {
     console.error('Error getting inputs:', error);
+    return null;
+  }
+};
+
+// Fetch all buttons associated with a specific component from the GraphQL server
+export const getAllButtonsOfComponent = async (componentId) => {
+  const query = `
+    query {
+  buttonsByComponent(componentId: "${componentId}") {
+    id
+    name
+    type
+    width
+    height
+    x
+    y
+    borderRadius
+    strokeWidth
+    strokeColor
+    fillStyleColor
+    text
+    borderSides {
+      top
+      right
+      bottom
+      left
+    }
+  }
+}
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
+    return response;
+  } catch (error) {
+    console.error('Error getting buttons:', error);
     return null;
   }
 };

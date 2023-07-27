@@ -31,6 +31,26 @@ export const addNewComponent = async (name) => {
           }
           name
         }
+        buttons {
+        id
+        name
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+          top
+          right
+          bottom
+          left
+        }
+        name
+        }
       }
     }
   `;
@@ -94,6 +114,26 @@ export const updateComponent = async (id, name) => {
             left
           }
           name
+        }
+                buttons {
+        id
+        name
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+          top
+          right
+          bottom
+          left
+        }
+        name
         }
       }
     }
@@ -167,7 +207,66 @@ export const addNewInput = async (parentId, input) => {
   }
 };
 
-// Function to delete an input from a component in the database
+// Function to add a new button to a component in the database
+export const addNewButton = async (parentId, button) => {
+  // Destructure the button object to get individual fields
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, text, name, borderSides} = button;
+
+  // GraphQL mutation for adding a new input to a component
+  const mutation = `
+    mutation {
+      addButton(
+        parentId: "${parentId}", 
+        type: "${type}", 
+        width: ${width}, 
+        height: ${height}, 
+        x: ${x}, 
+        y: ${y}, 
+        borderRadius: ${borderRadius}, 
+        strokeWidth: ${strokeWidth}, 
+        strokeColor: "${strokeColor}", 
+        fillStyleColor: "${fillStyleColor}", 
+        text: "${text}",
+        name: "${name}",
+        borderSides: {
+        top: true,
+        right: true,
+        bottom: true,
+        left: true
+      }
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        name
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error adding new button:', error);
+    return null;
+  }
+};
+
+// Function to update an input height 
 export const updateInputHeight = async (id, height) => {
   // GraphQL mutation for updating the height of an input
   const mutation = `
@@ -202,6 +301,45 @@ export const updateInputHeight = async (id, height) => {
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update an input height 
+export const updateButtonHeight = async (id, height) => {
+  // GraphQL mutation for updating the height of an input
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        height: ${height}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
     return null;
   }
 };
@@ -245,6 +383,45 @@ export const updateInputWidth = async (id, width) => {
   }
 };
 
+// Function to update the border sides of an button in the database
+export const updateButtonWidth = async (id, width) => {
+  // GraphQL mutation for updating the width of an button
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        width: ${width}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
+    return null;
+  }
+};
+
 // Function to update the border sides of an input in the database
 export const updateInputStrokeWidth = async (id, strokeWidth) => {
   // GraphQL mutation for updating the stroke width of an input
@@ -284,6 +461,45 @@ export const updateInputStrokeWidth = async (id, strokeWidth) => {
   }
 };
 
+// Function to update the border sides of an button in the database
+export const updateButtonStrokeWidth = async (id, strokeWidth) => {
+  // GraphQL mutation for updating the stroke width of an button
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        strokeWidth: ${strokeWidth}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
+    return null;
+  }
+};
+
 // Function to update the border sides of an input in the database
 export const updateInputStrokeColor = async (id, strokeColor) => {
   // GraphQL mutation for updating the stroke color of an input
@@ -303,7 +519,7 @@ export const updateInputStrokeColor = async (id, strokeColor) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        placeholderText
+        placeHolderText
         borderSides {
         top
         right
@@ -319,6 +535,45 @@ export const updateInputStrokeColor = async (id, strokeColor) => {
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an button in the database
+export const updateButtonStrokeColor = async (id, strokeColor) => {
+  // GraphQL mutation for updating the stroke color of an button
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        strokeColor: "${strokeColor}", 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error  updating button:', error);
     return null;
   }
 };
@@ -358,6 +613,45 @@ export const updateInputFillStyleColor = async (id, fillStyleColor) => {
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an button in the database
+export const updateButtonFillStyleColor = async (id, fillStyleColor) => {
+  // GraphQL mutation for updating the fill style color of an button
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        fillStyleColor: "${fillStyleColor}", 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
     return null;
   }
 };
@@ -406,6 +700,50 @@ export const updateInputBorderSides = async (id, borderSides) => {
   }
 };
 
+// Function to update the border sides of an button in the database
+export const updateButtonBorderSides = async (id, borderSides) => {
+  // GraphQL mutation for updating the border sides of an button
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        borderSides: {
+          top: ${borderSides.top},
+          right: ${borderSides.right},
+          bottom: ${borderSides.bottom},
+          left: ${borderSides.left}
+        } 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
+    return null;
+  }
+};
+
 // Function to update the border sides of an input in the database
 export const updateInputBorderRadius = async (id, borderRadius) => {
   // GraphQL mutation for updating the border radius of an input
@@ -441,6 +779,45 @@ export const updateInputBorderRadius = async (id, borderRadius) => {
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an button in the database
+export const updateButtonBorderRadius = async (id, borderRadius) => {
+  // GraphQL mutation for updating the border radius of an button
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        borderRadius: ${borderRadius}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
     return null;
   }
 };
@@ -485,6 +862,46 @@ export const updateInputPosition = async (id, x, y) => {
   }
 };
 
+// Function to update the postiton of an button in the database
+export const updateButtonPosition = async (id, x, y) => {
+  // GraphQL mutation for updating the position of an button
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        x: ${x}, 
+        y: ${y}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
+    return null;
+  }
+};
+
 // Function to update the border sides of an input in the database
 export const updateInputSize = async (id, height, width) => {
   // GraphQL mutation for updating the size of an input
@@ -525,6 +942,47 @@ export const updateInputSize = async (id, height, width) => {
   }
 };
 
+// Function to update the border sides of an button in the database
+export const updateButtonSize = async (id, height, width) => {
+  // GraphQL mutation for updating the size of an input
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        height: ${height}, 
+        width: ${width}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
+    return null;
+  }
+};
+
+
 // Function to update the border sides of an input in the database
 export const deleteInput = async (id) => {
   // GraphQL mutation for deleting an input
@@ -541,6 +999,26 @@ export const deleteInput = async (id) => {
     return response.deleteInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to delete button
+export const deleteButton = async (id) => {
+  // GraphQL mutation for deleting an input
+  const mutation = `
+    mutation {
+      deleteButton(
+        id: "${id}",
+      )
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.deleteButton;
+  } catch (error) {
+    console.error('Error deleting button:', error);
     return null;
   }
 };
@@ -580,6 +1058,45 @@ export const updateInputPlaceholderText = async (id, placeholderText) => {
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an input in the database
+export const updateButtonText = async (id, text) => {
+  // GraphQL mutation for updating the placeholder text of an input
+  const mutation = `
+    mutation {
+      updateButton(
+        id: "${id}",
+        text: "${text}", 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        text
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addButton;
+  } catch (error) {
+    console.error('Error updating button:', error);
     return null;
   }
 };
