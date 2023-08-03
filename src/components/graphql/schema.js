@@ -18,7 +18,7 @@ type Mutation {
     updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput, name: String): Input
     deleteInput(id: ID!): Boolean
     addButton(parentId: ID!, type: String, x: Int!, y: Int!, width: Int!, height: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, text: String!, borderSides: BorderSidesInput, name: String!): Button
-    updateButton(id: ID!, x: Int!, y: Int!, width: Int!, height: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, text: String!, borderSides: BorderSidesInput, name: String!): Button
+    updateButton(id: ID!, x: Int, y: Int, width: Int, height: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, text: String, borderSides: BorderSidesInput, name: String): Button
     deleteButton(id: ID!): Boolean
     syncCode: Status
   }

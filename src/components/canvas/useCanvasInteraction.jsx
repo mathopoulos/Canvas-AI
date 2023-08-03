@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputs, getAllInputsOfComponent, getAllButtonsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton } from '/src/components/graphql/mutations.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth } from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
@@ -86,7 +86,11 @@ const handleMouseMove = (e) => {
     requestAnimationFrame(() => {
       setShapes(newShapes);
       let changedShape = newShapes[selectedShapeIndex];
-      updateInputPosition(changedShape.id, changedShape.x, changedShape.y);
+      if (changedShape.type === 'input') {
+      updateInputPosition(changedShape.id, changedShape.x, changedShape.y);}
+      else if (changedShape.type === 'button') {
+        updateButtonPosition(changedShape.id, changedShape.x, changedShape.y);
+      }
 
       // Update the resizing box position directly for 'input' type
       if (shape.type === 'input') {
@@ -115,7 +119,11 @@ const handleHeightChange = (e) => {
       );
       setShapes(updatedShapes);
       let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputHeight(updatedShape.id, updatedShape.height);
+      if (updatedShape.type === 'input') {
+      updateInputHeight(updatedShape.id, updatedShape.height);} 
+      else if (updatedShape.type === 'button') {
+        updateButtonHeight(updatedShape.id, updatedShape.height);
+      }
 
     }
   }
@@ -131,7 +139,11 @@ const handleWidthChange = (e) => {
       );
       setShapes(updatedShapes);
       let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputWidth(updatedShape.id, updatedShape.width);
+            if (updatedShape.type === 'input') {
+      updateInputWidth(updatedShape.id, updatedShape.height);} 
+      else if (updatedShape.type === 'button') {
+        updateButtonWidth(updatedShape.id, updatedShape.height);
+      }
     }
   }
 };  
@@ -294,9 +306,12 @@ if (resizing && resizingEdge && selectedShapeIndex !== null) {
     newShapes[selectedShapeIndex] = updatedShape;
     setShapes(newShapes);
     let changedShape = newShapes[selectedShapeIndex]
+  if (changedShape.type === 'input') {
     updateInputSize(changedShape.id, changedShape.height, changedShape.width);
   }
-};
+  else if (changedShape.type === 'button') {
+    updateButtonSize(changedShape.id, changedShape.height, changedShape.width);
+};}}
 
 
 const handleResizeMouseUp = () => {

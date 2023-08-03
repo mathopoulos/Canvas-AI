@@ -415,7 +415,7 @@ export const updateButtonWidth = async (id, width) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;
@@ -493,7 +493,7 @@ export const updateButtonStrokeWidth = async (id, strokeWidth) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;
@@ -571,7 +571,7 @@ export const updateButtonStrokeColor = async (id, strokeColor) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error  updating button:', error);
     return null;
@@ -649,7 +649,7 @@ export const updateButtonFillStyleColor = async (id, fillStyleColor) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;
@@ -737,7 +737,7 @@ export const updateButtonBorderSides = async (id, borderSides) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;
@@ -815,7 +815,7 @@ export const updateButtonBorderRadius = async (id, borderRadius) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;
@@ -895,7 +895,7 @@ export const updateButtonPosition = async (id, x, y) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;
@@ -975,7 +975,7 @@ export const updateButtonSize = async (id, height, width) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;
@@ -1094,7 +1094,7 @@ export const updateButtonText = async (id, text) => {
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
-    return response.addButton;
+    return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
     return null;

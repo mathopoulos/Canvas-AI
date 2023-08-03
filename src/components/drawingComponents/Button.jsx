@@ -7,7 +7,6 @@ export const drawButton = (ctx, width, height, x, y, borderRadius, isSelected, s
     // Start the path at the top left, just before the corner
     ctx.beginPath();
     ctx.moveTo(x + borderRadius, y);
-    console.log(strokeColor);
     // Top border
     if (borderSides.top) {
         ctx.strokeStyle = strokeColor;
