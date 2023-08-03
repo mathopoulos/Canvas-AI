@@ -42,7 +42,7 @@ export const addNewComponent = async (name) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
           top
           right
@@ -126,7 +126,7 @@ export const updateComponent = async (id, name) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
           top
           right
@@ -210,7 +210,7 @@ export const addNewInput = async (parentId, input) => {
 // Function to add a new button to a component in the database
 export const addNewButton = async (parentId, button) => {
   // Destructure the button object to get individual fields
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, text, name, borderSides} = button;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, name, borderSides} = button;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `
@@ -226,7 +226,7 @@ export const addNewButton = async (parentId, button) => {
         strokeWidth: ${strokeWidth}, 
         strokeColor: "${strokeColor}", 
         fillStyleColor: "${fillStyleColor}", 
-        text: "${text}",
+        placeholderText: "${placeholderText}",
         name: "${name}",
         borderSides: {
         top: true,
@@ -245,7 +245,7 @@ export const addNewButton = async (parentId, button) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         name
         borderSides {
         top
@@ -324,7 +324,7 @@ export const updateButtonHeight = async (id, height) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -402,7 +402,7 @@ export const updateButtonWidth = async (id, width) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -480,7 +480,7 @@ export const updateButtonStrokeWidth = async (id, strokeWidth) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -558,7 +558,7 @@ export const updateButtonStrokeColor = async (id, strokeColor) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -636,7 +636,7 @@ export const updateButtonFillStyleColor = async (id, fillStyleColor) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -724,7 +724,7 @@ export const updateButtonBorderSides = async (id, borderSides) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -802,7 +802,7 @@ export const updateButtonBorderRadius = async (id, borderRadius) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -882,7 +882,7 @@ export const updateButtonPosition = async (id, x, y) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -962,7 +962,7 @@ export const updateButtonSize = async (id, height, width) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right
@@ -1063,13 +1063,13 @@ export const updateInputPlaceholderText = async (id, placeholderText) => {
 };
 
 // Function to update the border sides of an input in the database
-export const updateButtonText = async (id, text) => {
+export const updateButtonText = async (id, placeholderText) => {
   // GraphQL mutation for updating the placeholder text of an input
   const mutation = `
     mutation {
       updateButton(
         id: "${id}",
-        text: "${text}", 
+        placeholderText: "${placeholderText}", 
       ) {
         id
         type
@@ -1081,7 +1081,7 @@ export const updateButtonText = async (id, text) => {
         strokeWidth
         strokeColor
         fillStyleColor
-        text
+        placeholderText
         borderSides {
         top
         right

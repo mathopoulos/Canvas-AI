@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputs, getAllInputsOfComponent, getAllButtonsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth } from '/src/components/graphql/mutations.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText } from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
@@ -47,7 +47,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.strokeColor = "#545454";
         newShape.fillStyleColor = "#808080";
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
-        newShape.text ="Button";
+        newShape.placeholderText ="Button";
         addNewButton(selectedComponent, newShape).then(response => console.log(response));
         getAllButtonsOfComponent().then(response => console.log(response));
       }
@@ -157,7 +157,10 @@ const handleStrokeWidthChange = (e) => {
       );
       setShapes(updatedShapes);
       let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputStrokeWidth(updatedShape.id, updatedShape.strokeWidth);
+      if (updatedShape.type === 'input') {
+      updateInputStrokeWidth(updatedShape.id, updatedShape.strokeWidth);}
+      else if (updatedShape.type === 'button') {
+        updateButtonStrokeWidth(updatedShape.id, updatedShape.strokeWidth);}
 
     }
   }
@@ -173,7 +176,10 @@ const handleStrokeColorChange = (e) => {
       );
       setShapes(updatedShapes);
       let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputStrokeColor(updatedShape.id, updatedShape.strokeColor);
+      if (updatedShape.type === 'input') {
+      updateInputStrokeColor(updatedShape.id, updatedShape.strokeColor);}
+      else if (updatedShape.type === 'button') {
+        updateButtonStrokeColor(updatedShape.id, updatedShape.strokeColor);}
     }
   }
 };    
@@ -188,9 +194,12 @@ const handleFillStyleColorChange = (e) => {
       );
       setShapes(updatedShapes);
       let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputFillStyleColor(updatedShape.id, updatedShape.fillStyleColor);
+      if (updatedShape.type === 'input') {
+      updateInputFillStyleColor(updatedShape.id, updatedShape.fillStyleColor);}
+      else if (updatedShape.type === 'button') {
+        updateButtonFillStyleColor(updatedShape.id, updatedShape.fillStyleColor);}
     }
-  }
+    }
 }; 
 
 const handleLeftBorderChange = (e) => {
@@ -202,9 +211,12 @@ const handleLeftBorderChange = (e) => {
         );
         setShapes(updatedShapes);
       let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
+      if (updatedShape.type === 'input') {
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);}
+      else if (updatedShape.type === 'button') {
+        updateButtonBorderSides(updatedShape.id, updatedShape.borderSides);}
     }
-};
+    };
   
 const handleRightBorderChange = (e) => {
     if (selectedShapeIndex !== null) {
@@ -215,7 +227,10 @@ const handleRightBorderChange = (e) => {
         );
         setShapes(updatedShapes);
         let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
+      if (updatedShape.type === 'input') {
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);}
+      else if (updatedShape.type === 'button') {
+        updateButtonBorderSides(updatedShape.id, updatedShape.borderSides);}
     }
 };
 
@@ -228,7 +243,10 @@ const handleTopBorderChange = (e) => {
         );
         setShapes(updatedShapes);
         let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
+      if (updatedShape.type === 'input') {
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);}
+      else if (updatedShape.type === 'button') {
+        updateButtonBorderSides(updatedShape.id, updatedShape.borderSides);}
     }
 };
   
@@ -241,7 +259,10 @@ const handleBottomBorderChange = (e) => {
         );
         setShapes(updatedShapes);
         let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);
+      if (updatedShape.type === 'input') {
+      updateInputBorderSides(updatedShape.id, updatedShape.borderSides);}
+      else if (updatedShape.type === 'button') {
+        updateButtonBorderSides(updatedShape.id, updatedShape.borderSides);}
     }
 };
   
@@ -255,9 +276,12 @@ const handleBorderRadiusChange = (e) => {
       );
       setShapes(updatedShapes);
       let updatedShape = updatedShapes[selectedShapeIndex];
-      updateInputBorderRadius(updatedShape.id, updatedShape.borderRadius);
+      if (updatedShape.type === 'input') {
+      updateInputBorderRadius(updatedShape.id, updatedShape.borderRadius);}
+      else if (updatedShape.type === 'button') {
+        updateButtonBorderRadius(updatedShape.id, updatedShape.borderRadius);}
     }
-  }
+    }
 };    
 
 const handleResizeMouseDown = (e) => {
@@ -339,8 +363,12 @@ const handlePlaceholderTextChange = (e) => {
   );
   setShapes(updatedShapes);
   let updatedShape = updatedShapes[selectedShapeIndex];
-  updateInputPlaceholderText(updatedShape.id, updatedShape.placeholderText);
+  if (updatedShape.type === 'input') {
+  updateInputPlaceholderText(updatedShape.id, updatedShape.placeholderText);}
+  else if (updatedShape.type === 'button') {
+    updateButtonText(updatedShape.id, updatedShape.placeholderText);
 
+}
 };
     
 

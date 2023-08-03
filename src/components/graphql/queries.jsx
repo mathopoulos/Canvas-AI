@@ -140,7 +140,7 @@ export const getAllButtonsOfComponent = async (componentId) => {
     strokeWidth
     strokeColor
     fillStyleColor
-    text
+    placeholderText
     borderSides {
       top
       right

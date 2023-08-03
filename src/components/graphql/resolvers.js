@@ -111,7 +111,7 @@ buttonsByComponent: ({ componentId }) => {
   },
 
 // Add a new button to a component in the database
-addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, text, borderSides, name}) => {
+addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name}) => {
     const newButton = {
         id: crypto.randomUUID(),
         type,
@@ -123,7 +123,7 @@ addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, st
         strokeWidth,
         strokeColor,
         fillStyleColor,
-        text,
+        placeholderText,
         borderSides,
         name,
     };
