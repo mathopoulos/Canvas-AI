@@ -23,6 +23,8 @@ export const addNewComponent = async (name) => {
           strokeColor
           fillStyleColor
           placeholderText
+          placeholderTextFont
+          placeholderTextFillStyle
           borderSides {
             top
             right
@@ -107,6 +109,8 @@ export const updateComponent = async (id, name) => {
           strokeColor
           fillStyleColor
           placeholderText
+          placeholderTextFont 
+          placeholderTextFillStyle
           borderSides {
             top
             right
@@ -151,7 +155,7 @@ export const updateComponent = async (id, name) => {
 // Function to add a new input to a component in the database
 export const addNewInput = async (parentId, input) => {
   // Destructure the input object to get individual fields
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, name, borderSides} = input;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, name, borderSides} = input;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `
@@ -168,6 +172,9 @@ export const addNewInput = async (parentId, input) => {
         strokeColor: "${strokeColor}", 
         fillStyleColor: "${fillStyleColor}", 
         placeholderText: "${placeholderText}",
+        placeholderTextFont: "${placeholderTextFont}" 
+        placeholderTextFillStyle: 
+        "${placeholderTextFillStyle}"
         name: "${name}",
         borderSides: {
         top: true,
@@ -187,6 +194,8 @@ export const addNewInput = async (parentId, input) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         name
         borderSides {
         top
@@ -286,6 +295,8 @@ export const updateInputHeight = async (id, height) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -364,6 +375,8 @@ export const updateInputWidth = async (id, width) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -520,6 +533,8 @@ export const updateInputStrokeColor = async (id, strokeColor) => {
         strokeColor
         fillStyleColor
         placeHolderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -598,6 +613,8 @@ export const updateInputFillStyleColor = async (id, fillStyleColor) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -681,6 +698,8 @@ export const updateInputBorderSides = async (id, borderSides) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -764,6 +783,8 @@ export const updateInputBorderRadius = async (id, borderRadius) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -843,6 +864,8 @@ export const updateInputPosition = async (id, x, y) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -923,6 +946,8 @@ export const updateInputSize = async (id, height, width) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right
@@ -1043,6 +1068,90 @@ export const updateInputPlaceholderText = async (id, placeholderText) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an input in the database
+export const updateInputPlaceholderTextFont = async (id, placeholderTextFont) => {
+  // GraphQL mutation for updating the placeholder text of an input
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        placeholderTextFont: "${placeholderTextFont}", 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an input in the database
+export const updateInputPlaceholderTextFillStyle = async (id, placeholderTextFillStyle) => {
+  // GraphQL mutation for updating the placeholder text of an input
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        placeholderTextFillStyle: "${placeholderTextFillStyle}", 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
         borderSides {
         top
         right

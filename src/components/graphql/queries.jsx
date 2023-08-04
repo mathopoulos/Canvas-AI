@@ -105,6 +105,8 @@ export const getAllInputsOfComponent = async (componentId) => {
     strokeColor
     fillStyleColor
     placeholderText
+    placeholderTextFont, 
+    placeholderTextFillStyle,
     borderSides {
       top
       right
