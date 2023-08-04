@@ -113,7 +113,7 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
     newShape.height = 50;
     newShape.borderRadius = 5;
     newShape.placeholderTextFont = 'Arial';
-    newShape.placeholderTextFillStyle = 'grey'
+    newShape.placeholderTextFillStyle = 'blue'
     inputCounter++; // Increment the counter for the next input
   }
   else if (shapeType === 'button') {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputs, getAllInputsOfComponent, getAllButtonsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText } from '/src/components/graphql/mutations.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont } from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
@@ -372,6 +372,20 @@ const handlePlaceholderTextChange = (e) => {
 
 }
 };
+
+const handlePlaceholderTextFontChange = (e) => {
+  const updatedShapes = shapes.map((shape, index) =>
+    index === selectedShapeIndex ? { ...shape, placeholderTextFont: e.target.value } : shape
+  );
+  setShapes(updatedShapes);
+  let updatedShape = updatedShapes[selectedShapeIndex];
+  if (updatedShape.type === 'input') {
+    updateInputPlaceholderTextFont(updatedShape.id, updatedShape.placeholderTextFont);
+  } else if (updatedShape.type === 'button') {
+    updateButtonText(updatedShape.id, updatedShape.placeholderText);
+  }
+}; 
+
     
 
 // Add global mouse up event listener  
@@ -420,6 +434,7 @@ return {
     handleBottomBorderChange, 
     handleDeleteShape,
     handlePlaceholderTextChange,
+    handlePlaceholderTextFontChange
     
   
   };
