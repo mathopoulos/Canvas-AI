@@ -42,6 +42,17 @@ const PlaceholderTextSection = ({ selectedShape, onPlaceholderTextChange }) => (
           onChange={onPlaceholderTextChange} />
       </div>
     </div>
+    <div id="xInputDiv">
+      <label id="placeholderTextLabel" htmlFor="placeholderText">Font</label>
+      <div id="xInputWrapper">
+        <input
+          type="text"
+          id="placeholderText"
+          name="xValue"
+          value={selectedShape ? selectedShape.placeholderTextFont : ''}
+          onChange={onPlaceholderTextChange} />
+      </div>
+    </div>
   </div>
 );
 
