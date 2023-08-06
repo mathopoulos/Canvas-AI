@@ -85,5 +85,3 @@ export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, st
 }
 
 
-   // ctx.font = "14px Helvetica";
-    //ctx.fillStyle = "grey";
