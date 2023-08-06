@@ -107,6 +107,7 @@ export const getAllInputsOfComponent = async (componentId) => {
     placeholderText
     placeholderTextFont, 
     placeholderTextFillStyle,
+    placeholderTextSize
     borderSides {
       top
       right

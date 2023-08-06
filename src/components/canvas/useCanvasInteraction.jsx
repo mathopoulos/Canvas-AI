@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputs, getAllInputsOfComponent, getAllButtonsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont } from '/src/components/graphql/mutations.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize } from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
@@ -36,6 +36,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.placeholderText ="Placeholder";
         newShape.placeholderTextFont = "Arial";
         newShape.placeholderTextFillStyle = "grey";
+        newShape.placeholderTextSize = 14;
         //newShape.name = "Input";
         //addNewComponent("Test Component");
         addNewInput(selectedComponent, newShape).then(response => console.log(response));
@@ -386,6 +387,21 @@ const handlePlaceholderTextFontChange = (e) => {
   }
 }; 
 
+const handlePlaceholderTextSizeChange = (e) => {
+  const newSize = parseInt(e.target.value, 10);
+  const updatedShapes = shapes.map((shape, index) =>
+    index === selectedShapeIndex ? { ...shape, placeholderTextSize: newSize } : shape
+  );
+  setShapes(updatedShapes);
+  let updatedShape = updatedShapes[selectedShapeIndex];
+  if (updatedShape.type === 'input') {
+    updateInputPlaceholderTextSize(updatedShape.id, updatedShape.placeholderTextSize);
+  } else if (updatedShape.type === 'button') {
+    updateButtonText(updatedShape.id, updatedShape.placeholderText);
+  }
+};   
+  
+
     
 
 // Add global mouse up event listener  
@@ -434,7 +450,8 @@ return {
     handleBottomBorderChange, 
     handleDeleteShape,
     handlePlaceholderTextChange,
-    handlePlaceholderTextFontChange
+    handlePlaceholderTextFontChange, 
+    handlePlaceholderTextSizeChange
     
   
   };

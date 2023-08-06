@@ -85,7 +85,7 @@ buttonsByComponent: ({ componentId }) => {
   },
 
   // Add a new input to a component in the database
-  addInput: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, borderSides, name }) => {
+  addInput: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, borderSides, name }) => {
     const newInput = {
       id: crypto.randomUUID(),
       type,
@@ -100,6 +100,7 @@ buttonsByComponent: ({ componentId }) => {
       placeholderText,
       placeholderTextFont,  
       placeholderTextFillStyle,
+      placeholderTextSize,
       borderSides,
       name,
     };

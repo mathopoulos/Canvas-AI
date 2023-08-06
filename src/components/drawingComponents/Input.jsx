@@ -1,5 +1,5 @@
 // Function to draw an input field on a canvas
-export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText, placeholderTextFont, placeholderTextFillStyle) => {
+export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize) => {
   // Set the line width and fill style for the input field
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = fillStyleColor;
@@ -77,7 +77,7 @@ export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, st
     ctx.fill();
 
     // Set the font properties and draw the placeholder text in the center of the input field
-    ctx.font = placeholderTextFont;
+    ctx.font = `${placeholderTextSize}px ${placeholderTextFont}`;
     ctx.fillStyle = placeholderTextFillStyle;
     ctx.textAlign = "left";
     ctx.textBaseline = "middle";

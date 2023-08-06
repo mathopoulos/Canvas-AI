@@ -25,6 +25,7 @@ export const addNewComponent = async (name) => {
           placeholderText
           placeholderTextFont
           placeholderTextFillStyle
+          placeholderTextSize
           borderSides {
             top
             right
@@ -111,6 +112,7 @@ export const updateComponent = async (id, name) => {
           placeholderText
           placeholderTextFont 
           placeholderTextFillStyle
+          placeholderTextSize
           borderSides {
             top
             right
@@ -155,7 +157,7 @@ export const updateComponent = async (id, name) => {
 // Function to add a new input to a component in the database
 export const addNewInput = async (parentId, input) => {
   // Destructure the input object to get individual fields
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, name, borderSides} = input;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, borderSides} = input;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `
@@ -175,6 +177,7 @@ export const addNewInput = async (parentId, input) => {
         placeholderTextFont: "${placeholderTextFont}" 
         placeholderTextFillStyle: 
         "${placeholderTextFillStyle}"
+        placeholderTextSize: ${placeholderTextSize},
         name: "${name}",
         borderSides: {
         top: true,
@@ -196,6 +199,7 @@ export const addNewInput = async (parentId, input) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         name
         borderSides {
         top
@@ -297,6 +301,7 @@ export const updateInputHeight = async (id, height) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -377,6 +382,7 @@ export const updateInputWidth = async (id, width) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -455,6 +461,7 @@ export const updateInputStrokeWidth = async (id, strokeWidth) => {
         strokeColor
         fillStyleColor
         placeholderText
+        placeholderTextSize
         borderSides {
         top
         right
@@ -535,6 +542,7 @@ export const updateInputStrokeColor = async (id, strokeColor) => {
         placeHolderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -615,6 +623,7 @@ export const updateInputFillStyleColor = async (id, fillStyleColor) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -700,6 +709,7 @@ export const updateInputBorderSides = async (id, borderSides) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -785,6 +795,7 @@ export const updateInputBorderRadius = async (id, borderRadius) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -866,6 +877,7 @@ export const updateInputPosition = async (id, x, y) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -948,6 +960,7 @@ export const updateInputSize = async (id, height, width) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -1070,6 +1083,7 @@ export const updateInputPlaceholderText = async (id, placeholderText) => {
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -1111,6 +1125,50 @@ export const updateInputPlaceholderTextFont = async (id, placeholderTextFont) =>
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
+        borderSides {
+        top
+        right
+        bottom
+        left
+      }
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an input in the database
+export const updateInputPlaceholderTextSize = async (id, placeholderTextSize) => {
+  // GraphQL mutation for updating the placeholder text of an input
+  
+  const mutation = `
+    mutation {
+      updateInput(
+        id: "${id}",
+        placeholderTextSize: ${placeholderTextSize}, 
+      ) {
+        id
+        type
+        width
+        height
+        x
+        y
+        borderRadius
+        strokeWidth
+        strokeColor
+        fillStyleColor
+        placeholderText
+        placeholderTextFont 
+        placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right
@@ -1152,6 +1210,7 @@ export const updateInputPlaceholderTextFillStyle = async (id, placeholderTextFil
         placeholderText
         placeholderTextFont 
         placeholderTextFillStyle
+        placeholderTextSize
         borderSides {
         top
         right

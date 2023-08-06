@@ -18,7 +18,7 @@ export const drawShapes = (context, shapes, selectedShapeIndex, newInput) => {
     } else if (shape.type === 'input') {
       // Check if the current input shape is the selected one
       const isSelected = selectedShapeIndex === index;
-      drawInput(context, shape.width, shape.height, shape.x, shape.y, shape.borderRadius , isSelected, shape.strokeWidth, shape.strokeColor, shape.fillStyleColor, shape.borderSides, shape.placeholderText, shape.placeholderTextFont, shape.placeholderTextFillStyle);
+      drawInput(context, shape.width, shape.height, shape.x, shape.y, shape.borderRadius , isSelected, shape.strokeWidth, shape.strokeColor, shape.fillStyleColor, shape.borderSides, shape.placeholderText, shape.placeholderTextFont, shape.placeholderTextFillStyle, shape.placeholderTextSize);
     } else if (shape.type === 'button') {
       // Check if the current button shape is the selected one
       const isSelected = selectedShapeIndex === index;
