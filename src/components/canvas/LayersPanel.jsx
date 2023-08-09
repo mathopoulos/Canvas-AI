@@ -117,7 +117,6 @@ export default function LayersPanel({
       ...components.find((component) => component.id === editComponentId),
       name: editComponentName,
     };
-    console.log(updatedComponent);
     try {
       await updateComponent(updatedComponent.id, updatedComponent.name);
 

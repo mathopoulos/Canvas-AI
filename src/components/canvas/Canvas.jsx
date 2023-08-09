@@ -13,7 +13,7 @@ import { drawShapes } from '/src/components/drawingComponents/shapeDrawing.jsx';
 import { findShapeUnderCursor, createNewShape } from '/src/components/helpers.jsx';
 
 // GraphQL queries to fetch data
-import { getAllInputs, getAllInputsOfComponent, getAllButtonsOfComponent } from '/src/components/graphql/queries.jsx';
+import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent } from '/src/components/graphql/queries.jsx';
 
 // Components for displaying details and layers
 import ElementDetails from '/src/components/canvas/elementDetails.jsx';
@@ -26,7 +26,6 @@ import { useCanvasUpdate } from '/src/components/canvas/useCanvasUpdate.jsx';
 
 // Components representing different elements on the canvas
 import { ResizingBox, CanvasElement } from '/src/components/canvas/CanvasElements.jsx';
-
 
 
 function Canvas() {
@@ -72,11 +71,14 @@ useEffect(() => {
     if (selectedComponent !== null) {
       Promise.all([
         getAllInputsOfComponent(selectedComponent),
-        getAllButtonsOfComponent(selectedComponent)
-      ]).then(([inputsResponse, buttonsResponse]) => {
+        getAllButtonsOfComponent(selectedComponent),
+        getAllTextsOfComponent(selectedComponent),
+      ]).then(([inputsResponse, buttonsResponse, textsResponse]) => {
         const inputsData = inputsResponse.inputsByComponent;
         const buttonsData = buttonsResponse.buttonsByComponent;
-        const shapesData = [...inputsData, ...buttonsData];
+        const textsData = textsResponse.textsByComponent;
+        const shapesData = [...inputsData, ...buttonsData, 
+ ...textsData];
         setShapes(shapesData);
       });
     }

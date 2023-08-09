@@ -10,7 +10,7 @@ function Toolbar({ setShape }) {
       <button className="toolpanelButtons" onClick={() => setShape('circle')}  ><img src="images/cursor-icon.svg" alt="box-icon" /></button>
       <button className="toolpanelButtons" onClick={() => setShape('circle')}><img src="images/hand.svg" alt="box-icon" /></button>
       <img className="lineImageBottom" src="images/line.svg" alt="box-icon" />
-      <button className="toolpanelButtons" onClick={() => setShape('circle')}><img src="images/text.svg" alt="box-icon" /></button>
+      <button className="toolpanelButtons" onClick={() => setShape('text')}><img src="images/text.svg" alt="box-icon" /></button>
       <button className="toolpanelButtons" onClick={() => setShape('button')}><img src="images/form.png" alt="box-icon" /></button>
       <button className="toolpanelButtons" onClick={() => setShape('input')}><img src="images/input-search.svg" alt="box-icon" /></button>
       <button className="toolpanelButtons" id='chevron' onClick={() => setShape('circle')}><img src="images/chevron-up.svg" alt="box-icon" /></button>

@@ -58,6 +58,13 @@ export const getAllComponents = async () => {
       type
       name
     }
+    texts {
+    id
+    type
+    name
+    }
+  }
+    }
   }
 }`;
 
@@ -162,6 +169,36 @@ export const getAllButtonsOfComponent = async (componentId) => {
     return null;
   }
 };
+
+// Fetch all buttons associated with a specific component from the GraphQL server
+export const getAllTextsOfComponent = async (componentId) => {
+  const query = `
+    query {
+  textsByComponent(componentId: "${componentId}") {
+    id
+    name
+    type
+    width
+    height
+    x
+    y
+    placeholderText
+    placeholderTextFont
+    placeholderTextFillStyle
+    placeholderTextSize
+  }
+}
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
+    return response;
+  } catch (error) {
+    console.error('Error getting texts:', error);
+    return null;
+  }
+};
+
 
 // Fetch a specific component by its ID from the GraphQL server
 export const getComponent = async (id) => {

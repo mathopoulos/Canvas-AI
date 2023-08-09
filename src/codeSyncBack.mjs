@@ -28,7 +28,7 @@ async function updateInputs() {
       inputs[inputId].y = parseInt(inputElements[i].style.top);
       inputs[inputId].x = parseInt(inputElements[i].style.left);
       inputs[inputId].type = parseInt(inputElements[i].type);
-      console.log("success");
+      
     }
   }
 

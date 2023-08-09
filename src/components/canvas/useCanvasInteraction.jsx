@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
-import {getAllInputs, getAllInputsOfComponent, getAllButtonsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize } from '/src/components/graphql/mutations.jsx';
+import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent} from '/src/components/graphql/queries.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize} from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
@@ -37,10 +37,8 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.placeholderTextFont = "Arial";
         newShape.placeholderTextFillStyle = "grey";
         newShape.placeholderTextSize = 14;
-        //newShape.name = "Input";
-        //addNewComponent("Test Component");
-        addNewInput(selectedComponent, newShape).then(response => console.log(response));
-        getAllInputsOfComponent().then(response => console.log(response));
+        addNewInput(selectedComponent, newShape)
+        getAllInputsOfComponent()
       } else if (shapeType === 'button') {
         newShape.type = 'button';
         newShape.width = 100;
@@ -51,8 +49,17 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.fillStyleColor = "#808080";
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
         newShape.placeholderText ="Button";
-        addNewButton(selectedComponent, newShape).then(response => console.log(response));
-        getAllButtonsOfComponent().then(response => console.log(response));
+        addNewButton(selectedComponent, newShape)
+        getAllButtonsOfComponent()
+      } else if (shapeType ==='text') {
+        newShape.placeholderText ="Input Text";
+        newShape.type = "text";
+        newShape.placeholderTextFillStyle = "grey";
+        newShape.placeholderTextSize = 14;
+        newShape.height = 50;
+        newShape.width = 200;
+        addNewText(selectedComponent, newShape);
+        getAllTextsOfComponent()
       }
 
       setShapes([...shapes, newShape]);
@@ -85,7 +92,6 @@ const handleMouseMove = (e) => {
     const updatedShape = { ...shape, x: offsetX - dragOffset.x, y: offsetY - dragOffset.y };
     const newShapes = [...shapes];
     newShapes[selectedShapeIndex] = updatedShape;
-
     requestAnimationFrame(() => {
       setShapes(newShapes);
       let changedShape = newShapes[selectedShapeIndex];
@@ -93,10 +99,16 @@ const handleMouseMove = (e) => {
       updateInputPosition(changedShape.id, changedShape.x, changedShape.y);}
       else if (changedShape.type === 'button') {
         updateButtonPosition(changedShape.id, changedShape.x, changedShape.y);
-      }
+      } else if (changedShape.type === 'text') {
+        updateTextPosition(changedShape.id, changedShape.x, changedShape.y);}
 
       // Update the resizing box position directly for 'input' type
       if (shape.type === 'input') {
+        resizingBoxRef.current.style.left = `${updatedShape.x}px`;
+        resizingBoxRef.current.style.top = `${updatedShape.y}px`;
+        resizingBoxRef.current.style.width = `${updatedShape.width}px`;
+        resizingBoxRef.current.style.height = `${updatedShape.height}px`;
+      } else if(shape.type === 'text') {
         resizingBoxRef.current.style.left = `${updatedShape.x}px`;
         resizingBoxRef.current.style.top = `${updatedShape.y}px`;
         resizingBoxRef.current.style.width = `${updatedShape.width}px`;
@@ -172,7 +184,6 @@ const handleStrokeWidthChange = (e) => {
 const handleStrokeColorChange = (e) => {
   if (selectedShapeIndex !== null) {
     const newColor = e.target.value;
-    console.log(newColor);
     if (newColor!== "") {
       const updatedShapes = shapes.map((shape, index) =>
         index === selectedShapeIndex ? { ...shape, strokeColor: newColor } : shape
@@ -190,7 +201,6 @@ const handleStrokeColorChange = (e) => {
 const handleFillStyleColorChange = (e) => {
   if (selectedShapeIndex !== null) {
     const newColor = e.target.value;
-    console.log(newColor);
     if (newColor!== "") {
       const updatedShapes = shapes.map((shape, index) =>
         index === selectedShapeIndex ? { ...shape, fillStyleColor: newColor } : shape
@@ -353,6 +363,8 @@ const handleDeleteShape = () => {
     if(deletedShape.type === "input") {deleteInput(deletedShape.id);}
     else if (deletedShape.type === "button") {
       deleteButton(deletedShape.id);
+    } else if (deletedShape.type === "text") {
+      deleteText(deletedShape.id);
     }
     setShapes(updatedShapes) 
     setSelectedShapeIndex(null); // Deselect the shape after deleting
@@ -370,6 +382,8 @@ const handlePlaceholderTextChange = (e) => {
   updateInputPlaceholderText(updatedShape.id, updatedShape.placeholderText);}
   else if (updatedShape.type === 'button') {
     updateButtonText(updatedShape.id, updatedShape.placeholderText);
+} else if (updatedShape.type === 'text') {
+    updateTextPlaceholderText(updatedShape.id, updatedShape.placeholderText);
 
 }
 };
@@ -383,7 +397,9 @@ const handlePlaceholderTextFontChange = (e) => {
   if (updatedShape.type === 'input') {
     updateInputPlaceholderTextFont(updatedShape.id, updatedShape.placeholderTextFont);
   } else if (updatedShape.type === 'button') {
-    updateButtonText(updatedShape.id, updatedShape.placeholderText);
+    updateButtonText(updatedShape.id, updatedShape.placeholderTextFont);
+  } else if (updatedShape.type === 'text') {
+    updateTextPlaceholderTextFont(updatedShape.id, updatedShape.placeholderTextFont);
   }
 }; 
 
@@ -397,8 +413,9 @@ const handlePlaceholderTextSizeChange = (e) => {
   if (updatedShape.type === 'input') {
     updateInputPlaceholderTextSize(updatedShape.id, updatedShape.placeholderTextSize);
   } else if (updatedShape.type === 'button') {
-    updateButtonText(updatedShape.id, updatedShape.placeholderText);
-  }
+    updateButtonText(updatedShape.id, updatedShape.placeholderTextSize);
+  } else if (updatedShape.type === 'text') {
+    updateTextPlaceholderTextSize(updatedShape.id, updatedShape.placeholderTextSize);}
 };   
   
 

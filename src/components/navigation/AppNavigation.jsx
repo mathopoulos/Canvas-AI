@@ -11,7 +11,6 @@ export default function AppNavigation(props) {
   // Define the event handler for the export button click
   const handleExportClick = (event) => {
     event.preventDefault(); // Prevent default behavior of the event
-    console.log('Shapes:', shapes);
 
     syncCodeFunction();} // Call the function to synchronize code
 

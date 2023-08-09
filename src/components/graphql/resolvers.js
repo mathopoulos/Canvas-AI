@@ -45,6 +45,20 @@ buttonsByComponent: ({ componentId }) => {
       .catch(e => console.error(e.stack));
 },
 
+      // Fetch inputs associated with a specific component
+textsByComponent: ({ componentId }) => {
+    return shapesPromise()
+      .then(shapes => {
+        const shape = shapes.find(shape => shape.id === componentId);
+        if (!shape) {
+          console.error(`No shape found with id: ${componentId}`);
+          return null; // Or however you want to handle this case
+        }
+        return shape.texts;
+      })
+      .catch(e => console.error(e.stack));
+},
+
 
   // Add a new component to the database
   addComponent: ({ name }) => {
@@ -53,6 +67,7 @@ buttonsByComponent: ({ componentId }) => {
       name,
       inputs: [],
       buttons: [],
+      texts: [],
     };
     return pool.query('INSERT INTO component_data(data) VALUES($1) RETURNING data', [newComponent])
       .then(res => res.rows[0].data)
@@ -155,7 +170,45 @@ addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, st
     });
 },
 
+  // Add a new button to a component in the database
+addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name}) => {
+    const newText = {
+        id: crypto.randomUUID(),
+        type,
+        width,
+        height,
+        x,
+        y,
+        placeholderText,
+        placeholderTextFont,
+        placeholderTextFillStyle,
+       placeholderTextSize,
+        name,
+    };
 
+    return pool.query(
+        'UPDATE component_data SET data = jsonb_insert(data, \'{texts,-1}\', $1::jsonb) WHERE data->>\'id\' = $2 RETURNING data',
+        [JSON.stringify(newText), parentId]
+    )
+    .then(res => {
+        if (res && res.rows && res.rows.length > 0) {
+            const updatedData = res.rows[0].data;
+            if (updatedData.texts && updatedData.texts.length) {
+                return updatedData.buttons[updatedData.texts.length - 1]; // Returns the last button which is the newly added one.
+            } else {
+                console.error('No texts found or texts array is empty:', updatedData);
+                return null; // This might not be ideal; you could throw an error or handle it differently.
+            }
+        } else {
+            console.error('Unexpected database response:', res);
+            return null;
+        }
+    })
+    .catch(e => {
+        console.error(e.stack);
+        throw new Error('Database error');
+    });
+},
   
 
   // Update an existing input's properties by its ID
@@ -209,6 +262,29 @@ addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, st
       return updated.rows[0].data;
     },
 
+  // Update an existing button's properties by its ID
+  updateText: async ({ id, ...updates }) => {
+    // Get the component that contains the button
+    const component = await pool.query(
+      'SELECT data FROM component_data WHERE EXISTS (SELECT 1 FROM jsonb_array_elements(data-> \'texts\') element WHERE element->>\'id\' = $1)',
+      [id]
+    );
+    // If no component is found, return null
+    if (component.rowCount === 0) {
+      return null;
+    }
+      // Make a copy of the component's data
+      const updatedComponent = { ...component.rows[0].data };
+      // Find the button to be updated and apply the updates
+      updatedComponent.texts = updatedComponent.texts.map(text => text.id === id ? { ...text, ...updates } : text);
+      // Update the component data in the database
+      const updated = await pool.query(
+        'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2 RETURNING data',
+        [JSON.stringify(updatedComponent), updatedComponent.id]
+      );
+      return updated.rows[0].data;
+    },
+  
   // Delete an input by its ID
   deleteInput: async ({ id }) => {
     // Find the component that contains the input with the given ID
@@ -252,6 +328,30 @@ addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, st
       const updatedComponent = { ...component.rows[0].data };
       // Filter out the button with the specified ID
       updatedComponent.buttons = updatedComponent.buttons.filter(button => button.id !== id);
+      // Update the component data in the database
+      await pool.query(
+        'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2',
+        [JSON.stringify(updatedComponent), updatedComponent.id]
+      );
+      return true;
+
+    },
+
+  // Delete a button by its ID
+  deleteText: async ({ id }) => {
+    // Find the component that contains the button with the given ID
+    const component = await pool.query(
+      'SELECT data FROM component_data WHERE EXISTS (SELECT 1 FROM jsonb_array_elements(data-> \'texts\') element WHERE element->>\'id\' = $1)',
+      [id]
+      );
+    // If no component is found, return false
+    if (component.rowCount === 0) {
+      return false;
+    }
+      // Make a copy of the component's data
+      const updatedComponent = { ...component.rows[0].data };
+      // Filter out the button with the specified ID
+      updatedComponent.texts = updatedComponent.texts.filter(text => text.id !== id);
       // Update the component data in the database
       await pool.query(
         'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2',

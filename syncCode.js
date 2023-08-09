@@ -91,7 +91,6 @@ export const syncCode = () => {
                 body: JSON.stringify(body),
               })
                 .then((response) => response.json())
-                .then((data) => console.log(data))
                 .catch((err) => console.log(err));
             })
             .catch((err) => console.log(err));

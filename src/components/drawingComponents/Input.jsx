@@ -1,5 +1,6 @@
 // Function to draw an input field on a canvas
 export const drawInput = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor, fillStyleColor, borderSides, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize) => {
+  console.log("eienatian")
   // Set the line width and fill style for the input field
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = fillStyleColor;

@@ -34,6 +34,11 @@ export const findShapeUnderCursor = (shapes, x, y) => {
       if (x >= shapeX && x <= shapeX + width && y >= shapeY && y <= shapeY + height) {
         return i;
       }
+    } else if (shape.type === 'text') {
+      const { x: shapeX, y: shapeY, width, height } = shape;
+      if (x >= shapeX && x <= shapeX + width && y >= shapeY && y <= shapeY + height) {
+        return i;
+      }
     }
   }
   // Return null if no shape is found under the cursor
@@ -62,6 +67,12 @@ export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
     resizingBox.style.width = `${selectedShape.width}px`;
     resizingBox.style.height = `${selectedShape.height}px`;
   } else if (selectedShape.type === 'button') {
+    resizingBox.style.display = 'block';
+    resizingBox.style.left = `${selectedShape.x}px`;
+    resizingBox.style.top = `${selectedShape.y}px`;
+    resizingBox.style.width = `${selectedShape.width}px`;
+    resizingBox.style.height = `${selectedShape.height}px`;
+  } else if (selectedShape.type === 'text') {
     resizingBox.style.display = 'block';
     resizingBox.style.left = `${selectedShape.x}px`;
     resizingBox.style.top = `${selectedShape.y}px`;
@@ -124,6 +135,13 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
     newShape.height = 50;
     newShape.borderRadius = 5;
     inputCounter++; // Increment the counter for the next input
+  } else if (shapeType === 'text') {
+    newShape.name = `Text ${inputCounter}`;
+    newShape.placeholderTextFont = 'Arial';
+    newShape.placeholderTextFillStyle = 'blue'
+    newShape.placeholderTextSize = 14;
+    newShape.height = 50;
+    newShape.width = 200;
   }
 
 
