@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { findShapeUnderCursor } from '/src/components/helpers.jsx';
+import { findShapeUnderCursor, isCursorOverCanvasBorder } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent} from '/src/components/graphql/queries.jsx';
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle} from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
-export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
+export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -16,7 +16,9 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
-    if (shapeIndex === null) {
+    const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
+    const containsTrue = Object.values(isOverCanvas).some(Boolean);
+    if (shapeIndex === null && !containsTrue) {
       const newShape = createNewShape(shapeType, offsetX, offsetY);
 
       // Define properties based on the shape type
@@ -86,6 +88,12 @@ const handleMouseDown = (e) => {
 
 // Handle mouse move events on the canvas
 const handleMouseMove = (e) => {
+  const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
+    const containsTrue = Object.values(isOverCanvas).some(Boolean);
+    console.log(containsTrue);
+      if (containsTrue) {
+      document.body.style.cursor = 'ew-resize'
+    } else {document.body.style.cursor = 'pointer'}
   if (dragging) {
     const { offsetX, offsetY } = e.nativeEvent;
     const shape = shapes[selectedShapeIndex];
@@ -299,7 +307,6 @@ const handleBorderRadiusChange = (e) => {
 
 const handleResizeMouseDown = (e) => {
   const resizingEdgeElement = e.target.closest('[data-resize]');
-  console.log(resizingEdgeElement);
   const resizingEdge = resizingEdgeElement ? resizingEdgeElement.dataset.resize : null;
 
   if (resizingEdge) {

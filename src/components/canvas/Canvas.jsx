@@ -36,6 +36,7 @@ function Canvas() {
   // State variables for managing shapes, components, and interactions
   const [components, setComponents] = useState([]);
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const [canvasSelected, setCanvasSelected] = useState(false);
   const [shapes, setShapes] = useState([]);
   const [shapeType, setShapeType] = useState('input');
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
@@ -68,7 +69,7 @@ function Canvas() {
     handlePlaceholderTextSizeChange,
     handlePlaceholderTextStyleChange,
     handleCanvasResize
-  } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent);
+  } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected);
 
   // Fetching shapes data when a component is selected  
 useEffect(() => {

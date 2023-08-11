@@ -45,6 +45,29 @@ export const findShapeUnderCursor = (shapes, x, y) => {
   return null;
 };
 
+export function isCursorOverCanvasBorder(canvasRef, e) {
+  const rect = canvasRef.current.getBoundingClientRect();
+  const { clientX, clientY } = e;
+  const buffer = 10;
+
+  const isInsideLeftBorder = clientX >= rect.left - buffer && clientX <= rect.left + buffer;
+  const isInsideRightBorder = clientX >= rect.right - buffer && clientX <= rect.right + buffer;
+  const isInsideTopBorder = clientY >= rect.top - buffer && clientY <= rect.top + buffer;
+  const isInsideBottomBorder = clientY >= rect.bottom - buffer && clientY <= rect.bottom + buffer;
+
+  const isOutsideLeftBorder = clientX < rect.left - buffer || clientX > rect.right + buffer;
+  const isOutsideRightBorder = clientX > rect.right + buffer || clientX < rect.left - buffer;
+  const isOutsideTopBorder = clientY < rect.top - buffer || clientY > rect.bottom + buffer;
+  const isOutsideBottomBorder = clientY > rect.bottom + buffer || clientY < rect.top - buffer;
+
+  return {
+    insideBorder: isInsideLeftBorder || isInsideRightBorder || isInsideTopBorder || isInsideBottomBorder,
+    outsideBorder: isOutsideLeftBorder || isOutsideRightBorder || isOutsideTopBorder || isOutsideBottomBorder
+  };
+}
+
+
+
 // Function to update the display and position of the resizing box based on the selected shape
 export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
   if (resizingBoxRef.current === null) {
