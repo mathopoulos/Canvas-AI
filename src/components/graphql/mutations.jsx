@@ -1353,6 +1353,39 @@ export const updateTextPlaceholderTextSize = async (id, placeholderTextSize) => 
 };
 
 // Function to update the border sides of an input in the database
+export const updateTextPlaceholderTextStyle = async (id, placeholderTextFillStyle) => {
+  // GraphQL mutation for updating the placeholder text of an input
+
+  const mutation = `
+    mutation {
+      updateText(
+        id: "${id}",
+        placeholderTextFillStyle: "${placeholderTextFillStyle}", 
+      ) {
+        id
+          name
+          width
+          height
+          x
+          y
+          placeholderText
+          placeholderTextFont
+          placeholderTextFillStyle
+          placeholderTextSize
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addInput;
+  } catch (error) {
+    console.error('Error adding updating input:', error);
+    return null;
+  }
+};
+
+// Function to update the border sides of an input in the database
 export const updateInputPlaceholderTextFillStyle = async (id, placeholderTextFillStyle) => {
   // GraphQL mutation for updating the placeholder text of an input
   const mutation = `

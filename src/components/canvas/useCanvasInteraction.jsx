@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize} from '/src/components/graphql/mutations.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle} from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent) => {
@@ -35,7 +35,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
         newShape.placeholderText ="Placeholder";
         newShape.placeholderTextFont = "Arial";
-        newShape.placeholderTextFillStyle = "grey";
+        newShape.placeholderTextFillStyle = "#545454";
         newShape.placeholderTextSize = 14;
         addNewInput(selectedComponent, newShape)
         getAllInputsOfComponent()
@@ -54,7 +54,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
       } else if (shapeType ==='text') {
         newShape.placeholderText ="Input Text";
         newShape.type = "text";
-        newShape.placeholderTextFillStyle = "grey";
+        newShape.placeholderTextFillStyle = "#545454";
         newShape.placeholderTextSize = 14;
         newShape.height = 50;
         newShape.width = 200;
@@ -418,7 +418,21 @@ const handlePlaceholderTextSizeChange = (e) => {
     updateTextPlaceholderTextSize(updatedShape.id, updatedShape.placeholderTextSize);}
 };   
   
-
+const handlePlaceholderTextStyleChange = (e) => {
+  if (selectedShapeIndex !== null) {
+    const newColor = e.target.value;
+    if (newColor!== "") {
+      const updatedShapes = shapes.map((shape, index) =>
+        index === selectedShapeIndex ? { ...shape, placeholderTextFillStyle: newColor } : shape
+      );
+      setShapes(updatedShapes);
+      let updatedShape = updatedShapes[selectedShapeIndex];
+ if (updatedShape.type === 'text') {
+    updateTextPlaceholderTextStyle(updatedShape.id, updatedShape.placeholderTextFillStyle);}
+    }
+  }
+};     
+  
     
 
 // Add global mouse up event listener  
@@ -468,7 +482,8 @@ return {
     handleDeleteShape,
     handlePlaceholderTextChange,
     handlePlaceholderTextFontChange, 
-    handlePlaceholderTextSizeChange
+    handlePlaceholderTextSizeChange,
+    handlePlaceholderTextStyleChange
     
   
   };

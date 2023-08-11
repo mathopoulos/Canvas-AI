@@ -28,7 +28,7 @@ const SizeSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
 );
 
 // PlaceholderTextSection component: Displays input field to adjust the placeholder text of a shape.
-const PlaceholderTextSection = ({ selectedShape, onPlaceholderTextChange, onPlaceholderTextFontChange, onPlaceholdertextSizeChange}) => (
+const PlaceholderTextSection = ({ selectedShape, onPlaceholderTextChange, onPlaceholderTextFontChange, onPlaceholdertextSizeChange, onPlaceholderTextStyleChange}) => (
   <div className="section4">
     <label id="positionTitle">Placeholder</label>
     <div id="xInputDiv">
@@ -60,6 +60,16 @@ const PlaceholderTextSection = ({ selectedShape, onPlaceholderTextChange, onPlac
           name="xValue"
           value={selectedShape ? selectedShape.placeholderTextSize : ''}
           onChange={onPlaceholdertextSizeChange} />
+      </div>
+    </div>
+    <div id="xInputDiv">
+      <label id="xLabel" htmlFor="colorPicker">Color</label>
+      <div id="xInputWrapper">
+        <input
+          type="color"
+          id="colorPicker"
+          value={selectedShape ? selectedShape.placeholderTextFillStyle : ''}
+          onChange={onPlaceholderTextStyleChange} />
       </div>
     </div>
   </div>

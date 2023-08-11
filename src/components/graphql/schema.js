@@ -99,7 +99,7 @@ type Mutation {
   height: Int!
   placeholderText: String!
   placeholderTextFont: String!,
-  placeholderTextFillStyle: String!,
+  placeholderTextFillStyle: String,
   placeholderTextSize: Int!
   name: String!
   }
