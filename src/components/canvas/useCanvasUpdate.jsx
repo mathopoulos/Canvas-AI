@@ -3,7 +3,7 @@ import { drawShapes } from '/src/components/drawingComponents/shapeDrawing.jsx';
 import { updateResizingBox } from '/src/components/helpers.jsx';
 
 // Custom hook to handle canvas updates
-export const useCanvasUpdate = (canvasRef, resizingBoxRef, shapes, selectedShapeIndex) => {
+export const useCanvasUpdate = (canvasRef, resizingBoxRef, shapes, selectedShapeIndex, canvasHeight, canvasWidth) => {
   useEffect(() => {
     // Get the canvas and its 2D context
     const canvas = canvasRef.current;
@@ -13,10 +13,10 @@ export const useCanvasUpdate = (canvasRef, resizingBoxRef, shapes, selectedShape
     const dpr = window.devicePixelRatio || 1;
 
     // Adjust canvas dimensions based on device pixel ratio
-    canvas.width = 310 * dpr;
-    canvas.height = 100 * dpr;
-    canvas.style.width = '310px';
-    canvas.style.height = '100px';
+    canvas.width = canvasWidth * dpr;
+    canvas.height = canvasHeight * dpr;
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
 
     // Clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
