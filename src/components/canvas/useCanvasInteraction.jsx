@@ -11,6 +11,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [topBorder, setTopBorder] = useState(false);
+  const [bottomBorder, setBottomBorder] = useState(false);
   const [dragStartY, setDragStartY] = useState(null);
 
 
@@ -322,7 +323,11 @@ const handleResizeMouseDown = (e) => {
             setDragStartY(e.pageY);
         }
         setTopBorder(true);
-    }
+    } else if (isOverCanvas.bottomBorder) {
+      if (dragStartY === null) {
+            setDragStartY(e.pageY);
+        }
+        setBottomBorder(true);}
 };
 
 
@@ -377,13 +382,16 @@ if (topBorder) {
     setCanvasHeight(prevHeight => prevHeight + deltaY);
     setCanvasTop(prevTop => prevTop - deltaY);
 
-    // Log the updated values
-    console.log("deltaY:", deltaY);
-
     // Update dragStartY for the next move operation
     setDragStartY(pageY);
-}
-};
+} else if (bottomBorder) {
+  const { pageY } = e;
+  const deltaY = pageY - dragStartY;
+  setCanvasHeight(prevHeight => prevHeight + deltaY);
+  console.log("deltaY:", deltaY);
+  setDragStartY(pageY);
+
+} }
 
 
 
@@ -391,6 +399,8 @@ const handleResizeMouseUp = () => {
   setResizingEdge(null);
   setResizing(false);
   setTopBorder(false)
+  setBottomBorder(false)
+  setDragStartY(null)
 };
 
 const handleDeleteShape = () => {
