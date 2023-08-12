@@ -5,14 +5,17 @@ import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponen
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle} from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
-export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop) => {
+export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop, canvasLeft, setCanvasLeft, canvasWidth, setCanvasWidth) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [topBorder, setTopBorder] = useState(false);
   const [bottomBorder, setBottomBorder] = useState(false);
+    const [leftBorder, setLeftBorder] = useState(false);
+    const [rightBorder, setRightBorder] = useState(false);
   const [dragStartY, setDragStartY] = useState(null);
+  const [dragStartX, setDragStartX] = useState(null);
 
 
   // Handle canvas click events
@@ -328,6 +331,16 @@ const handleResizeMouseDown = (e) => {
             setDragStartY(e.pageY);
         }
         setBottomBorder(true);}
+   else if (isOverCanvas.leftBorder) {
+      if (dragStartX === null) {
+            setDragStartX(e.pageX);
+        }
+        setLeftBorder(true);}
+   else if (isOverCanvas.rightBorder) {
+      if (dragStartX === null) {
+            setDragStartX(e.pageX);
+        }
+        setRightBorder(true);}
 };
 
 
@@ -391,7 +404,21 @@ if (topBorder) {
   console.log("deltaY:", deltaY);
   setDragStartY(pageY);
 
-} }
+} else if (leftBorder) {
+        const { pageX } = e;
+        let deltaX = dragStartX - pageX;
+        setCanvasWidth(prevWidth => prevWidth + deltaX); // Assuming you have a setCanvasWidth method
+        setCanvasLeft(prevLeft => prevLeft - deltaX);   // Assuming you have a setCanvasLeft method
+        setDragStartX(pageX);
+    } 
+    // Right border resizing
+    else if (rightBorder) {
+        const { pageX } = e;
+        let deltaX = pageX - dragStartX;
+        setCanvasWidth(prevWidth => prevWidth + deltaX); 
+        setDragStartX(pageX);
+    }
+}
 
 
 
@@ -400,7 +427,10 @@ const handleResizeMouseUp = () => {
   setResizing(false);
   setTopBorder(false)
   setBottomBorder(false)
+  setLeftBorder(false)
+  setRightBorder(false)
   setDragStartY(null)
+  setDragStartX(null)
 };
 
 const handleDeleteShape = () => {

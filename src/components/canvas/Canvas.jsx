@@ -43,6 +43,7 @@ function Canvas() {
   const [canvasHeight, setCanvasHeight] = useState(300);
   const [canvasWidth, setCanvasWidth] = useState(510);
   const[canvasTop, setCanvasTop] = useState(150);
+  const[canvasLeft, setCanvasLeft] = useState(320);
   const [initialOffsetX, setInitialOffsetX] = useState(null);
 
   // Destructuring methods from custom hook for canvas interactions
@@ -70,7 +71,7 @@ function Canvas() {
     handlePlaceholderTextSizeChange,
     handlePlaceholderTextStyleChange,
     handleCanvasResize
-  } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop);
+  } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop, canvasLeft, setCanvasLeft, canvasWidth, setCanvasWidth);
 
   // Fetching shapes data when a component is selected  
 useEffect(() => {
