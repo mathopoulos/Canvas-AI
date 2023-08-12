@@ -61,8 +61,10 @@ export function isCursorOverCanvasBorder(canvasRef, e) {
   const isOutsideBottomBorder = clientY > rect.bottom + buffer || clientY < rect.top - buffer;
 
   return {
-    insideBorder: isInsideLeftBorder || isInsideRightBorder || isInsideTopBorder || isInsideBottomBorder,
-    outsideBorder: isOutsideLeftBorder || isOutsideRightBorder || isOutsideTopBorder || isOutsideBottomBorder
+    topBorder: isInsideTopBorder || isOutsideTopBorder,
+    bottomBorder: isInsideBottomBorder || isOutsideBottomBorder,
+    leftBorder: isInsideLeftBorder || isOutsideLeftBorder,
+    rightBorder: isInsideRightBorder || isOutsideRightBorder
   };
 }
 

@@ -40,8 +40,9 @@ function Canvas() {
   const [shapes, setShapes] = useState([]);
   const [shapeType, setShapeType] = useState('input');
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
-    const [canvasHeight, setCanvasHeight] = useState(300);
-    const [canvasWidth, setCanvasWidth] = useState(510);
+  const [canvasHeight, setCanvasHeight] = useState(300);
+  const [canvasWidth, setCanvasWidth] = useState(510);
+  const[canvasTop, setCanvasTop] = useState(150);
   const [initialOffsetX, setInitialOffsetX] = useState(null);
 
   // Destructuring methods from custom hook for canvas interactions
@@ -69,7 +70,7 @@ function Canvas() {
     handlePlaceholderTextSizeChange,
     handlePlaceholderTextStyleChange,
     handleCanvasResize
-  } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected);
+  } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop);
 
   // Fetching shapes data when a component is selected  
 useEffect(() => {
@@ -107,6 +108,7 @@ useEffect(() => {
     }
 
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('mouseup', handleResizeMouseUp);
 
     // Clean up the event listener when the component is unmounted
     return () => {
@@ -123,7 +125,12 @@ useEffect(() => {
     <div>
       <TopNavigation shapes={shapes} />
       <Toolbar setShape={setShapeType} />
-      <div style={{ position: 'relative', width: `${canvasWidth}px`, height: `${canvasHeight}px`, border: '1px solid grey', borderRadius: '10px', left: '320px', top: '150px' }} onMouseMove={(e) => updateCursor(resizingBoxRef, e)}>
+      <div style={{ position: 'relative', width: `${canvasWidth}px`, height: `${canvasHeight}px`, border: '1px solid grey', borderRadius: '10px', left: '320px', top: `${canvasTop}px` }} onMouseMove={(e) => {
+    updateCursor(resizingBoxRef, e);
+    handleResizeMouseMove(e);
+  }}
+  onMouseDown={handleResizeMouseDown}
+  onMouseUp={handleResizeMouseUp}>
         <CanvasElement
           ref={canvasRef}
           onClick={handleClick}

@@ -5,19 +5,20 @@ import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponen
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle} from '/src/components/graphql/mutations.jsx';
 
 // Custom hook to handle interactions with the canvas and its shapes
-export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected) => {
+export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop) => {
   const [resizingEdge, setResizingEdge] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [topBorder, setTopBorder] = useState(false);
+  const [dragStartY, setDragStartY] = useState(null);
+
 
   // Handle canvas click events
   const handleClick = (e) => {
   if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
-    const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
-    const containsTrue = Object.values(isOverCanvas).some(Boolean);
     if (shapeIndex === null && !containsTrue) {
       const newShape = createNewShape(shapeType, offsetX, offsetY);
 
@@ -90,7 +91,6 @@ const handleMouseDown = (e) => {
 const handleMouseMove = (e) => {
   const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
     const containsTrue = Object.values(isOverCanvas).some(Boolean);
-    console.log(containsTrue);
       if (containsTrue) {
       document.body.style.cursor = 'ew-resize'
     } else {document.body.style.cursor = 'pointer'}
@@ -306,15 +306,25 @@ const handleBorderRadiusChange = (e) => {
 };    
 
 const handleResizeMouseDown = (e) => {
-  const resizingEdgeElement = e.target.closest('[data-resize]');
-  const resizingEdge = resizingEdgeElement ? resizingEdgeElement.dataset.resize : null;
+    const resizingEdgeElement = e.target.closest('[data-resize]');
+    const resizingEdge = resizingEdgeElement ? resizingEdgeElement.dataset.resize : null;
 
-  if (resizingEdge) {
-    setResizingEdge(resizingEdge);
-    setResizing(true);
-    e.stopPropagation();
-  }
+    if (resizingEdge) {
+        setResizingEdge(resizingEdge);
+        setResizing(true);
+        e.stopPropagation();
+    }
+
+    const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
+
+    if (isOverCanvas.topBorder) {
+        if (dragStartY === null) {
+            setDragStartY(e.pageY);
+        }
+        setTopBorder(true);
+    }
 };
+
 
 const handleResizeMouseMove = (e) => {
 if (resizing && resizingEdge && selectedShapeIndex !== null) {
@@ -355,12 +365,32 @@ if (resizing && resizingEdge && selectedShapeIndex !== null) {
   }
   else if (changedShape.type === 'button') {
     updateButtonSize(changedShape.id, changedShape.height, changedShape.width);
-};}}
+};}
+
+if (topBorder) {
+    const { pageY } = e;
+
+    // The change in vertical position
+    let deltaY = dragStartY - pageY;
+
+    // Using functional updates for the canvas height and top
+    setCanvasHeight(prevHeight => prevHeight + deltaY);
+    setCanvasTop(prevTop => prevTop - deltaY);
+
+    // Log the updated values
+    console.log("deltaY:", deltaY);
+
+    // Update dragStartY for the next move operation
+    setDragStartY(pageY);
+}
+};
+
 
 
 const handleResizeMouseUp = () => {
   setResizingEdge(null);
   setResizing(false);
+  setTopBorder(false)
 };
 
 const handleDeleteShape = () => {
