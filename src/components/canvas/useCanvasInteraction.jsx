@@ -23,6 +23,8 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
+    const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
+    const containsTrue = Object.values(isOverCanvas).some(Boolean);
     if (shapeIndex === null && !containsTrue) {
       const newShape = createNewShape(shapeType, offsetX, offsetY);
 
