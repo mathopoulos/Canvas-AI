@@ -1,6 +1,146 @@
 // Import the request function from the 'graphql-request' library for making GraphQL requests
 import { request } from 'graphql-request';
 
+
+export const addCanvas = async (name, height, width, top, left) => {
+  // GraphQL mutation for adding a new component
+  const mutation = `
+    mutation {
+      addCanvas(
+      name: "${name}"
+      height: ${height}
+      width: ${width}
+      top: ${top}
+      left: ${left}
+      ) {
+    id
+    name
+    height
+    width
+    top
+    left
+  }
+  }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addCanvas;
+  } catch (error) {
+    console.error('Error adding new component:', error);
+    return null;
+  }
+};
+
+export const updateCanvasHeight = async (id, height) => {
+  // GraphQL mutation for adding a new component
+  const mutation = `
+    mutation {
+      updateCanvas(
+      id: "${id}"
+      height: ${height}
+      ) {
+    id
+    name
+    height
+    width
+    top
+    left
+  }
+  }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.updateCanvas;
+  } catch (error) {
+    console.error('Error adding new component:', error);
+    return null;
+  }
+};
+
+export const updateCanvasWidth = async (id, width) => {
+  // GraphQL mutation for adding a new component
+  const mutation = `
+    mutation {
+      updateCanvas(
+      id: "${id}"
+      width: ${width}
+      ) {
+    id
+    name
+    height
+    width
+    top
+    left
+  }
+  }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.updateCanvas;
+  } catch (error) {
+    console.error('Error adding new component:', error);
+    return null;
+  }
+};
+
+export const updateCanvasTop = async (id, top) => {
+  // GraphQL mutation for adding a new component
+  const mutation = `
+    mutation {
+      updateCanvas(
+      id: "${id}"
+      top: ${top}
+      ) {
+    id
+    name
+    height
+    width
+    top
+    left
+  }
+  }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.updateCanvas;
+  } catch (error) {
+    console.error('Error adding new component:', error);
+    return null;
+  }
+};
+
+export const updateCanvasLeft = async (id, left) => {
+  // GraphQL mutation for adding a new component
+  const mutation = `
+    mutation {
+      updateCanvas(
+      id: "${id}"
+      left: ${left}
+      ) {
+    id
+    name
+    height
+    width
+    top
+    left
+  }
+  }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.updateCanvas;
+  } catch (error) {
+    console.error('Error adding new component:', error);
+    return null;
+  }
+};
+  
+
 // Function to add a new component to the database
 export const addNewComponent = async (name) => {
   // GraphQL mutation for adding a new component
