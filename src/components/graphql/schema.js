@@ -7,14 +7,17 @@ const schema = buildSchema(`
     shapes: [Input]
     components: [Component]
     component(id: ID!): Component
+    canvas: Canvas
     inputsByComponent(componentId: ID!): [Input]
     buttonsByComponent(componentId: ID!): [Button]
     textsByComponent(componentId: ID!): [Text]
   }
 type Mutation {
     addComponent(name: String!): Component
+    addCanvas(name: String, height: Int, width: Int, top: Int, left: Int): Canvas
     deleteComponent(id: ID!): Boolean
     updateComponent(id: ID!, name: String!): Component
+    updateCanvas(id: ID!, name: String, height: Int, width: Int, top: Int, left: Int): Canvas
     addInput(parentId: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, placeholderTextFont: String!, placeholderTextFillStyle: String!, placeholderTextSize: Int!, borderSides: BorderSidesInput, name: String!): Input
     updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, placeholderTextFont: String, placeholderTextFillStyle: String, placeholderTextSize: Int, borderSides: BorderSidesInput, name: String): Input
     deleteInput(id: ID!): Boolean
@@ -103,7 +106,15 @@ type Mutation {
   placeholderTextSize: Int!
   name: String!
   }
-  
+
+  type Canvas {
+  id: ID!
+  name: String!
+  height: Int!
+  width: Int!
+  top: Int!
+  left: Int!
+  }
 `);
 
 // Export the defined schema so it can be used in other parts of the application

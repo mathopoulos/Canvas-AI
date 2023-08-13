@@ -333,11 +333,6 @@ const handleResizeMouseDown = (e) => {
             setDragStartY(e.pageY);
         }
         setBottomBorder(true);}
-   else if (isOverCanvas.leftBorder) {
-      if (dragStartX === null) {
-            setDragStartX(e.pageX);
-        }
-        setLeftBorder(true);}
    else if (isOverCanvas.rightBorder) {
       if (dragStartX === null) {
             setDragStartX(e.pageX);
@@ -406,13 +401,7 @@ if (topBorder) {
   console.log("deltaY:", deltaY);
   setDragStartY(pageY);
 
-} else if (leftBorder) {
-        const { pageX } = e;
-        let deltaX = dragStartX - pageX;
-        setCanvasWidth(prevWidth => prevWidth + deltaX); // Assuming you have a setCanvasWidth method
-        setCanvasLeft(prevLeft => prevLeft - deltaX);   // Assuming you have a setCanvasLeft method
-        setDragStartX(pageX);
-    } 
+} 
     // Right border resizing
     else if (rightBorder) {
         const { pageX } = e;
@@ -429,7 +418,6 @@ const handleResizeMouseUp = () => {
   setResizing(false);
   setTopBorder(false)
   setBottomBorder(false)
-  setLeftBorder(false)
   setRightBorder(false)
   setDragStartY(null)
   setDragStartX(null)
