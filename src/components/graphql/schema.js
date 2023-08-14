@@ -7,7 +7,7 @@ const schema = buildSchema(`
     shapes: [Input]
     components: [Component]
     component(id: ID!): Component
-    canvas: Canvas
+    canvas (id: ID!): Canvas
     inputsByComponent(componentId: ID!): [Input]
     buttonsByComponent(componentId: ID!): [Button]
     textsByComponent(componentId: ID!): [Text]

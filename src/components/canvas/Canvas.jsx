@@ -27,6 +27,8 @@ import { useCanvasUpdate } from '/src/components/canvas/useCanvasUpdate.jsx';
 // Components representing different elements on the canvas
 import { ResizingBox, CanvasElement } from '/src/components/canvas/CanvasElements.jsx';
 
+import {getCanvas} from '/src/components/graphql/queries.jsx';
+
 
 function Canvas() {
   // References to canvas and resizing box elements
@@ -72,6 +74,19 @@ function Canvas() {
     handlePlaceholderTextStyleChange,
     handleCanvasResize
   } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop, canvasLeft, setCanvasLeft, canvasWidth, setCanvasWidth);
+
+  useEffect(() => {
+    async function fetchCanvas() {
+        const canvasData = await getCanvas("56d78396-6f2d-4dbd-b332-848967e6760d");
+      console.log(canvasData);
+        if (canvasData) {
+            setCanvasHeight(canvasData.height);
+            setCanvasTop(canvasData.top);
+        }
+    }
+    fetchCanvas();
+}, []);
+
 
   // Fetching shapes data when a component is selected  
 useEffect(() => {

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor, isCursorOverCanvasBorder } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle} from '/src/components/graphql/mutations.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle, updateCanvasHeight, updateCanvasTop} from '/src/components/graphql/mutations.jsx';
+
 
 // Custom hook to handle interactions with the canvas and its shapes
 export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop, canvasLeft, setCanvasLeft, canvasWidth, setCanvasWidth) => {
@@ -394,11 +395,14 @@ if (topBorder) {
 
     // Update dragStartY for the next move operation
     setDragStartY(pageY);
+    updateCanvasHeight("56d78396-6f2d-4dbd-b332-848967e6760d", canvasHeight);
+  updateCanvasTop("56d78396-6f2d-4dbd-b332-848967e6760d", canvasTop);
 } else if (bottomBorder) {
   const { pageY } = e;
   const deltaY = pageY - dragStartY;
   setCanvasHeight(prevHeight => prevHeight + deltaY);
   console.log("deltaY:", deltaY);
+  updateCanvasHeight("56d78396-6f2d-4dbd-b332-848967e6760d", canvasHeight);
   setDragStartY(pageY);
 
 } 

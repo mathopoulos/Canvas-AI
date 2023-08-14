@@ -17,6 +17,13 @@ const root = {
     return shapesPromise();
   },
 
+  // Fetch a specific canvas by its ID
+  canvas: ({ id }) => {
+    return pool.query('SELECT data FROM canvas_data WHERE data->>\'id\' = $1', [id])
+      .then(res => res.rows.length > 0 ? res.rows[0].data : null)
+      .catch(e => console.error(e.stack));
+  },
+  
   // Fetch a specific component by its ID
   component: ({ id }) => {
     return pool.query('SELECT data FROM component_data WHERE data->>\'id\' = $1', [id])
@@ -58,6 +65,39 @@ textsByComponent: ({ componentId }) => {
       })
       .catch(e => console.error(e.stack));
 },
+
+    // Add a new component to the database
+  addCanvas: ({ name, height, width, top, left}) => {
+    const newCanvas = {
+      id: crypto.randomUUID(),
+      name,
+      height,
+      width,
+      top,
+      left,
+    };
+    return pool.query('INSERT INTO canvas_data(data) VALUES($1) RETURNING data', [newCanvas])
+      .then(res => res.rows[0].data)
+      .catch(e => console.error(e.stack));
+  },
+
+    // Update existing canvas  by its ID
+  updateCanvas: async ({ id, ...updates }) => {
+    const canvas = await pool.query('SELECT data FROM canvas_data WHERE data->>\'id\' = $1', [id])
+      .then(res => res.rows.length > 0 ? res.rows[0].data : null)
+      .catch(e => console.error(e.stack));
+    if (!canvas) {
+      console.error(`No canvas found with id: ${id}`);
+      return null;}
+    const newCanvas = { ...canvas, ...updates };
+    return pool.query('UPDATE canvas_data SET data = $1 WHERE data->>\'id\' = $2', [newCanvas, id])
+    .then(res => res.rows.length > 0 ? res.rows[0].data : null)
+    .catch(e => console.error(e.stack));
+
+    
+
+      
+  },
 
 
   // Add a new component to the database

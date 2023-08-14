@@ -220,7 +220,29 @@ query {
   }
 };
 
+// Fetch a specific component by its ID from the GraphQL server
+export const getCanvas = async (id) => {
+  const query = `
+query {
+  canvas(id: "${id}") {
+    id
+    name
+    height
+    top
+    left
+    width
+  }
+}
+  `;
 
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
+    return response.canvas;
+  } catch (error) {
+    console.error('Error getting canvas:', error);
+    return null;
+  }
+};
 
 
 
