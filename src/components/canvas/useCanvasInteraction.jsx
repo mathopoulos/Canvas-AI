@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { findShapeUnderCursor, isCursorOverCanvasBorder } from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent} from '/src/components/graphql/queries.jsx';
-import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle, updateCanvasHeight, updateCanvasTop} from '/src/components/graphql/mutations.jsx';
+import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle, updateCanvasHeight, updateCanvasTop,updateCanvasWidth} from '/src/components/graphql/mutations.jsx';
+
 
 
 // Custom hook to handle interactions with the canvas and its shapes
@@ -324,12 +325,7 @@ const handleResizeMouseDown = (e) => {
 
     const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
 
-    if (isOverCanvas.topBorder) {
-        if (dragStartY === null) {
-            setDragStartY(e.pageY);
-        }
-        setTopBorder(true);
-    } else if (isOverCanvas.bottomBorder) {
+    if (isOverCanvas.bottomBorder) {
       if (dragStartY === null) {
             setDragStartY(e.pageY);
         }
@@ -383,21 +379,7 @@ if (resizing && resizingEdge && selectedShapeIndex !== null) {
     updateButtonSize(changedShape.id, changedShape.height, changedShape.width);
 };}
 
-if (topBorder) {
-    const { pageY } = e;
-
-    // The change in vertical position
-    let deltaY = dragStartY - pageY;
-
-    // Using functional updates for the canvas height and top
-    setCanvasHeight(prevHeight => prevHeight + deltaY);
-    setCanvasTop(prevTop => prevTop - deltaY);
-
-    // Update dragStartY for the next move operation
-    setDragStartY(pageY);
-    updateCanvasHeight("56d78396-6f2d-4dbd-b332-848967e6760d", canvasHeight);
-  updateCanvasTop("56d78396-6f2d-4dbd-b332-848967e6760d", canvasTop);
-} else if (bottomBorder) {
+if (bottomBorder) {
   const { pageY } = e;
   const deltaY = pageY - dragStartY;
   setCanvasHeight(prevHeight => prevHeight + deltaY);
@@ -408,9 +390,11 @@ if (topBorder) {
 } 
     // Right border resizing
     else if (rightBorder) {
+      console.log("right border")
         const { pageX } = e;
         let deltaX = pageX - dragStartX;
         setCanvasWidth(prevWidth => prevWidth + deltaX); 
+        updateCanvasWidth("56d78396-6f2d-4dbd-b332-848967e6760d", canvasWidth);
         setDragStartX(pageX);
     }
 }

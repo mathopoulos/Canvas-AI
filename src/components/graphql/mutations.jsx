@@ -59,7 +59,7 @@ export const updateCanvasHeight = async (id, height) => {
   }
 };
 
-export const updateCanvasWidth = async (id, width) => {
+export const updateCanvasWidth = async (id,width) => {
   // GraphQL mutation for adding a new component
   const mutation = `
     mutation {
@@ -81,7 +81,7 @@ export const updateCanvasWidth = async (id, width) => {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
     return response.updateCanvas;
   } catch (error) {
-    console.error('Error adding new component:', error);
+    console.error('Error adding updating canvas width:', error);
     return null;
   }
 };
@@ -114,6 +114,33 @@ export const updateCanvasTop = async (id, top) => {
 };
 
 export const updateCanvasLeft = async (id, left) => {
+  // GraphQL mutation for adding a new component
+  const mutation = `
+    mutation {
+      updateCanvas(
+      id: "${id}"
+      left: ${left}
+      ) {
+    id
+    name
+    height
+    width
+    top
+    left
+  }
+  }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.updateCanvas;
+  } catch (error) {
+    console.error('Error adding new component:', error);
+    return null;
+  }
+};
+
+export const updateCanvasWit = async (id, left) => {
   // GraphQL mutation for adding a new component
   const mutation = `
     mutation {

@@ -82,6 +82,8 @@ function Canvas() {
         if (canvasData) {
             setCanvasHeight(canvasData.height);
             setCanvasTop(canvasData.top);
+            setCanvasLeft(canvasData.left);
+            setCanvasWidth(canvasData.width);
         }
     }
     fetchCanvas();
