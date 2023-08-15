@@ -28,6 +28,7 @@ import { useCanvasUpdate } from '/src/components/canvas/useCanvasUpdate.jsx';
 import { ResizingBox, CanvasElement } from '/src/components/canvas/CanvasElements.jsx';
 
 import {getCanvas} from '/src/components/graphql/queries.jsx';
+import {FocusedButton} from '/src/components/canvas/hoversState.jsx';
 
 
 function Canvas() {
@@ -149,6 +150,8 @@ useEffect(() => {
   }}
   onMouseDown={handleResizeMouseDown}
   onMouseUp={handleResizeMouseUp}>
+        <FocusedButton canvasHeight={canvasHeight} canvasWidth={canvasWidth} canvasTop={canvasTop} canvasLeft={canvasLeft} />
+
         <CanvasElement
           ref={canvasRef}
           onClick={handleClick}

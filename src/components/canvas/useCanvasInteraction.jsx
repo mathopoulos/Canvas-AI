@@ -380,6 +380,7 @@ if (resizing && resizingEdge && selectedShapeIndex !== null) {
 };}
 
 if (bottomBorder) {
+  console.log("test")
   const { pageY } = e;
   const deltaY = pageY - dragStartY;
   setCanvasHeight(prevHeight => prevHeight + deltaY);
