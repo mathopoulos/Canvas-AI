@@ -140,7 +140,7 @@ textsByComponent: ({ componentId }) => {
   },
 
   // Add a new input to a component in the database
-  addInput: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, borderSides, name }) => {
+  addInput: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, borderSides, name, group }) => {
     const newInput = {
       id: crypto.randomUUID(),
       type,
@@ -158,6 +158,7 @@ textsByComponent: ({ componentId }) => {
       placeholderTextSize,
       borderSides,
       name,
+      group, 
     };
 
     return pool.query(
@@ -169,7 +170,7 @@ textsByComponent: ({ componentId }) => {
   },
 
 // Add a new button to a component in the database
-addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name}) => {
+addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name, group}) => {
     const newButton = {
         id: crypto.randomUUID(),
         type,
@@ -184,6 +185,7 @@ addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, st
         placeholderText,
         borderSides,
         name,
+        group,
     };
 
     return pool.query(
@@ -211,7 +213,7 @@ addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, st
 },
 
   // Add a new button to a component in the database
-addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name}) => {
+addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, group}) => {
     const newText = {
         id: crypto.randomUUID(),
         type,
@@ -224,6 +226,7 @@ addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTex
         placeholderTextFillStyle,
        placeholderTextSize,
         name,
+      group,
     };
 
     return pool.query(

@@ -243,6 +243,7 @@ export const updateComponent = async (id, name) => {
             left
           }
           name
+          group
         }
                 buttons {
         id
@@ -263,6 +264,7 @@ export const updateComponent = async (id, name) => {
           left
         }
         name
+        group
         }
         texts {
           id
@@ -276,6 +278,7 @@ export const updateComponent = async (id, name) => {
           placeholderTextFont
           placeholderTextFillStyle
           placeholderTextSize
+          group
         }
       }
     }
@@ -293,7 +296,7 @@ export const updateComponent = async (id, name) => {
 // Function to add a new input to a component in the database
 export const addNewInput = async (parentId, input) => {
   // Destructure the input object to get individual fields
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, borderSides } = input;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, borderSides, group } = input;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `
@@ -320,7 +323,8 @@ export const addNewInput = async (parentId, input) => {
         right: true,
         bottom: true,
         left: true
-      }
+      },
+      group: "${group}"
       ) {
         id
         type
@@ -343,6 +347,7 @@ export const addNewInput = async (parentId, input) => {
         bottom
         left
       }
+      group
       }
     }
   `;
@@ -383,6 +388,7 @@ export const addNewButton = async (parentId, button) => {
         bottom: true,
         left: true
       }
+      group: "${group}"
       ) {
         id
         type
@@ -402,6 +408,7 @@ export const addNewButton = async (parentId, button) => {
         bottom
         left
       }
+      group
       }
     }
   `;
@@ -418,7 +425,7 @@ export const addNewButton = async (parentId, button) => {
 // Function to add a new button to a component in the database
 export const addNewText = async (parentId, text) => {
   // Destructure the button object to get individual fields
-  const {type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name} = text;
+  const {type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, group} = text;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `
@@ -435,6 +442,7 @@ export const addNewText = async (parentId, text) => {
         placeholderTextFont: "${placeholderTextFont}",
         placeholderTextFillStyle: "${placeholderTextFillStyle}",
         placeholderTextSize: ${placeholderTextSize},
+        group: "${group}", 
       ) {
         id
           name
@@ -447,6 +455,7 @@ export const addNewText = async (parentId, text) => {
           placeholderTextFont
           placeholderTextFillStyle
           placeholderTextSize
+          group
       }
     }
   `;

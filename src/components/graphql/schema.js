@@ -18,13 +18,13 @@ type Mutation {
     deleteComponent(id: ID!): Boolean
     updateComponent(id: ID!, name: String!): Component
     updateCanvas(id: ID!, name: String, height: Int, width: Int, top: Int, left: Int): Canvas
-    addInput(parentId: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, placeholderTextFont: String!, placeholderTextFillStyle: String!, placeholderTextSize: Int!, borderSides: BorderSidesInput, name: String!): Input
+    addInput(parentId: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, placeholderTextFont: String!, placeholderTextFillStyle: String!, placeholderTextSize: Int!, borderSides: BorderSidesInput, name: String!, group: ID): Input
     updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, placeholderTextFont: String, placeholderTextFillStyle: String, placeholderTextSize: Int, borderSides: BorderSidesInput, name: String): Input
     deleteInput(id: ID!): Boolean
-    addButton(parentId: ID!, type: String, x: Int!, y: Int!, width: Int!, height: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, borderSides: BorderSidesInput, name: String!): Button
+    addButton(parentId: ID!, type: String, x: Int!, y: Int!, width: Int!, height: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, borderSides: BorderSidesInput, name: String!, group: ID): Button
     updateButton(id: ID!, x: Int, y: Int, width: Int, height: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, borderSides: BorderSidesInput, name: String): Button
     deleteButton(id: ID!): Boolean
-    addText(parentId: ID!, type: String, x: Int!, y: Int!, width: Int!, height: Int!, placeholderText: String!, placeholderTextFont: String!, placeholderTextFillStyle: String!, placeholderTextSize: Int!, name: String): Text
+    addText(parentId: ID!, type: String, x: Int!, y: Int!, width: Int!, height: Int!, placeholderText: String!, placeholderTextFont: String!, placeholderTextFillStyle: String!, placeholderTextSize: Int!, name: String, group: ID): Text
     updateText(id: ID!, type: String, x: Int, y: Int, width: Int, height: Int, placeholderText: String, placeholderTextFont: String, placeholderTextFillStyle: String, placeholderTextSize: Int): Text
     deleteText(id: ID!): Boolean
     syncCode: Status
@@ -75,6 +75,7 @@ type Mutation {
     placeholderTextSize: Int!,
     borderSides: BorderSides
     name: String!
+    group: ID
   }
 
   type Button {
@@ -91,6 +92,7 @@ type Mutation {
     placeholderText: String!
     borderSides: BorderSides
     name: String!
+    group: ID
   }
   
   type Text {
@@ -105,6 +107,7 @@ type Mutation {
   placeholderTextFillStyle: String,
   placeholderTextSize: Int!
   name: String!
+  group: ID
   }
 
   type Canvas {

@@ -167,6 +167,7 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
     newShape.placeholderTextSize = 14;
     newShape.height = 50;
     newShape.width = 200;
+    newShape.group = ""
   }
 
 

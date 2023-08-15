@@ -69,6 +69,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.placeholderTextSize = 14;
         newShape.height = 50;
         newShape.width = 200;
+        newShape.group = ""
         addNewText(selectedComponent, newShape);
         getAllTextsOfComponent()
       }

@@ -52,16 +52,19 @@ export const getAllComponents = async () => {
       id
       type
       name
+      group
     }
     buttons {
       id
       type
       name
+      group
     }
     texts {
     id
     type
     name
+    group
     }
   }
     }
@@ -121,6 +124,7 @@ export const getAllInputsOfComponent = async (componentId) => {
       bottom
       left
     }
+    group
   }
 }
   `;
@@ -157,6 +161,7 @@ export const getAllButtonsOfComponent = async (componentId) => {
       bottom
       left
     }
+    group
   }
 }
   `;
@@ -186,6 +191,7 @@ export const getAllTextsOfComponent = async (componentId) => {
     placeholderTextFont
     placeholderTextFillStyle
     placeholderTextSize
+    group
   }
 }
   `;
