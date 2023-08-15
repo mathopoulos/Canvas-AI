@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export function FocusedButton({ canvasHeight, canvasWidth, canvasTop, canvasLeft }) {
     // Initial top calculation
-    let topTest = canvasTop + canvasHeight + 30;
+    let topTest = canvasTop + canvasHeight + 70;
       
     // Initial left calculation
   
@@ -34,7 +34,7 @@ export function FocusedButton({ canvasHeight, canvasWidth, canvasTop, canvasLeft
 
     // Recalculate top and width based on canvas values
     useEffect(() => {
-        const newTop = canvasTop + canvasHeight + 30;
+        const newTop = canvasTop + canvasHeight + 70;
         setTop(newTop);
         setWidth(canvasWidth);
     }, [canvasHeight, canvasWidth, canvasTop]);
