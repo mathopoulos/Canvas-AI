@@ -51,7 +51,7 @@ export function FocusedButton({ canvasHeight, canvasWidth, canvasTop, canvasLeft
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <img src="images/plus.svg" alt="box-icon" id="plusImage" />
+            <img src="images/plus.svg" alt="box-icon" id="plusImage" style={{ userSelect: 'none' }} />
         </button>
     );
 }
