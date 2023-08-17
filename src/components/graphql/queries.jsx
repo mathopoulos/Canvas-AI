@@ -42,6 +42,32 @@ export const getAllShapes = async () => {
 };
 
 // Fetch all components from the GraphQL server
+export const getGroupsOfComponent = async (componentId) => {
+  // Define the GraphQL query to fetch all components and their associated inputs
+  const query = `{
+  groupsByComponent(componentId: "${componentId}"){
+    id
+    name
+    height
+    width
+    x
+    y
+    type
+    borderRadius
+    parentId
+    }
+}`;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
+    return response;
+  } catch (error) {
+    console.error('Error getting groups:', error);
+    return null;
+  }
+};
+
+// Fetch all components from the GraphQL server
 export const getAllComponents = async () => {
   // Define the GraphQL query to fetch all components and their associated inputs
   const query = `{
@@ -68,8 +94,7 @@ export const getAllComponents = async () => {
     }
   }
     }
-  }
-}`;
+`;
 
   try {
     const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);

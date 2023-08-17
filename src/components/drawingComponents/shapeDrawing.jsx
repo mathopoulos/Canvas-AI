@@ -30,7 +30,7 @@ export const drawShapes = (context, shapes, selectedShapeIndex, newInput) => {
     );} else if (shape.type === 'group')
     {
       const isSelected = selectedShapeIndex === index;
-      drawGroup(context, shape.width, shape.height, shape.x, shape.y, shape.borderRadius, isSelected, shape.strokeWidth, shape.strokeColor, shape.fillStyleColor, shape.borderSides)
+      drawGroup(context, shape.width, shape.height, shape.x, shape.y, shape.borderRadius, isSelected, shape.strokeWidth, shape.strokeColor)
     }
     
     

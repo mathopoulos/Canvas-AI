@@ -32,6 +32,44 @@ export const addCanvas = async (name, height, width, top, left) => {
   }
 };
 
+export const addGroup = async (parentId, group) => {
+
+    const {height, width, x, y, type, name, borderRadius } = group;
+  // GraphQL mutation for adding a new component
+  const mutation = `
+    mutation {
+      addGroup(
+          parentId: "${parentId}"
+          name: "${name}"
+          height: ${height}
+          width: ${width}
+          x: ${x}
+          y: ${y}
+          type: "${type}"
+          borderRadius: ${borderRadius}
+      ) {
+    id
+    name
+    height
+    width
+    x
+    y
+    type
+    borderRadius
+    parentId
+  }
+  }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.addGroup;
+  } catch (error) {
+    console.error('Error adding new group:', error);
+    return null;
+  }
+};
+
 export const updateCanvasHeight = async (id, height) => {
   // GraphQL mutation for adding a new component
   const mutation = `
@@ -59,7 +97,7 @@ export const updateCanvasHeight = async (id, height) => {
   }
 };
 
-export const updateCanvasWidth = async (id,width) => {
+export const updateCanvasWidth = async (id, width) => {
   // GraphQL mutation for adding a new component
   const mutation = `
     mutation {
@@ -166,7 +204,7 @@ export const updateCanvasWit = async (id, left) => {
     return null;
   }
 };
-  
+
 
 // Function to add a new component to the database
 export const addNewComponent = async (name) => {
@@ -425,7 +463,7 @@ export const addNewButton = async (parentId, button) => {
 // Function to add a new button to a component in the database
 export const addNewText = async (parentId, text) => {
   // Destructure the button object to get individual fields
-  const {type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, group} = text;
+  const { type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, group } = text;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `

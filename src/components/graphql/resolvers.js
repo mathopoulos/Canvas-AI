@@ -1,6 +1,6 @@
 // Import the PostgreSQL connection pool
 import pool from '../db/dbConnection.js';
- // Import the crypto module for generating unique IDs
+// Import the crypto module for generating unique IDs
 import crypto from 'crypto';
 // Import the shapesPromise function which fetches shape data from the database
 import { shapesPromise } from '../db/queries.js';
@@ -17,13 +17,21 @@ const root = {
     return shapesPromise();
   },
 
+// Fetch all groups
+groupsByComponent: ({ componentId }) => {
+  // You should filter by the 'parentId' field in your data
+  return pool.query('SELECT data FROM group_data WHERE data @> $1::jsonb', [JSON.stringify({ parentId: componentId })])
+    .then(res => res.rows.length > 0 ? res.rows.map(row => row.data) : [])
+    .catch(e => console.error(e.stack));
+},
+
   // Fetch a specific canvas by its ID
   canvas: ({ id }) => {
     return pool.query('SELECT data FROM canvas_data WHERE data->>\'id\' = $1', [id])
       .then(res => res.rows.length > 0 ? res.rows[0].data : null)
       .catch(e => console.error(e.stack));
   },
-  
+
   // Fetch a specific component by its ID
   component: ({ id }) => {
     return pool.query('SELECT data FROM component_data WHERE data->>\'id\' = $1', [id])
@@ -38,8 +46,8 @@ const root = {
       .catch(e => console.error(e.stack));
   },
 
-    // Fetch inputs associated with a specific component
-buttonsByComponent: ({ componentId }) => {
+  // Fetch inputs associated with a specific component
+  buttonsByComponent: ({ componentId }) => {
     return shapesPromise()
       .then(shapes => {
         const shape = shapes.find(shape => shape.id === componentId);
@@ -50,10 +58,10 @@ buttonsByComponent: ({ componentId }) => {
         return shape.buttons;
       })
       .catch(e => console.error(e.stack));
-},
+  },
 
-      // Fetch inputs associated with a specific component
-textsByComponent: ({ componentId }) => {
+  // Fetch inputs associated with a specific component
+  textsByComponent: ({ componentId }) => {
     return shapesPromise()
       .then(shapes => {
         const shape = shapes.find(shape => shape.id === componentId);
@@ -64,10 +72,10 @@ textsByComponent: ({ componentId }) => {
         return shape.texts;
       })
       .catch(e => console.error(e.stack));
-},
+  },
 
-    // Add a new component to the database
-  addCanvas: ({ name, height, width, top, left}) => {
+  // Add a new component to the database
+  addCanvas: ({ name, height, width, top, left }) => {
     const newCanvas = {
       id: crypto.randomUUID(),
       name,
@@ -81,22 +89,41 @@ textsByComponent: ({ componentId }) => {
       .catch(e => console.error(e.stack));
   },
 
-    // Update existing canvas  by its ID
+  // Add a new component to the database
+  addGroup: ({ parentId, name, height, width, x, y, type, borderRadius }) => {
+    const newGroup = {
+      id: crypto.randomUUID(),
+      name,
+      height,
+      width,
+      x,
+      y,
+      type,
+      borderRadius,
+      parentId
+    };
+    return pool.query('INSERT INTO group_data(data) VALUES($1) RETURNING data', [newGroup])
+      .then(res => res.rows[0].data)
+      .catch(e => console.error(e.stack));
+  },
+
+  // Update existing canvas  by its ID
   updateCanvas: async ({ id, ...updates }) => {
     const canvas = await pool.query('SELECT data FROM canvas_data WHERE data->>\'id\' = $1', [id])
       .then(res => res.rows.length > 0 ? res.rows[0].data : null)
       .catch(e => console.error(e.stack));
     if (!canvas) {
       console.error(`No canvas found with id: ${id}`);
-      return null;}
+      return null;
+    }
     const newCanvas = { ...canvas, ...updates };
     return pool.query('UPDATE canvas_data SET data = $1 WHERE data->>\'id\' = $2', [newCanvas, id])
-    .then(res => res.rows.length > 0 ? res.rows[0].data : null)
-    .catch(e => console.error(e.stack));
+      .then(res => res.rows.length > 0 ? res.rows[0].data : null)
+      .catch(e => console.error(e.stack));
 
-    
 
-      
+
+
   },
 
 
@@ -153,12 +180,12 @@ textsByComponent: ({ componentId }) => {
       strokeColor,
       fillStyleColor,
       placeholderText,
-      placeholderTextFont,  
+      placeholderTextFont,
       placeholderTextFillStyle,
       placeholderTextSize,
       borderSides,
       name,
-      group, 
+      group,
     };
 
     return pool.query(
@@ -169,90 +196,90 @@ textsByComponent: ({ componentId }) => {
       .catch(e => console.error(e.stack));
   },
 
-// Add a new button to a component in the database
-addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name, group}) => {
-    const newButton = {
-        id: crypto.randomUUID(),
-        type,
-        width,
-        height,
-        x,
-        y,
-        borderRadius,
-        strokeWidth,
-        strokeColor,
-        fillStyleColor,
-        placeholderText,
-        borderSides,
-        name,
-        group,
-    };
-
-    return pool.query(
-        'UPDATE component_data SET data = jsonb_insert(data, \'{buttons,-1}\', $1::jsonb) WHERE data->>\'id\' = $2 RETURNING data',
-        [JSON.stringify(newButton), parentId]
-    )
-    .then(res => {
-        if (res && res.rows && res.rows.length > 0) {
-            const updatedData = res.rows[0].data;
-            if (updatedData.buttons && updatedData.buttons.length) {
-                return updatedData.buttons[updatedData.buttons.length - 1]; // Returns the last button which is the newly added one.
-            } else {
-                console.error('No buttons found or buttons array is empty:', updatedData);
-                return null; // This might not be ideal; you could throw an error or handle it differently.
-            }
-        } else {
-            console.error('Unexpected database response:', res);
-            return null;
-        }
-    })
-    .catch(e => {
-        console.error(e.stack);
-        throw new Error('Database error');
-    });
-},
-
   // Add a new button to a component in the database
-addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, group}) => {
-    const newText = {
-        id: crypto.randomUUID(),
-        type,
-        width,
-        height,
-        x,
-        y,
-        placeholderText,
-        placeholderTextFont,
-        placeholderTextFillStyle,
-       placeholderTextSize,
-        name,
+  addButton: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name, group }) => {
+    const newButton = {
+      id: crypto.randomUUID(),
+      type,
+      width,
+      height,
+      x,
+      y,
+      borderRadius,
+      strokeWidth,
+      strokeColor,
+      fillStyleColor,
+      placeholderText,
+      borderSides,
+      name,
       group,
     };
 
     return pool.query(
-        'UPDATE component_data SET data = jsonb_insert(data, \'{texts,-1}\', $1::jsonb) WHERE data->>\'id\' = $2 RETURNING data',
-        [JSON.stringify(newText), parentId]
+      'UPDATE component_data SET data = jsonb_insert(data, \'{buttons,-1}\', $1::jsonb) WHERE data->>\'id\' = $2 RETURNING data',
+      [JSON.stringify(newButton), parentId]
     )
-    .then(res => {
+      .then(res => {
         if (res && res.rows && res.rows.length > 0) {
-            const updatedData = res.rows[0].data;
-            if (updatedData.texts && updatedData.texts.length) {
-                return updatedData.buttons[updatedData.texts.length - 1]; // Returns the last button which is the newly added one.
-            } else {
-                console.error('No texts found or texts array is empty:', updatedData);
-                return null; // This might not be ideal; you could throw an error or handle it differently.
-            }
+          const updatedData = res.rows[0].data;
+          if (updatedData.buttons && updatedData.buttons.length) {
+            return updatedData.buttons[updatedData.buttons.length - 1]; // Returns the last button which is the newly added one.
+          } else {
+            console.error('No buttons found or buttons array is empty:', updatedData);
+            return null; // This might not be ideal; you could throw an error or handle it differently.
+          }
         } else {
-            console.error('Unexpected database response:', res);
-            return null;
+          console.error('Unexpected database response:', res);
+          return null;
         }
-    })
-    .catch(e => {
+      })
+      .catch(e => {
         console.error(e.stack);
         throw new Error('Database error');
-    });
-},
-  
+      });
+  },
+
+  // Add a new button to a component in the database
+  addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, group }) => {
+    const newText = {
+      id: crypto.randomUUID(),
+      type,
+      width,
+      height,
+      x,
+      y,
+      placeholderText,
+      placeholderTextFont,
+      placeholderTextFillStyle,
+      placeholderTextSize,
+      name,
+      group,
+    };
+
+    return pool.query(
+      'UPDATE component_data SET data = jsonb_insert(data, \'{texts,-1}\', $1::jsonb) WHERE data->>\'id\' = $2 RETURNING data',
+      [JSON.stringify(newText), parentId]
+    )
+      .then(res => {
+        if (res && res.rows && res.rows.length > 0) {
+          const updatedData = res.rows[0].data;
+          if (updatedData.texts && updatedData.texts.length) {
+            return updatedData.buttons[updatedData.texts.length - 1]; // Returns the last button which is the newly added one.
+          } else {
+            console.error('No texts found or texts array is empty:', updatedData);
+            return null; // This might not be ideal; you could throw an error or handle it differently.
+          }
+        } else {
+          console.error('Unexpected database response:', res);
+          return null;
+        }
+      })
+      .catch(e => {
+        console.error(e.stack);
+        throw new Error('Database error');
+      });
+  },
+
 
   // Update an existing input's properties by its ID
   updateInput: async ({ id, ...updates }) => {
@@ -281,7 +308,7 @@ addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTex
 
     return updated.rows[0].data;
   },
-  
+
   // Update an existing button's properties by its ID
   updateButton: async ({ id, ...updates }) => {
     // Get the component that contains the button
@@ -293,17 +320,17 @@ addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTex
     if (component.rowCount === 0) {
       return null;
     }
-      // Make a copy of the component's data
-      const updatedComponent = { ...component.rows[0].data };
-      // Find the button to be updated and apply the updates
-      updatedComponent.buttons = updatedComponent.buttons.map(button => button.id === id ? { ...button, ...updates } : button);
-      // Update the component data in the database
-      const updated = await pool.query(
-        'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2 RETURNING data',
-        [JSON.stringify(updatedComponent), updatedComponent.id]
-      );
-      return updated.rows[0].data;
-    },
+    // Make a copy of the component's data
+    const updatedComponent = { ...component.rows[0].data };
+    // Find the button to be updated and apply the updates
+    updatedComponent.buttons = updatedComponent.buttons.map(button => button.id === id ? { ...button, ...updates } : button);
+    // Update the component data in the database
+    const updated = await pool.query(
+      'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2 RETURNING data',
+      [JSON.stringify(updatedComponent), updatedComponent.id]
+    );
+    return updated.rows[0].data;
+  },
 
   // Update an existing button's properties by its ID
   updateText: async ({ id, ...updates }) => {
@@ -316,18 +343,18 @@ addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTex
     if (component.rowCount === 0) {
       return null;
     }
-      // Make a copy of the component's data
-      const updatedComponent = { ...component.rows[0].data };
-      // Find the button to be updated and apply the updates
-      updatedComponent.texts = updatedComponent.texts.map(text => text.id === id ? { ...text, ...updates } : text);
-      // Update the component data in the database
-      const updated = await pool.query(
-        'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2 RETURNING data',
-        [JSON.stringify(updatedComponent), updatedComponent.id]
-      );
-      return updated.rows[0].data;
-    },
-  
+    // Make a copy of the component's data
+    const updatedComponent = { ...component.rows[0].data };
+    // Find the button to be updated and apply the updates
+    updatedComponent.texts = updatedComponent.texts.map(text => text.id === id ? { ...text, ...updates } : text);
+    // Update the component data in the database
+    const updated = await pool.query(
+      'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2 RETURNING data',
+      [JSON.stringify(updatedComponent), updatedComponent.id]
+    );
+    return updated.rows[0].data;
+  },
+
   // Delete an input by its ID
   deleteInput: async ({ id }) => {
     // Find the component that contains the input with the given ID
@@ -355,30 +382,30 @@ addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTex
 
     return true;
   },
-  
+
   // Delete a button by its ID
   deleteButton: async ({ id }) => {
     // Find the component that contains the button with the given ID
     const component = await pool.query(
       'SELECT data FROM component_data WHERE EXISTS (SELECT 1 FROM jsonb_array_elements(data-> \'buttons\') element WHERE element->>\'id\' = $1)',
       [id]
-      );
+    );
     // If no component is found, return false
     if (component.rowCount === 0) {
       return false;
     }
-      // Make a copy of the component's data
-      const updatedComponent = { ...component.rows[0].data };
-      // Filter out the button with the specified ID
-      updatedComponent.buttons = updatedComponent.buttons.filter(button => button.id !== id);
-      // Update the component data in the database
-      await pool.query(
-        'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2',
-        [JSON.stringify(updatedComponent), updatedComponent.id]
-      );
-      return true;
+    // Make a copy of the component's data
+    const updatedComponent = { ...component.rows[0].data };
+    // Filter out the button with the specified ID
+    updatedComponent.buttons = updatedComponent.buttons.filter(button => button.id !== id);
+    // Update the component data in the database
+    await pool.query(
+      'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2',
+      [JSON.stringify(updatedComponent), updatedComponent.id]
+    );
+    return true;
 
-    },
+  },
 
   // Delete a button by its ID
   deleteText: async ({ id }) => {
@@ -386,23 +413,23 @@ addText: ({ parentId, type, width, height, x, y, placeholderText, placeholderTex
     const component = await pool.query(
       'SELECT data FROM component_data WHERE EXISTS (SELECT 1 FROM jsonb_array_elements(data-> \'texts\') element WHERE element->>\'id\' = $1)',
       [id]
-      );
+    );
     // If no component is found, return false
     if (component.rowCount === 0) {
       return false;
     }
-      // Make a copy of the component's data
-      const updatedComponent = { ...component.rows[0].data };
-      // Filter out the button with the specified ID
-      updatedComponent.texts = updatedComponent.texts.filter(text => text.id !== id);
-      // Update the component data in the database
-      await pool.query(
-        'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2',
-        [JSON.stringify(updatedComponent), updatedComponent.id]
-      );
-      return true;
+    // Make a copy of the component's data
+    const updatedComponent = { ...component.rows[0].data };
+    // Filter out the button with the specified ID
+    updatedComponent.texts = updatedComponent.texts.filter(text => text.id !== id);
+    // Update the component data in the database
+    await pool.query(
+      'UPDATE component_data SET data = $1 WHERE data->>\'id\' = $2',
+      [JSON.stringify(updatedComponent), updatedComponent.id]
+    );
+    return true;
 
-    },
+  },
 
   // Sync code operation, returns a status
   syncCode: () => {

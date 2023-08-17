@@ -13,7 +13,7 @@ import { drawShapes } from '/src/components/drawingComponents/shapeDrawing.jsx';
 import { findShapeUnderCursor, createNewShape } from '/src/components/helpers.jsx';
 
 // GraphQL queries to fetch data
-import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent } from '/src/components/graphql/queries.jsx';
+import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent, getGroupsOfComponent } from '/src/components/graphql/queries.jsx';
 
 // Components for displaying details and layers
 import ElementDetails from '/src/components/canvas/elementDetails.jsx';
@@ -98,13 +98,16 @@ useEffect(() => {
         getAllInputsOfComponent(selectedComponent),
         getAllButtonsOfComponent(selectedComponent),
         getAllTextsOfComponent(selectedComponent),
-      ]).then(([inputsResponse, buttonsResponse, textsResponse]) => {
+        getGroupsOfComponent(selectedComponent),
+      ]).then(([inputsResponse, buttonsResponse, textsResponse, groupsResponse]) => {
         const inputsData = inputsResponse.inputsByComponent;
         const buttonsData = buttonsResponse.buttonsByComponent;
         const textsData = textsResponse.textsByComponent;
+        const groupsData = groupsResponse.groupsByComponent;
         const shapesData = [...inputsData, ...buttonsData, 
- ...textsData];
+ ...textsData,...groupsData];
         setShapes(shapesData);
+        console.log(shapesData);
       });
     }
   }, [selectedComponent]);
