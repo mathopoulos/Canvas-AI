@@ -1,15 +1,13 @@
 // Function to draw an input field on a canvas
 export const drawGroup = (ctx, width, height, x, y, borderRadius, isSelected, strokeWidth, strokeColor) => {
   // Set the line width and fill style for the input field
-   console.log(isSelected)
+     ctx.strokeStyle = strokeColor;
+
     ctx.lineWidth = strokeWidth;
     ctx.fillStyle = "rgba(0, 0, 0, 0)";
 
-   if (isSelected) {
-     ctx.strokeStyle = "#800080";
-   } else {
      ctx.strokeStyle = strokeColor;
-   }
+   
 
     // Begin drawing the input field from the top left, just before the corner
     ctx.beginPath();

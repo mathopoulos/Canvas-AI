@@ -142,6 +142,32 @@ const BackgroundSection = ({ selectedShape, onFillStyleColorChange }) => (
   </div>
 );
 
+// Allign section component: Displays input fields to adjust the size of a shape.
+const AlignSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
+  <div className="section">
+    <label id="positionTitle">Align</label>
+    <div id="xInputDiv">
+      <label id="xLabel" htmlFor="height">Align</label>
+      <div id="xInputWrapper">
+        <input
+          type="text"
+          id="height"
+          name="xValue"
+          value={selectedShape ? selectedShape.height : ''}
+          onChange={onHeightChange} />
+      </div>
+    </div>
+    <div id="xInputDiv">
+      <label id="xLabel" htmlFor="width">Align</label>
+      <div id="xInputWrapper">
+        <input type="text" id="width" name="xValue" value={selectedShape ? selectedShape.width : ''}
+          onChange={onWidthChange} />
+      </div>
+    </div>
+  </div>
+);
+
+
 
 // ElementDetails component: Displays a panel with various sections to adjust properties of a selected shape.
 function ElementDetails({ selectedIndex, shapes, ...rest }) {
@@ -155,6 +181,7 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
     { value: 'border', label: 'Border' },
     { value: 'background', label: 'Background' },
     { value: 'placeholder', label: 'Placeholder' },
+    { value: 'align', label: 'Align' },
   ];
 
   const handleCheckboxChange = (event) => {
@@ -215,7 +242,8 @@ function ElementDetails({ selectedIndex, shapes, ...rest }) {
       {selectedSections.includes('size') && <SizeSection selectedShape={selectedShape} {...rest} />}
       {selectedSections.includes('border') && <BorderSection selectedShape={selectedShape} {...rest} />}
       {selectedSections.includes('background') && <BackgroundSection selectedShape={selectedShape} {...rest} />}
-      {selectedSections.includes('placeholder') && <PlaceholderTextSection selectedShape={selectedShape} {...rest} />}
+      {selectedSections.includes('placeholder') && <PlaceholderTextSection selectedShape={selectedShape}  {...rest} />}                                               
+{selectedSections.includes('align') && <AlignSection selectedShape={selectedShape}{...rest} />}
     </div>
   );
 }
