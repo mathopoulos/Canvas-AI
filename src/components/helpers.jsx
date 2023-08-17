@@ -6,6 +6,20 @@ let inputCounter = 1;
 let squareCounter = 1;
 let circleCounter = 1;
 
+export function isMouseOverGroupShape(shapes, x, y) {
+  for (let i = shapes.length - 1; i >= 0; i--) {
+    const shape = shapes[i];
+    if (shape.type === 'group') {
+      const { x: shapeX, y: shapeY, width, height } = shape;
+      if (x >= shapeX && x <= shapeX + width && y >= shapeY && y <= shapeY + height) {
+        return { result: true, groupId: shape.id };
+      }
+    }
+  }
+  return { result: false, groupId: null };
+};
+
+
 // Function to determine which shape (if any) is under the given x, y coordinates
 export const findShapeUnderCursor = (shapes, x, y) => {
   // Iterate through the shapes in reverse order (topmost shape first)
@@ -39,7 +53,7 @@ export const findShapeUnderCursor = (shapes, x, y) => {
       if (x >= shapeX && x <= shapeX + width && y >= shapeY && y <= shapeY + height) {
         return i;
       }
-    }
+    } 
   }
   // Return null if no shape is found under the cursor
   return null;
@@ -67,8 +81,6 @@ export function isCursorOverCanvasBorder(canvasRef, e) {
     rightBorder: isInsideRightBorder || isOutsideRightBorder
   };
 }
-
-
 
 // Function to update the display and position of the resizing box based on the selected shape
 export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
@@ -168,6 +180,14 @@ export const createNewShape = (shapeType, offsetX, offsetY) => {
     newShape.height = 50;
     newShape.width = 200;
     newShape.group = ""
+  } else if (shapeType === 'group') {
+    newShape.x = 10;
+    newShape.y = 10; 
+    newShape.type = 'group';
+    newShape.name = `Group ${inputCounter}`;
+    newShape.width = 300;
+    newShape.height = 10;
+    newShape.borderRadius = 0;
   }
 
 

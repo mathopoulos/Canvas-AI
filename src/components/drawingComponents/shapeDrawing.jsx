@@ -4,6 +4,7 @@ import { drawCircle } from '/src/components/drawingComponents/Circle.jsx';
 import { drawInput } from '/src/components/drawingComponents/Input.jsx';
 import { drawButton } from './Button';
 import { drawText } from './Text';
+import { drawGroup } from './Group';
 
 // Function to draw a collection of shapes on a canvas context
 export const drawShapes = (context, shapes, selectedShapeIndex, newInput) => {
@@ -26,7 +27,13 @@ export const drawShapes = (context, shapes, selectedShapeIndex, newInput) => {
     } else if(shape.type === 'text') {
       const isSelected = selectedShapeIndex === index;
       drawText(context, shape.x, shape.y, shape.height, shape.placeholderText, shape.placeholderTextFont, shape.placeholderTextFillStyle, shape.placeholderTextSize
-    );};
+    );} else if (shape.type === 'group')
+    {
+      const isSelected = selectedShapeIndex === index;
+      drawGroup(context, shape.width, shape.height, shape.x, shape.y, shape.borderRadius, isSelected, shape.strokeWidth, shape.strokeColor, shape.fillStyleColor, shape.borderSides)
+    }
+    
+    
   }
 };
 

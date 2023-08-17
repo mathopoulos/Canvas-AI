@@ -6,6 +6,7 @@ const schema = buildSchema(`
   type Query {
     shapes: [Input]
     components: [Component]
+    groups: [Group]
     component(id: ID!): Component
     canvas (id: ID!): Canvas
     inputsByComponent(componentId: ID!): [Input]
@@ -13,6 +14,7 @@ const schema = buildSchema(`
     textsByComponent(componentId: ID!): [Text]
   }
 type Mutation {
+    addGroup(parentId: ID!, name: String!, height: Int!, width: Int!, x: Int!, y: Int!, type: String!, name: String!, borderRadius: Int!): Group
     addComponent(name: String!): Component
     addCanvas(name: String, height: Int, width: Int, top: Int, left: Int): Canvas
     deleteComponent(id: ID!): Boolean
@@ -117,6 +119,18 @@ type Mutation {
   width: Int!
   top: Int!
   left: Int!
+  }
+
+  type Group {
+    id: ID!
+    name: String!
+    height: Int!
+    width: Int!
+    x: Int!
+    y: Int!
+    type: String!
+    name: String!
+    borderRadius: Int!
   }
 `);
 

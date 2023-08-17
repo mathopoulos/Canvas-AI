@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { findShapeUnderCursor, isCursorOverCanvasBorder } from '/src/components/helpers.jsx';
+import { findShapeUnderCursor, isCursorOverCanvasBorder, isMouseOverGroupShape} from '/src/components/helpers.jsx';
 import { createNewShape } from '/src/components/helpers.jsx';
 import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent} from '/src/components/graphql/queries.jsx';
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle, updateCanvasHeight, updateCanvasTop,updateCanvasWidth} from '/src/components/graphql/mutations.jsx';
+import { drawGroup } from '../drawingComponents/Group';
 
 
 
@@ -72,6 +73,15 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.group = ""
         addNewText(selectedComponent, newShape);
         getAllTextsOfComponent()
+      } else if (shapeType === 'group') {
+        newShape.type = 'group';
+        newShape.width = canvasWidth - 20;
+        newShape.height = 100;
+        newShape.borderRadius = 1;
+        newShape.strokeWidth = 1;
+        newShape.strokeColor = "#545454";
+        newShape.fillStyleColor = "#FFFFFF";
+        newShape.borderSides = {top: true, right: true, bottom: true, left: true};
       }
 
       setShapes([...shapes, newShape]);
@@ -98,6 +108,8 @@ const handleMouseDown = (e) => {
 
 // Handle mouse move events on the canvas
 const handleMouseMove = (e) => {
+  const { offsetX, offsetY } = e.nativeEvent;
+  console.log(isMouseOverGroupShape(shapes, offsetX, offsetY));
   const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
     const containsTrue = Object.values(isOverCanvas).some(Boolean);
       if (containsTrue) {
@@ -488,7 +500,11 @@ const handlePlaceholderTextStyleChange = (e) => {
     updateTextPlaceholderTextStyle(updatedShape.id, updatedShape.placeholderTextFillStyle);}
     }
   }
-};     
+};   
+
+const handleDrawGroup = (e) => {
+  drawGroup()
+}
   
     
 
