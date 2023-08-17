@@ -402,7 +402,7 @@ export const addNewInput = async (parentId, input) => {
 // Function to add a new button to a component in the database
 export const addNewButton = async (parentId, button) => {
   // Destructure the button object to get individual fields
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, name, borderSides } = button;
+  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, name, borderSides, group } = button;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `

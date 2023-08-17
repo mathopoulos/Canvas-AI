@@ -26,6 +26,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   const handleClick = (e) => {
   if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
+    let groupId = isMouseOverGroupShape(shapes, offsetX, offsetY).groupId
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
     const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
     const containsTrue = Object.values(isOverCanvas).some(Boolean);
@@ -50,6 +51,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.placeholderTextFont = "Arial";
         newShape.placeholderTextFillStyle = "#545454";
         newShape.placeholderTextSize = 14;
+        newShape.group = groupId
         addNewInput(selectedComponent, newShape)
         getAllInputsOfComponent()
       } else if (shapeType === 'button') {
@@ -62,6 +64,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.fillStyleColor = "#808080";
         newShape.borderSides = {top: true, right: true, bottom: true, left: true};
         newShape.placeholderText ="Button";
+        newShape.group = groupId
         addNewButton(selectedComponent, newShape)
         getAllButtonsOfComponent()
       } else if (shapeType ==='text') {
@@ -71,7 +74,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
         newShape.placeholderTextSize = 14;
         newShape.height = 50;
         newShape.width = 200;
-        newShape.group = ""
+        newShape.group = groupId
         addNewText(selectedComponent, newShape);
         getAllTextsOfComponent()
       } else if (shapeType === 'group') {
@@ -89,7 +92,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
       setSelectedShapeIndex(null); 
       setShapeType(null); // Add this line to reset the selected shape index
 
-    } else {
+    } else if (shapeIndex != null) {
       setSelectedShapeIndex(shapeIndex);
     }
   }

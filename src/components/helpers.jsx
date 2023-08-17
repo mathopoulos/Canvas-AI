@@ -53,7 +53,12 @@ export const findShapeUnderCursor = (shapes, x, y) => {
       if (x >= shapeX && x <= shapeX + width && y >= shapeY && y <= shapeY + height) {
         return i;
       }
-    } 
+    } else if (shape.type === 'group') {
+      const { x: shapeX, y: shapeY, width, height } = shape;
+      if (x >= shapeX && x <= shapeX + width && y >= shapeY && y <= shapeY + height) {
+        return i;
+      }
+    }
   }
   // Return null if no shape is found under the cursor
   return null;
