@@ -145,25 +145,12 @@ const BackgroundSection = ({ selectedShape, onFillStyleColorChange }) => (
 // Allign section component: Displays input fields to adjust the size of a shape.
 const AlignSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
   <div className="section">
-    <label id="positionTitle">Align</label>
-    <div id="xInputDiv">
-      <label id="xLabel" htmlFor="height">Align</label>
-      <div id="xInputWrapper">
-        <input
-          type="text"
-          id="height"
-          name="xValue"
-          value={selectedShape ? selectedShape.height : ''}
-          onChange={onHeightChange} />
-      </div>
-    </div>
-    <div id="xInputDiv">
-      <label id="xLabel" htmlFor="width">Align</label>
-      <div id="xInputWrapper">
-        <input type="text" id="width" name="xValue" value={selectedShape ? selectedShape.width : ''}
-          onChange={onWidthChange} />
-      </div>
-    </div>
+    <label id="placeholderTextAllign">Align</label>
+      <label id = "distributeLabel" htmlFor="placeholderText">Distribute</label>
+        <select name="fontSelection2">
+          <option value="start">Start</option>
+          <option value="end">End</option>
+        </select>
   </div>
 );
 

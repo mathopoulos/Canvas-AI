@@ -201,6 +201,50 @@ h4 {
 #xInputDiv {
   margin-top: 30px; }
 
+#placeholderTextAllign {
+  display: block;
+  text-align: left;
+  margin-bottom: 20px;
+  font-family: "Helvetica";
+  font-weight: bold; 
+  font-size: 14px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #616161;
+}
+
+[name="fontSelection2"] {
+  display: block;
+  text-align: left;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  margin-left: 20px;
+  width: 80px;
+  text-align: left;
+  font-family: "Helvetica";
+  font-weight: normal; 
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  padding-left: 10px;
+  padding-top: 4px; 
+  padding-bottom: 4px; 
+  color: #545454;
+  border: 1px solid #ddd;
+}
+
+#distributeLabel{
+font-family: "Helvetica";
+  font-weight: lighter; 
+  color: #616161;
+  font-size: 14px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
 #xLabel {
   float: left;
   width: 60px;
@@ -230,7 +274,7 @@ h4 {
 
 #xInputWrapper {
   overflow: hidden;
-
+  
 
 }
 
@@ -261,6 +305,22 @@ h4 {
   padding-left: 10px;
   padding-top: 4px; 
   padding-bottom: 4px; 
+  color: #545454;
+  border: 1px solid #ddd;
+}
+
+#placeholderText5 {
+  width: 80px;
+  text-align: left;
+  font-family: "Helvetica";
+  font-weight: normal; 
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  padding-left: 10px;
+  padding-top: 4px; 
+  padding-bottom: 4px; 
+  margin-left: 10px;
   color: #545454;
   border: 1px solid #ddd;
 }
