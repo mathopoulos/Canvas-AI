@@ -143,11 +143,11 @@ const BackgroundSection = ({ selectedShape, onFillStyleColorChange }) => (
 );
 
 // Allign section component: Displays input fields to adjust the size of a shape.
-const AlignSection = ({ selectedShape, onHeightChange, onWidthChange }) => (
+const AlignSection = ({ selectedShape, onStartAllignGroupChange }) => (
   <div className="section">
     <label id="placeholderTextAllign">Align</label>
       <label id = "distributeLabel" htmlFor="placeholderText">Distribute</label>
-        <select name="fontSelection2">
+        <select name="fontSelection2" onChange={onStartAllignGroupChange}>
           <option value="start">Start</option>
           <option value="end">End</option>
         </select>

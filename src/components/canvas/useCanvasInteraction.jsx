@@ -20,6 +20,27 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
     const [rightBorder, setRightBorder] = useState(false);
   const [dragStartY, setDragStartY] = useState(null);
   const [dragStartX, setDragStartX] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+
+    // Function to align shapes in a group
+ const alignShapesInGroup = (groupId, shapes) => {
+  console.log('shapes:', shapes);
+  console.log('groupId:', groupId);
+    const groupShapes = shapes.filter(shape => shape.group === groupId);
+    
+    if (groupShapes.length > 0) {
+      const leftMostX = Math.min(...groupShapes.map(shape => shape.x));
+      
+      const updatedShapes = shapes.map(shape => {
+        if (shape.group === groupId) {
+          return { ...shape, x: leftMostX };
+        }
+        return shape;
+      });
+      
+      setShapes(updatedShapes);
+    }
+  };
 
 
   // Handle canvas click events
@@ -27,10 +48,11 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
     let groupId = isMouseOverGroupShape(shapes, offsetX, offsetY).groupId
+    setSelectedGroup(groupId);
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
     const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
     const containsTrue = Object.values(isOverCanvas).some(Boolean);
-    if (shapeIndex === null && !containsTrue) {
+    if (!containsTrue) {
       const newShape = createNewShape(shapeType, offsetX, offsetY);
 
       // Define properties based on the shape type
@@ -91,12 +113,13 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
       setShapes([...shapes, newShape]);
       setSelectedShapeIndex(null); 
       setShapeType(null); // Add this line to reset the selected shape index
-
     } else if (shapeIndex != null) {
       setSelectedShapeIndex(shapeIndex);
     }
   }
 };
+  
+  
 
 // Handle mouse down events on the canvas
 const handleMouseDown = (e) => {
@@ -113,7 +136,6 @@ const handleMouseDown = (e) => {
 // Handle mouse move events on the canvas
 const handleMouseMove = (e) => {
   const { offsetX, offsetY } = e.nativeEvent;
-  console.log(isMouseOverGroupShape(shapes, offsetX, offsetY));
   const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
     const containsTrue = Object.values(isOverCanvas).some(Boolean);
       if (containsTrue) {
@@ -397,18 +419,15 @@ if (resizing && resizingEdge && selectedShapeIndex !== null) {
 };}
 
 if (bottomBorder) {
-  console.log("test")
   const { pageY } = e;
   const deltaY = pageY - dragStartY;
   setCanvasHeight(prevHeight => prevHeight + deltaY);
-  console.log("deltaY:", deltaY);
   updateCanvasHeight("56d78396-6f2d-4dbd-b332-848967e6760d", canvasHeight);
   setDragStartY(pageY);
 
 } 
     // Right border resizing
     else if (rightBorder) {
-      console.log("right border")
         const { pageX } = e;
         let deltaX = pageX - dragStartX;
         setCanvasWidth(prevWidth => prevWidth + deltaX); 
@@ -506,6 +525,10 @@ const handlePlaceholderTextStyleChange = (e) => {
   }
 };   
 
+const handleStartAllignGroupChange = (e) => {
+  alignShapesInGroup(selectedGroup, shapes)
+}
+
     
 
 // Add global mouse up event listener  
@@ -556,7 +579,8 @@ return {
     handlePlaceholderTextChange,
     handlePlaceholderTextFontChange, 
     handlePlaceholderTextSizeChange,
-    handlePlaceholderTextStyleChange
+    handlePlaceholderTextStyleChange,
+    handleStartAllignGroupChange
     
   
   };

@@ -73,13 +73,13 @@ function Canvas() {
     handlePlaceholderTextFontChange,
     handlePlaceholderTextSizeChange,
     handlePlaceholderTextStyleChange,
-    handleCanvasResize
+    handleCanvasResize, 
+    handleStartAllignGroupChange
   } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop, canvasLeft, setCanvasLeft, canvasWidth, setCanvasWidth);
 
   useEffect(() => {
     async function fetchCanvas() {
         const canvasData = await getCanvas("56d78396-6f2d-4dbd-b332-848967e6760d");
-      console.log(canvasData);
         if (canvasData) {
             setCanvasHeight(canvasData.height);
             setCanvasTop(canvasData.top);
@@ -107,7 +107,6 @@ useEffect(() => {
         const shapesData = [...inputsData, ...buttonsData, 
  ...textsData,...groupsData];
         setShapes(shapesData);
-        console.log(shapesData);
       });
     }
   }, [selectedComponent]);
@@ -177,7 +176,7 @@ useEffect(() => {
         setComponents={setComponents}
         setSelectedComponent={setSelectedComponent}// passing function as prop to LayersPanel component 
       />
-      <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange} onPlaceholderTextChange={handlePlaceholderTextChange} onPlaceholderTextFontChange={handlePlaceholderTextFontChange} onPlaceholdertextSizeChange = {handlePlaceholderTextSizeChange} onPlaceholderTextStyleChange = {handlePlaceholderTextStyleChange} onCanvasResize={handleCanvasResize}
+      <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange} onPlaceholderTextChange={handlePlaceholderTextChange} onPlaceholderTextFontChange={handlePlaceholderTextFontChange} onPlaceholdertextSizeChange = {handlePlaceholderTextSizeChange} onStartAllignGroupChange={handleStartAllignGroupChange} onPlaceholderTextStyleChange = {handlePlaceholderTextStyleChange} onCanvasResize={handleCanvasResize}
         canvasWidth={canvasWidth}
         canvasHeight={canvasHeight}/>
     </div>

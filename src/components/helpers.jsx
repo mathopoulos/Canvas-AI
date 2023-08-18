@@ -401,3 +401,23 @@ export function syncCodeFunction() {
     .then(r => r.json())
     .then(data => console.log('data returned:', data));
 }
+
+  // Function to align shapes in a group
+export const alignShapesInGroup = (groupId, shapes) => {
+  console.log('shapes:', shapes);
+  console.log('groupId:', groupId);
+    const groupShapes = shapes.filter(shape => shape.group === groupId);
+    
+    if (groupShapes.length > 0) {
+      const leftMostX = Math.min(...groupShapes.map(shape => shape.x));
+      
+      const updatedShapes = shapes.map(shape => {
+        if (shape.group === groupId) {
+          return { ...shape, x: leftMostX };
+        }
+        return shape;
+      });
+      
+      setShapes(updatedShapes);
+    }
+  };
