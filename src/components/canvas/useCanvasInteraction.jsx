@@ -23,6 +23,7 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   const [selectedGroup, setSelectedGroup] = useState(null);
 
 // Function to align shapes in a group
+
 const alignShapesInGroup = (groupId, shapes) => {
     console.log('shapes:', shapes);
     console.log('groupId:', groupId);
@@ -30,12 +31,14 @@ const alignShapesInGroup = (groupId, shapes) => {
     const group = shapes.find(shape => groupId === shape.group && shape.type === 'group');
     console.log(groupShapes);
     if (groupShapes.length > 0) {
-        const leftMostX = Math.min(...groupShapes.map(shape => shape.x));
-        console.log(`left most x: ${leftMostX}`);
         let currentOffsetX = group.x;
         let updatedShapes = groupShapes.map(shape => {
             if (shape.group === groupId) {
-                const updatedShape = { ...shape, x: currentOffsetX };
+
+                // Calculate vertical center of the group and minus half of the shape's height
+                const centerY = group.y + (group.height / 2) - (shape.height / 2);
+
+                const updatedShape = { ...shape, x: currentOffsetX, y: centerY };
                 currentOffsetX += shape.width + 5; // Move the offset 5 px to the right of this shape's right side.
                 console.log(updatedShape);
                 return updatedShape;
@@ -50,6 +53,9 @@ const alignShapesInGroup = (groupId, shapes) => {
         setShapes(updatedShapes);
     }
 };
+
+//... everything below remains the same
+
 
 
 
