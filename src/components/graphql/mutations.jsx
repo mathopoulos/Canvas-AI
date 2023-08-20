@@ -334,12 +334,13 @@ export const updateComponent = async (id, name) => {
 // Function to add a new input to a component in the database
 export const addNewInput = async (parentId, input) => {
   // Destructure the input object to get individual fields
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, borderSides, group } = input;
+  const { id, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, name, borderSides, group } = input;
 
   // GraphQL mutation for adding a new input to a component
   const mutation = `
     mutation {
       addInput(
+        id: "${id}",
         parentId: "${parentId}", 
         type: "${type}", 
         width: ${width}, 
@@ -366,7 +367,6 @@ export const addNewInput = async (parentId, input) => {
       ) {
         id
         type
-        width
         height
         x
         y

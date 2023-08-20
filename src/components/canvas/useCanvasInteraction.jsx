@@ -5,6 +5,8 @@ import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponen
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle, updateCanvasHeight, updateCanvasTop,updateCanvasWidth} from '/src/components/graphql/mutations.jsx';
 import { drawGroup } from '../drawingComponents/Group';
 import { addGroup } from '../graphql/mutations';
+import crypto from 'crypto';
+
 
 
 
@@ -40,9 +42,18 @@ const alignShapesInGroup = (groupId, shapes) => {
 
                 const updatedShape = { ...shape, x: currentOffsetX, y: centerY };
                 currentOffsetX += shape.width + 5; // Move the offset 5 px to the right of this shape's right side.
-                console.log(updatedShape);
+            if (updatedShape.type === 'input') {
+              console.log(shape)
+              console.log(updatedShape)
+              console.log(shape.id)
+              console.log(updatedShape.x)
+              console.log(updatedShape.y)
+              updateInputPosition(updatedShape.id, updatedShape.x, updatedShape.y);
+              console.log(updatedShape)
+            }
                 return updatedShape;
             }
+            console.log(shape);
             return shape;
         });
 
@@ -65,6 +76,7 @@ const alignShapesInGroup = (groupId, shapes) => {
     const { offsetX, offsetY } = e.nativeEvent;
     let groupId = isMouseOverGroupShape(shapes, offsetX, offsetY).groupId
     setSelectedGroup(groupId);
+    console.log(groupId);
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
     const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
     const containsTrue = Object.values(isOverCanvas).some(Boolean);
@@ -77,6 +89,11 @@ const alignShapesInGroup = (groupId, shapes) => {
       } else if (shapeType === 'circle') {
         newShape.radius = 25;
       } else if (shapeType === 'input') {
+        let array = new Uint32Array(4);
+window.crypto.getRandomValues(array);
+let id = Array.from(array, val => val.toString(16)).join('');
+
+        newShape.id = id;
         newShape.type = 'input';
         newShape.width = 200;
         newShape.height = 50;
@@ -89,7 +106,8 @@ const alignShapesInGroup = (groupId, shapes) => {
         newShape.placeholderTextFont = "Arial";
         newShape.placeholderTextFillStyle = "#545454";
         newShape.placeholderTextSize = 14;
-        newShape.group = groupId
+        newShape.group = groupId; 
+        console.log(newShape)
         addNewInput(selectedComponent, newShape)
         getAllInputsOfComponent()
       } else if (shapeType === 'button') {
@@ -106,7 +124,7 @@ const alignShapesInGroup = (groupId, shapes) => {
         addNewButton(selectedComponent, newShape)
         getAllButtonsOfComponent()
       } else if (shapeType ==='text') {
-        newShape.placeholderText ="Input Text";
+        newShape.placeholderText ="Text";
         newShape.type = "text";
         newShape.placeholderTextFillStyle = "#545454";
         newShape.placeholderTextSize = 14;

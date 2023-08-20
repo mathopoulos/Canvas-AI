@@ -1,4 +1,5 @@
 // Import the request function from the 'graphql-request' library for making GraphQL requests
+import crypto from 'crypto';
 import { request } from 'graphql-request';
 
 // Counters to keep track of the number of shapes created
@@ -209,11 +210,12 @@ export const updateShapeIndexes = (shapes, newOrder) => {
 
 // Function to add a new input shape to the database
 export const addNewInput = async (input) => {
-  const { type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name } = input;
+  const { id, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, borderSides, name } = input;
 
   const mutation = `
     mutation {
       addInput(
+        id: "${id}",
         type: "${type}", 
         width: ${width}, 
         height: ${height}, 

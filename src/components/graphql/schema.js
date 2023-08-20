@@ -21,7 +21,7 @@ type Mutation {
     deleteComponent(id: ID!): Boolean
     updateComponent(id: ID!, name: String!): Component
     updateCanvas(id: ID!, name: String, height: Int, width: Int, top: Int, left: Int): Canvas
-    addInput(parentId: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, placeholderTextFont: String!, placeholderTextFillStyle: String!, placeholderTextSize: Int!, borderSides: BorderSidesInput, name: String!, group: ID): Input
+    addInput(id: ID!, parentId: ID!, type: String!, width: Int!, height: Int!, x: Int!, y: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, placeholderText: String!, placeholderTextFont: String!, placeholderTextFillStyle: String!, placeholderTextSize: Int!, borderSides: BorderSidesInput, name: String!, group: ID): Input
     updateInput(id: ID!, type: String, width: Int, height: Int, x: Int, y: Int, borderRadius: Int, strokeWidth: Int, strokeColor: String, fillStyleColor: String, placeholderText: String, placeholderTextFont: String, placeholderTextFillStyle: String, placeholderTextSize: Int, borderSides: BorderSidesInput, name: String): Input
     deleteInput(id: ID!): Boolean
     addButton(parentId: ID!, type: String, x: Int!, y: Int!, width: Int!, height: Int!, borderRadius: Int!, strokeWidth: Int!, strokeColor: String!, fillStyleColor: String!, borderSides: BorderSidesInput, name: String!, group: ID): Button

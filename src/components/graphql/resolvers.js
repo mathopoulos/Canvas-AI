@@ -167,9 +167,9 @@ groupsByComponent: ({ componentId }) => {
   },
 
   // Add a new input to a component in the database
-  addInput: ({ parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, borderSides, name, group }) => {
+  addInput: ({ id, parentId, type, width, height, x, y, borderRadius, strokeWidth, strokeColor, fillStyleColor, placeholderText, placeholderTextFont, placeholderTextFillStyle, placeholderTextSize, borderSides, name, group }) => {
     const newInput = {
-      id: crypto.randomUUID(),
+      id,
       type,
       width,
       height,
