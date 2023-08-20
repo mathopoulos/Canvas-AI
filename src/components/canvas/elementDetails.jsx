@@ -147,7 +147,8 @@ const AlignSection = ({ selectedShape, onStartAllignGroupChange }) => (
   <div className="section">
     <label id="placeholderTextAllign">Align</label>
       <label id = "distributeLabel" htmlFor="placeholderText">Distribute</label>
-        <select name="fontSelection2" onChange={onStartAllignGroupChange}>
+        <select name="fontSelection2" value = "none" onChange={onStartAllignGroupChange}>
+          <option value="none">None</option>
           <option value="start">Start</option>
           <option value="end">End</option>
         </select>
