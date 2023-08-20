@@ -13,11 +13,12 @@ export function isMouseOverGroupShape(shapes, x, y) {
     if (shape.type === 'group') {
       const { x: shapeX, y: shapeY, width, height } = shape;
       if (x >= shapeX && x <= shapeX + width && y >= shapeY && y <= shapeY + height) {
-        return { result: true, groupId: shape.id };
+        console.log(`Mouse is over group shape ${shape.id}`);
+        return shape.id;
       }
     }
   }
-  return { result: false, groupId: null };
+  return null; 
 };
 
 

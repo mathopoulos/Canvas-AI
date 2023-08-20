@@ -30,8 +30,9 @@ const alignShapesInGroup = (groupId, shapes) => {
     console.log('shapes:', shapes);
     console.log('groupId:', groupId);
     const groupShapes = shapes.filter(shape => shape.group === groupId && shape.type !== 'group');
-    const group = shapes.find(shape => groupId === shape.group && shape.type === 'group');
+    const group = shapes.find(shape => groupId === shape.id && shape.type === 'group');
     console.log(groupShapes);
+    console.log(group);
     if (groupShapes.length > 0) {
         let currentOffsetX = group.x;
         let updatedShapes = groupShapes.map(shape => {
@@ -43,17 +44,10 @@ const alignShapesInGroup = (groupId, shapes) => {
                 const updatedShape = { ...shape, x: currentOffsetX, y: centerY };
                 currentOffsetX += shape.width + 5; // Move the offset 5 px to the right of this shape's right side.
             if (updatedShape.type === 'input') {
-              console.log(shape)
-              console.log(updatedShape)
-              console.log(shape.id)
-              console.log(updatedShape.x)
-              console.log(updatedShape.y)
               updateInputPosition(updatedShape.id, updatedShape.x, updatedShape.y);
-              console.log(updatedShape)
             }
                 return updatedShape;
             }
-            console.log(shape);
             return shape;
         });
 
@@ -72,16 +66,21 @@ const alignShapesInGroup = (groupId, shapes) => {
 
   // Handle canvas click events
   const handleClick = (e) => {
+    const { offsetX, offsetY } = e.nativeEvent;
+    let groupId = isMouseOverGroupShape(shapes, offsetX, offsetY)
+    setSelectedGroup(groupId);
   if (!dragging & shapeType !=null) {
     const { offsetX, offsetY } = e.nativeEvent;
-    let groupId = isMouseOverGroupShape(shapes, offsetX, offsetY).groupId
+    let groupId = isMouseOverGroupShape(shapes, offsetX, offsetY)
     setSelectedGroup(groupId);
-    console.log(groupId);
     const shapeIndex = findShapeUnderCursor(shapes, offsetX, offsetY);
     const isOverCanvas = isCursorOverCanvasBorder(canvasRef, e);
     const containsTrue = Object.values(isOverCanvas).some(Boolean);
     if (!containsTrue) {
       const newShape = createNewShape(shapeType, offsetX, offsetY);
+      let array = new Uint32Array(4);
+window.crypto.getRandomValues(array);
+let id = Array.from(array, val => val.toString(16)).join('');
 
       // Define properties based on the shape type
       if (shapeType === 'square') {
@@ -89,10 +88,6 @@ const alignShapesInGroup = (groupId, shapes) => {
       } else if (shapeType === 'circle') {
         newShape.radius = 25;
       } else if (shapeType === 'input') {
-        let array = new Uint32Array(4);
-window.crypto.getRandomValues(array);
-let id = Array.from(array, val => val.toString(16)).join('');
-
         newShape.id = id;
         newShape.type = 'input';
         newShape.width = 200;
@@ -107,7 +102,7 @@ let id = Array.from(array, val => val.toString(16)).join('');
         newShape.placeholderTextFillStyle = "#545454";
         newShape.placeholderTextSize = 14;
         newShape.group = groupId; 
-        console.log(newShape)
+        console.log(newShape.group)
         addNewInput(selectedComponent, newShape)
         getAllInputsOfComponent()
       } else if (shapeType === 'button') {
@@ -134,6 +129,7 @@ let id = Array.from(array, val => val.toString(16)).join('');
         addNewText(selectedComponent, newShape);
         getAllTextsOfComponent()
       } else if (shapeType === 'group') {
+        newShape.id = id;
         newShape.type = 'group';
         newShape.width = canvasWidth - 20;
         newShape.height = 100;
@@ -141,6 +137,7 @@ let id = Array.from(array, val => val.toString(16)).join('');
         newShape.strokeWidth = 1;
         newShape.strokeColor = "#545454";
         newShape.fillStyleColor = "#FFFFFF";
+        newShape.group = groupId
         addGroup(selectedComponent, newShape);
       }
 
@@ -560,6 +557,7 @@ const handlePlaceholderTextStyleChange = (e) => {
 };   
 
 const handleStartAllignGroupChange = (e) => {
+  console.log(selectedGroup);
   alignShapesInGroup(selectedGroup, shapes)
 }
 
