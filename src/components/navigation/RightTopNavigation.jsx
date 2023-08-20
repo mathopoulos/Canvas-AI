@@ -9,7 +9,7 @@ export default function RightTopNavigation() {
   return (
       <div id="rightTopNav">  
       <img id="profile" src="images/profile.svg" alt="box-icon" />
-       <button id="shareButton">Share</button>
+       <button id="exportButton">Export</button>
 
     </div>
   );

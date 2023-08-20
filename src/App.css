@@ -522,7 +522,7 @@ flex-direction: row;
   scale: 1.2;
 }
 
-#shareButton{
+#exportButton2{
   position: absolute;
   right: 0;
   margin-right: 0px;
@@ -763,7 +763,7 @@ dropbtn {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown-top:hover .dropbtn-top {background-color: #e6e6e6;}
 
-#exportButton{
+#exportButton2{
   padding-top: 5px;
   padding-left: 5px;
   background-color: #ece9e9;

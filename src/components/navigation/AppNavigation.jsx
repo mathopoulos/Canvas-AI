@@ -23,7 +23,7 @@ export default function AppNavigation(props) {
         <div className="dropdown-top">
           <button className="dropbtn-top"><img id="downImage" src="/images/down.svg" alt="box-icon" /></button>
           <div className="topNav-dropdown-content">
-            <div id="exportButton" onClick={handleExportClick} >Export Code</div>
+            <div id="exportButton2" onClick={handleExportClick} >Export Code</div>
           </div>
         </div>
       </div>

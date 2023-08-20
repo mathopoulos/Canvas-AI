@@ -45,7 +45,7 @@ function Canvas() {
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
   const [canvasHeight, setCanvasHeight] = useState(300);
   const [canvasWidth, setCanvasWidth] = useState(510);
-  const[canvasTop, setCanvasTop] = useState(150);
+  const[canvasTop, setCanvasTop] = useState(180);
   const[canvasLeft, setCanvasLeft] = useState(320);
   const [initialOffsetX, setInitialOffsetX] = useState(null);
 
@@ -146,7 +146,7 @@ useEffect(() => {
     <div>
       <TopNavigation shapes={shapes} />
       <Toolbar setShape={setShapeType} />
-      <div style={{ position: 'relative', width: `${canvasWidth}px`, height: `${canvasHeight}px`, border: '1px solid grey', borderRadius: '10px', left: '320px', top: `${canvasTop}px` }} onMouseMove={(e) => {
+      <div style={{ position: 'relative', width: `${canvasWidth}px`, height: `${canvasHeight}px`, border: '1px solid grey', borderRadius: '10px', left: '320px', top: `180px` }} onMouseMove={(e) => {
     updateCursor(resizingBoxRef, e);
     handleResizeMouseMove(e);
   }}
