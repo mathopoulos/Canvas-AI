@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { findShapeUnderCursor, isCursorOverCanvasBorder, isMouseOverGroupShape} from '/src/components/helpers.jsx';
-import { createNewShape } from '/src/components/helpers.jsx';
+import { createNewShape, alignShapesInGroup } from '/src/components/helpers.jsx';
 import {getAllInputsOfComponent, getAllButtonsOfComponent, getAllTextsOfComponent} from '/src/components/graphql/queries.jsx';
 import { addNewComponent, addNewInput, updateInputHeight, updateInputWidth, updateInputStrokeWidth, updateInputStrokeColor, updateInputFillStyleColor, updateInputBorderSides, updateInputBorderRadius, updateInputPosition, updateInputSize, deleteInput, updateInputPlaceholderText, addNewButton, deleteButton, updateButtonHeight, updateButtonSize, updateButtonPosition, updateButtonWidth, updateButtonStrokeWidth, updateButtonStrokeColor, updateButtonFillStyleColor, updateButtonBorderSides, updateButtonBorderRadius, updateButtonText, updateInputPlaceholderTextFont, updateInputPlaceholderTextSize, updateTextPosition, addNewText, deleteText, updateTextPlaceholderText, updateTextPlaceholderTextFont, updateTextPlaceholderTextSize, updateTextPlaceholderTextStyle, updateCanvasHeight, updateCanvasTop,updateCanvasWidth} from '/src/components/graphql/mutations.jsx';
 import { drawGroup } from '../drawingComponents/Group';
@@ -22,25 +22,35 @@ export const useCanvasInteraction = (canvasRef, resizingBoxRef, shapes, setShape
   const [dragStartX, setDragStartX] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
-    // Function to align shapes in a group
- const alignShapesInGroup = (groupId, shapes) => {
-  console.log('shapes:', shapes);
-  console.log('groupId:', groupId);
-    const groupShapes = shapes.filter(shape => shape.group === groupId);
-    
+// Function to align shapes in a group
+const alignShapesInGroup = (groupId, shapes) => {
+    console.log('shapes:', shapes);
+    console.log('groupId:', groupId);
+    const groupShapes = shapes.filter(shape => shape.group === groupId && shape.type !== 'group');
+    const group = shapes.find(shape => groupId === shape.group && shape.type === 'group');
+    console.log(groupShapes);
     if (groupShapes.length > 0) {
-      const leftMostX = Math.min(...groupShapes.map(shape => shape.x));
-      
-      const updatedShapes = shapes.map(shape => {
-        if (shape.group === groupId) {
-          return { ...shape, x: leftMostX };
+        const leftMostX = Math.min(...groupShapes.map(shape => shape.x));
+        console.log(`left most x: ${leftMostX}`);
+        let currentOffsetX = group.x;
+        let updatedShapes = groupShapes.map(shape => {
+            if (shape.group === groupId) {
+                const updatedShape = { ...shape, x: currentOffsetX };
+                currentOffsetX += shape.width + 5; // Move the offset 5 px to the right of this shape's right side.
+                console.log(updatedShape);
+                return updatedShape;
+            }
+            return shape;
+        });
+
+        // Adding group shape back into the updatedShapes before setShapes
+        if (group !== undefined) {
+           updatedShapes = [...updatedShapes, group];
         }
-        return shape;
-      });
-      
-      setShapes(updatedShapes);
+        setShapes(updatedShapes);
     }
-  };
+};
+
 
 
   // Handle canvas click events

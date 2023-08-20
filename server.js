@@ -11,7 +11,8 @@ import syncCode from './syncCode.js'; // Custom module to synchronize code
 import pg from 'pg';// PostgreSQL client for Node.js
 import schema from './src/components/graphql/schema.js';
 import root from './src/components/graphql/resolvers.js';
-import pool from './src/components/db/dbConnection.js'; 
+import pool from './src/components/db/dbConnection.js';
+
 
 // Destructure Pool from pg for creating a connection pool
 const { Pool } = pg;
@@ -109,7 +110,9 @@ app.use((err, req, res, next) => {
     });
 });
 
+
 // Start the server and listen on port 4000
-app.listen(4000, () => {
-  console.log("Running a GraphQL API server at https://canvas-v3.alexandrosmatho.repl.co/graphql");
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`Running a GraphQL API server at localhost:${port}/graphql`);
 });
