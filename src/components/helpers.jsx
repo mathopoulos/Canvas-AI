@@ -122,6 +122,12 @@ export const updateResizingBox = (resizingBoxRef, selectedIndex, shapes) => {
     resizingBox.style.top = `${selectedShape.y}px`;
     resizingBox.style.width = `${selectedShape.width}px`;
     resizingBox.style.height = `${selectedShape.height}px`;
+  } else if (selectedShape.type === 'group') {
+    resizingBox.style.display = 'block';
+    resizingBox.style.left = `${selectedShape.x}px`;
+    resizingBox.style.top = `${selectedShape.y}px`;
+    resizingBox.style.width = `${selectedShape.width}px`;
+    resizingBox.style.height = `${selectedShape.height}px`;
   }
   else {
     resizingBox.style.display = 'none';

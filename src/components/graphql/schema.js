@@ -15,7 +15,8 @@ const schema = buildSchema(`
     groupsByComponent(componentId: ID!): [Group]
   }
 type Mutation {
-    addGroup(parentId: ID!, name: String!, height: Int!, width: Int!, x: Int!, y: Int!, type: String!, borderRadius: Int!): Group
+    addGroup(parentId: ID!, name: String!, height: Int!, width: Int!, x: Int!, y: Int!, type: String!, borderRadius: Int!, align: String): Group
+    updateGroup(id: ID!, name: String, height: Int, width: Int, x: Int, y: Int, type: String, borderRadius: Int, align: String): Group
     addComponent(name: String!): Component
     addCanvas(name: String, height: Int, width: Int, top: Int, left: Int): Canvas
     deleteComponent(id: ID!): Boolean
@@ -132,6 +133,7 @@ type Mutation {
     type: String!
     borderRadius: Int!
     parentId: ID!
+    align: String
   }
 `);
 

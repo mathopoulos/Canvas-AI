@@ -34,7 +34,7 @@ export const addCanvas = async (name, height, width, top, left) => {
 
 export const addGroup = async (parentId, group) => {
 
-    const {height, width, x, y, type, name, borderRadius } = group;
+    const {height, width, x, y, type, name, borderRadius, align } = group;
   // GraphQL mutation for adding a new component
   const mutation = `
     mutation {
@@ -47,6 +47,7 @@ export const addGroup = async (parentId, group) => {
           y: ${y}
           type: "${type}"
           borderRadius: ${borderRadius}
+          align: "${align}"
       ) {
     id
     name
@@ -57,6 +58,7 @@ export const addGroup = async (parentId, group) => {
     type
     borderRadius
     parentId
+    align
   }
   }
   `;
@@ -244,6 +246,30 @@ export const deleteComponent = async (id) => {
     return response.deleteComponent;
   } catch (error) {
     console.error('Error deleting component:', error);
+    return null;
+  }
+};
+
+// Function to update an existing component in the database
+export const updateGroup = async (id, align) => {
+  // GraphQL mutation for updating a component
+  const mutation = `
+    mutation {
+      updateGroup(
+        id: "${id}", 
+        align: "${align}"
+      ) {
+        id
+        align
+      }
+    }
+  `;
+
+  try {
+    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    return response.updateGroup;
+  } catch (error) {
+    console.error('Error updating group:', error);
     return null;
   }
 };

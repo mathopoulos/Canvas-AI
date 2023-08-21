@@ -138,6 +138,7 @@ let id = Array.from(array, val => val.toString(16)).join('');
         newShape.strokeColor = "#545454";
         newShape.fillStyleColor = "#FFFFFF";
         newShape.group = groupId
+        newShape.align = 'none'
         addGroup(selectedComponent, newShape);
       }
 
@@ -556,9 +557,11 @@ const handlePlaceholderTextStyleChange = (e) => {
   }
 };   
 
+
 const handleStartAllignGroupChange = (e) => {
   console.log(selectedGroup);
   alignShapesInGroup(selectedGroup, shapes)
+
 }
 
     
@@ -612,7 +615,7 @@ return {
     handlePlaceholderTextFontChange, 
     handlePlaceholderTextSizeChange,
     handlePlaceholderTextStyleChange,
-    handleStartAllignGroupChange
+    handleStartAllignGroupChange,
     
   
   };

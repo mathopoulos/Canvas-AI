@@ -74,7 +74,7 @@ function Canvas() {
     handlePlaceholderTextSizeChange,
     handlePlaceholderTextStyleChange,
     handleCanvasResize, 
-    handleStartAllignGroupChange
+    handleStartAllignGroupChange 
   } = useCanvasInteraction(canvasRef, resizingBoxRef, shapes, setShapes, shapeType, setShapeType, selectedShapeIndex, setSelectedShapeIndex, selectedComponent, canvasSelected, setCanvasSelected, canvasHeight, setCanvasHeight, canvasTop, setCanvasTop, canvasLeft, setCanvasLeft, canvasWidth, setCanvasWidth);
 
   useEffect(() => {

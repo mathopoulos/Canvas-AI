@@ -90,7 +90,7 @@ groupsByComponent: ({ componentId }) => {
   },
 
   // Add a new component to the database
-  addGroup: ({ parentId, name, height, width, x, y, type, borderRadius }) => {
+  addGroup: ({ parentId, name, height, width, x, y, type, borderRadius, align }) => {
     const newGroup = {
       id: crypto.randomUUID(),
       name,
@@ -100,7 +100,8 @@ groupsByComponent: ({ componentId }) => {
       y,
       type,
       borderRadius,
-      parentId
+      parentId, 
+      align
     };
     return pool.query('INSERT INTO group_data(data) VALUES($1) RETURNING data', [newGroup])
       .then(res => res.rows[0].data)
@@ -121,11 +122,23 @@ groupsByComponent: ({ componentId }) => {
       .then(res => res.rows.length > 0 ? res.rows[0].data : null)
       .catch(e => console.error(e.stack));
 
-
-
-
   },
 
+  // Update group
+  updateGroup: async ({ id, ...updates }) => {
+    const canvas = await pool.query('SELECT data FROM group_data WHERE data->>\'id\' = $1', [id])
+      .then(res => res.rows.length > 0 ? res.rows[0].data : null)
+      .catch(e => console.error(e.stack));
+    if (!canvas) {
+      console.error(`No group found with id: ${id}`);
+      return null;
+    }
+    const newGroup = { ...group, ...updates };
+    return pool.query('UPDATE group_data SET data = $1 WHERE data->>\'id\' = $2', [newGroup, id])
+      .then(res => res.rows.length > 0 ? res.rows[0].data : null)
+      .catch(e => console.error(e.stack));
+
+  },  
 
   // Add a new component to the database
   addComponent: ({ name }) => {
