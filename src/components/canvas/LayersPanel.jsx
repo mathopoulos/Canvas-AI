@@ -31,6 +31,10 @@ export default function LayersPanel({
   useEffect(() => {
     setLayers(shapes);
 
+  }, [shapes]);
+
+useEffect(() => {
+
     const fetchComponents = async () => {
       try {
         const response = await getAllComponentsNameAndId();
@@ -41,7 +45,8 @@ export default function LayersPanel({
     };
 
     fetchComponents();
-  }, [shapes, setComponents]);
+  }, []);
+
 
   // Empty effects for components and activePanel (might be placeholders for future logic)
   useEffect(() => { }, [components]);
@@ -97,9 +102,11 @@ export default function LayersPanel({
     event.stopPropagation(); // Stop event propagation to prevent the parent div's onClick event from triggering
     deleteComponent(componentId); // Call your deleteComponent mutation or function here
     // Update the components state accordingly
+    setShapes([]);
     setComponents((prevComponents) =>
       prevComponents.filter((component) => component.id !== componentId)
     );
+    
   };
   // Handlers for editing component names
   const handleComponentNameDoubleClick = (event, componentId) => {
