@@ -3,6 +3,7 @@ import React from 'react';
 import '/src/App.css';
 import RightTopNavigation from './RightTopNavigation';
 import AppNavigation from './AppNavigation';
+import Switcher from './Switcher';
 
 // Define the TopNavigation functional component
 export default function TopNavigation(props) {
@@ -12,7 +13,7 @@ export default function TopNavigation(props) {
   // Render the component
   return (
     <div className= "topDiv">
-      <AppNavigation shapes={shapes}/>
+      <Switcher/>
       <RightTopNavigation />
     </div>
 

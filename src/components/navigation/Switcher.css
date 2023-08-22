@@ -1,0 +1,111 @@
+.switcher {
+  display: flex; 
+  justify-content: space-around; 
+  padding: 3px 4px;
+  align-items: flex-start;
+  border-radius: 40px;
+  background-color: #ebebeb !important;
+  opacity: 0.2;
+  box-shadow: 0 0 5px #bdbdbd;
+}
+
+
+.doodle-button {
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.00);
+  color: #832BDB;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.doodle-button:hover {
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: #e6d6f5;
+  color: #832BDB;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.high-fidelity-button {
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.00);
+  color: #832BDB;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+  
+}
+
+.high-fidelity-button:hover {
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: #e6d6f5;
+  color: #832BDB;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+  
+}
+
+.functional-button {
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.00);
+  color: #832BDB;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+  
+}
+
+.functional-button:hover {
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: #e6d6f5;
+  color: #832BDB;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+  
+}
