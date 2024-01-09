@@ -529,12 +529,12 @@ flex-direction: row;
   background-color: rgba(63, 63, 70, 0.03); 
   height: 35px; 
   width: 60px;
-  color: #6D28D9;
+  color: #2d2d2d;
   border-radius: 5px; 
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 #rightTopNav {

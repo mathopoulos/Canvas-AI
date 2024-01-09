@@ -20,6 +20,7 @@ export default function Switcher(props) {
     <div className = "navigation">
       <div className="advancedMenuNavigation">
         <img className ="advancedMenuNavigationIcon" src="/images/view-list.svg" alt="box-icon" style={{ userSelect: 'none' }}  />
+      <div className ="componentSwitcher"> First Name <img className ="downIcon" src="/images/down.svg" alt="box-icon" /> </div>
       </div>
       <div className="modeSwitcher">
         <div className={isDoodleButtonClicked ? 'doodle-button-clicked' : 'doodle-button'} 

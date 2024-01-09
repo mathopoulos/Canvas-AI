@@ -7,8 +7,9 @@
 .advancedMenuNavigation {
   display: flex;
   justify-content: center;
+  gap: 10px; 
   align-items: center;
-  width: 35px;
+  width: 150px;
   height: 35px;
   background-color: rgba(63, 63, 70, 0.03); 
   border-radius: 5px;
@@ -17,6 +18,22 @@
 .advancedMenuNavigationIcon {
   padding: 1px;
   
+}
+
+.componentSwitcher {
+  gap: 10px;
+  font-family: Inter;
+  font-size: 14px;
+  align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+}
+
+.downIcon {
+  width: 15px; 
+  height: 15px: 
 }
 
 .modeSwitcher {
@@ -36,11 +53,11 @@
   align-items: center;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.00);
-  color: #6D28D9;
+  color: #2d2d2d;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   cursor: pointer;
 }
@@ -55,9 +72,9 @@
   background: rgba(109, 40, 217, 0.05);
   color: #6D28D9;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   cursor: pointer;
 }
@@ -72,9 +89,9 @@
   background: #bda7d3;
   color: #6D28D9;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;  
 }
 
@@ -87,11 +104,11 @@
   align-items: center;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.00);
-  color: #6D28D9;
+  color: #2d2d2d;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   cursor: pointer;
   
@@ -107,9 +124,9 @@
   background: rgba(109, 40, 217, 0.05);
   color: #6D28D9;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   
 }
@@ -122,11 +139,11 @@
   align-items: center;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.00);
-  color: #6D28D9;
+  color: #2d2d2d;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   
 }
@@ -141,9 +158,9 @@
   background: rgba(109, 40, 217, 0.05);
   color: #6D28D9;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   
 }
