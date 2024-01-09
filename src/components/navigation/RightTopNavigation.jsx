@@ -8,7 +8,6 @@ export default function RightTopNavigation() {
   // Render the component
   return (
       <div id="rightTopNav">  
-      <img id="profile" src="images/profile.svg" alt="box-icon" />
        <button id="exportButton">Export</button>
 
     </div>

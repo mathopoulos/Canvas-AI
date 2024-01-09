@@ -526,11 +526,15 @@ flex-direction: row;
   right: 0;
   margin-right: 0px;
   margin-top: 10px;
-  background-color: #832BDB;
-  height: 30px; 
+  background-color: rgba(63, 63, 70, 0.03); 
+  height: 35px; 
   width: 60px;
-  color: #ffffff;
+  color: #6D28D9;
   border-radius: 5px; 
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
 }
 
 #rightTopNav {

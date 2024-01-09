@@ -1,110 +1,149 @@
-.switcher {
+.navigation {
   display: flex; 
-  justify-content: space-around; 
-  padding: 3px 4px;
-  align-items: flex-start;
-  border-radius: 40px;
-  background-color: #f5f5f5 !important;
-  box-shadow: 0 0 5px #bdbdbd;
+  justify-content: space-between;
+  gap: 15px;
 }
 
-
-.doodle-button {
-  display: inline-flex;
-  padding: 8px 16px;
+.advancedMenuNavigation {
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 30px;
+  width: 35px;
+  height: 35px;
+  background-color: rgba(63, 63, 70, 0.03); 
+  border-radius: 5px;
+}
+
+.advancedMenuNavigationIcon {
+  padding: 1px;
+  
+}
+
+.modeSwitcher {
+  display: flex; 
+  height: 35px;
+  justify-content: space-evenly; 
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgba(63, 63, 70, 0.03) !important;
+}
+
+.doodle-button {
+  display: flex;
+  height: 35px;
+  padding: 0 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.00);
-  color: #832BDB;
-font-family: Inter;
-font-size: 12px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
 }
 
 .doodle-button:hover {
-  display: inline-flex;
-  padding: 8px 16px;
+  display: flex;
+  padding: 0 15px;
+  height: 35px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 30px;
-  background: #e6d6f5;
-  color: #832BDB;
-font-family: Inter;
-font-size: 12px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  border-radius: 5px;
+  background: rgba(109, 40, 217, 0.05);
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
 }
 
-.high-fidelity-button {
-  display: inline-flex;
-  padding: 8px 16px;
+.doodle-button-clicked {
+  display: flex;
+  padding: 0 15px;
+  height: 35px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 30px;
+  border-radius: 5px;
+  background: #bda7d3;
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;  
+}
+
+
+.high-fidelity-button {
+  display: flex;
+  height: 35px;
+  padding: 0 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.00);
-  color: #832BDB;
-font-family: Inter;
-font-size: 12px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
   
 }
 
 .high-fidelity-button:hover {
-  display: inline-flex;
-  padding: 8px 16px;
+  display: flex;
+  height: 35px;
+  padding: 0 15px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 30px;
-  background: #e6d6f5;
-  color: #832BDB;
-font-family: Inter;
-font-size: 12px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  border-radius: 5px;
+  background: rgba(109, 40, 217, 0.05);
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   
 }
 
 .functional-button {
-  display: inline-flex;
-  padding: 8px 16px;
+  display: flex;
+  height: 35px;
+  padding: 0 15px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 30px;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.00);
-  color: #832BDB;
-font-family: Inter;
-font-size: 12px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   
 }
 
 .functional-button:hover {
-  display: inline-flex;
-  padding: 8px 16px;
+  display: flex;
+  height: 35px;
+  padding: 0 15px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 30px;
-  background: #e6d6f5;
-  color: #832BDB;
-font-family: Inter;
-font-size: 12px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  border-radius: 5px;
+  background: rgba(109, 40, 217, 0.05);
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   
 }
