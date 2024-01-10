@@ -9,7 +9,7 @@
   justify-content: center;
   gap: 10px; 
   align-items: center;
-  width: 150px;
+  width: 170px;
   height: 35px;
   background-color: rgba(63, 63, 70, 0.03); 
   border-radius: 5px;
@@ -29,11 +29,86 @@
   font-weight: 500;
   display: flex;
   justify-content: center;
+  padding: 0 15px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.componentSwitcher:hover {
+  gap: 10px;
+  font-family: Inter;
+  font-size: 14px;
+  align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  background: #f3f1f1;
+  padding: 0 15px;
+  cursor: pointer; 
+  border-radius: 5px;
+}
+
+.plusIcon {
+  width: 17px; 
+  height: 17px;
+  margin-right: 10px; 
+  color: gray;
 }
 
 .downIcon {
   width: 15px; 
   height: 15px: 
+}
+
+.dropdown-menu {
+  position: absolute; /* Set absolute positioning for the dropdown */
+  top: 40px; /* Position the dropdown below the componentSwitcher */
+  left: 45px; /* Adjust the left position as needed */
+  border-radius: 5px;
+  width: 200px;
+  z-index: 21; /* Set a higher z-index to ensure it appears above other content */
+  box-shadow: 0 0 5px #bdbdbd;
+  background: white;
+  padding-bottom: 10px;
+}
+
+.dropdown-menu-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+}
+
+.dropdown-menu-content {
+}
+
+.layersLine {
+  margin-bottom: 10px;
+  z-index: 25;
+  height: 1px;
+  width: 100%;
+  background-color: black;
+  opacity: 0.1;
+}
+
+.dropdown-menu-items {
+  padding: 5px 10px;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  align-items: center;
+}
+
+.dropdown-menu-items:hover {
+  padding: 5px 10px;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  align-items: center;
+  background: #f3f1f1 ;
 }
 
 .modeSwitcher {
@@ -86,7 +161,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  background: #bda7d3;
+  background: rgba(109, 40, 217, 0.05);
   color: #6D28D9;
   font-family: Inter;
   font-size: 14px;
