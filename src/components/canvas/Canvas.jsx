@@ -32,11 +32,14 @@ import {FocusedButton} from '/src/components/canvas/hoversState.jsx';
 
 
 function Canvas() {
+
+
   // References to canvas and resizing box elements
   const canvasRef = useRef(null);
   const resizingBoxRef = useRef(null);
 
   // State variables for managing shapes, components, and interactions
+  const [mode, setMode] = useState('doodle');
   const [components, setComponents] = useState([]);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [canvasSelected, setCanvasSelected] = useState(false);
@@ -89,6 +92,20 @@ function Canvas() {
     }
     fetchCanvas();
 }, []);
+
+useEffect(() => {
+  if (mode === 'doodle') {
+    setCanvasHeight(600); // Set the canvas height for mode 'high-fidelity'
+    setCanvasWidth(510);
+    setCanvasTop(0);
+    setCanvasLeft(0)
+  } else if (mode === 'high-fidelity') {
+    setCanvasHeight(300); // Set the canvas height for mode 'high-fidelity'
+    setCanvasWidth(510);
+    setCanvasTop(160);
+    setCanvasLeft(320)
+  }
+}, [mode]);
 
 
   // Fetching shapes data when a component is selected  
@@ -144,7 +161,7 @@ useEffect(() => {
 
   return (
     <div>
-      <TopNavigation shapes={shapes} />
+      <TopNavigation shapes={shapes} setMode={setMode}/>
       <Toolbar setShape={setShapeType} />
       <div style={{ position: 'relative', width: `${canvasWidth}px`, height: `${canvasHeight}px`, border: '1px solid grey', borderRadius: '10px', left: '320px', top: `150px` }} onMouseMove={(e) => {
     updateCursor(resizingBoxRef, e);
@@ -152,7 +169,7 @@ useEffect(() => {
   }}
   onMouseDown={handleResizeMouseDown}
   onMouseUp={handleResizeMouseUp}>
-        <FocusedButton canvasHeight={canvasHeight} canvasWidth={canvasWidth} canvasTop={canvasTop} canvasLeft={canvasLeft} />
+        {mode === 'high-fidelity' && <FocusedButton canvasHeight={canvasHeight} canvasWidth={canvasWidth} canvasTop={canvasTop} canvasLeft={canvasLeft} />}
 
         <CanvasElement
           ref={canvasRef}
@@ -168,17 +185,17 @@ useEffect(() => {
           onMouseUp={handleResizeMouseUp}
         />
       </div>
-      <LayersPanel
+      {mode === 'high-fidelity' && <LayersPanel
         shapes={shapes}
         setShapes={setShapes}
         setSelectedShapeIndex={setSelectedShapeIndex}
         components={components}
         setComponents={setComponents}
         setSelectedComponent={setSelectedComponent}// passing function as prop to LayersPanel component 
-      />
-      <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange} onPlaceholderTextChange={handlePlaceholderTextChange} onPlaceholderTextFontChange={handlePlaceholderTextFontChange} onPlaceholdertextSizeChange = {handlePlaceholderTextSizeChange} onStartAllignGroupChange={handleStartAllignGroupChange} onPlaceholderTextStyleChange = {handlePlaceholderTextStyleChange} onCanvasResize={handleCanvasResize}
+      />}
+      {mode === 'high-fidelity' && <ElementDetails selectedIndex={selectedShapeIndex} shapes={shapes} onHeightChange={handleHeightChange} onWidthChange={handleWidthChange} onStrokeWidthChange={handleStrokeWidthChange} onStrokeColorChange={handleStrokeColorChange} onBorderRadiusChange={handleBorderRadiusChange} onFillStyleColorChange={handleFillStyleColorChange} onLeftBorderChange={handleLeftBorderChange} onRightBorderChange={handleRightBorderChange} onTopBorderChange={handleTopBorderChange} onBottomBorderChange={handleBottomBorderChange} onPlaceholderTextChange={handlePlaceholderTextChange} onPlaceholderTextFontChange={handlePlaceholderTextFontChange} onPlaceholdertextSizeChange = {handlePlaceholderTextSizeChange} onStartAllignGroupChange={handleStartAllignGroupChange} onPlaceholderTextStyleChange = {handlePlaceholderTextStyleChange} onCanvasResize={handleCanvasResize}
         canvasWidth={canvasWidth}
-        canvasHeight={canvasHeight}/>
+        canvasHeight={canvasHeight}/>}
     </div>
   );
 }

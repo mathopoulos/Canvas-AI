@@ -3,6 +3,7 @@ import '/src/components/navigation/Switcher.css';
 
 
 export default function Switcher(props) {
+  const {setMode} = props;
   const [showDropdown, setShowDropdown] = useState(false);
   const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 
@@ -11,11 +12,23 @@ export default function Switcher(props) {
   }
 
   // State to track the button click
-  const [isDoodleButtonClicked, setDoodleButtonClicked] = useState(false);
+  const [isDoodleButtonClicked, setDoodleButtonClicked] = useState(true);
+
+  // State to track the button click
+  const [isHighFidelityButtonClicked, setHighFidelityButtonClicked] = useState(false);
 
   // Function to handle button click
   const handleDoodleButtonClick = () => {
     setDoodleButtonClicked(true);
+    setHighFidelityButtonClicked(false);
+    setMode('doodle');
+  }
+
+  // Function to handle button click
+  const handleHighFidelityButtonClick = () => {
+    setDoodleButtonClicked(false);
+    setHighFidelityButtonClicked(true);
+    setMode('high-fidelity');
   }
 
 
@@ -29,7 +42,7 @@ export default function Switcher(props) {
           <div className="dropdown-menu">
             <div className="dropdown-menu-header">
             <div className="dropdown-menu-content">
-              Components
+              Pages
             </div>
             <img className="plusIcon" src="/images/plus.svg" alt="box-icon" /> </div>
             <div className="layersLine"></div>
@@ -47,7 +60,7 @@ export default function Switcher(props) {
       <div className="modeSwitcher">
         <div className={isDoodleButtonClicked ? 'doodle-button-clicked' : 'doodle-button'}
           onClick={handleDoodleButtonClick}>Doodle</div>
-        <div className="high-fidelity-button">High Fidelity</div>
+        <div className={isHighFidelityButtonClicked ? 'high-fidelity-button-clicked' :"high-fidelity-button"} onClick={handleHighFidelityButtonClick}>High Fidelity</div>
         <div className="functional-button">Functional</div>
       </div>
     </div>

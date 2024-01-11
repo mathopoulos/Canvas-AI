@@ -9,11 +9,12 @@ import Switcher from './Switcher';
 export default function TopNavigation(props) {
   // Destructure the shapes prop
   const { shapes } = props;
+  const {setMode} = props;
 
   // Render the component
   return (
     <div className= "topDiv">
-      <Switcher/>
+      <Switcher setMode={setMode}/>
       <RightTopNavigation />
     </div>
 

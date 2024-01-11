@@ -170,6 +170,22 @@
   line-height: normal;  
 }
 
+.high-fidelity-button-clicked {
+  display: flex;
+  padding: 0 15px;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background: rgba(109, 40, 217, 0.05);
+  color: #6D28D9;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;  
+}
+
 
 .high-fidelity-button {
   display: flex;
