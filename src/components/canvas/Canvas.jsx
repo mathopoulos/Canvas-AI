@@ -95,8 +95,8 @@ function Canvas() {
 
 useEffect(() => {
   if (mode === 'doodle') {
-    setCanvasHeight(600); // Set the canvas height for mode 'high-fidelity'
-    setCanvasWidth(510);
+    setCanvasHeight(1500); // Set the canvas height for mode 'high-fidelity'
+    setCanvasWidth(1500);
     setCanvasTop(0);
     setCanvasLeft(0)
   } else if (mode === 'high-fidelity') {
@@ -163,13 +163,13 @@ useEffect(() => {
     <div>
       <TopNavigation shapes={shapes} setMode={setMode}/>
       <Toolbar setShape={setShapeType} />
-      <div style={{ position: 'relative', width: `${canvasWidth}px`, height: `${canvasHeight}px`, border: '1px solid grey', borderRadius: '10px', left: '320px', top: `150px` }} onMouseMove={(e) => {
+      <div style={{ position: 'relative', width: `${canvasWidth}px`, height: `${canvasHeight}px`, border: mode === 'doodle' ? 'none' : '1px solid grey', borderRadius: '10px', left: `${canvasLeft}px`, top: `${canvasTop}px` }} onMouseMove={(e) => {
     updateCursor(resizingBoxRef, e);
     handleResizeMouseMove(e);
   }}
   onMouseDown={handleResizeMouseDown}
   onMouseUp={handleResizeMouseUp}>
-        {mode === 'high-fidelity' && <FocusedButton canvasHeight={canvasHeight} canvasWidth={canvasWidth} canvasTop={canvasTop} canvasLeft={canvasLeft} />}
+        {mode === 'high-fidelity' && <FocusedButton canvasHeight={canvasHeight} canvasWidth={canvasWidth} canvasTop={canvasTop} canvasLeft={320} />}
 
         <CanvasElement
           ref={canvasRef}
