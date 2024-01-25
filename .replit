@@ -1,5 +1,7 @@
-run = "node server.js"
-entrypoint = "src/App.jsx"
+run = "concurrently \"node server.js\" \"npx vite\""
+entrypoint = "server.js"
+externalPort = 4000
+
 
 hidden = [".config", "tsconfig.json", "tsconfig.node.json", "vite.config.js", ".gitignore"]
 

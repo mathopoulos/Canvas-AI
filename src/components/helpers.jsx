@@ -265,7 +265,7 @@ export const addNewInput = async (input) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding new input:', error);
@@ -301,7 +301,7 @@ export const getAllInputs = async () => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', query);
+    const response = await request('/graphql', query);
     return response;
   } catch (error) {
     console.error('Error getting inputs:', error);
@@ -340,7 +340,7 @@ export const updateInputHeight = async (id, height) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -379,7 +379,7 @@ export const updateInputWidth = async (id, width) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -390,7 +390,7 @@ export const updateInputWidth = async (id, width) => {
 // Function to synchronize the code with the server
 export function syncCodeFunction() {
   // Send a GraphQL mutation request to sync the code
-  fetch('https://canvas-v3.alexandrosmatho.repl.co/graphql', {
+  fetch('https://canvas-v-3-alexandrosmatho.replit.app/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

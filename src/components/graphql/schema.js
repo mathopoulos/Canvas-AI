@@ -2,7 +2,7 @@
 import { buildSchema } from "graphql";
 
 // Define the GraphQL schema
-const schema = buildSchema(`
+export const schema = buildSchema(`
   type Query {
     shapes: [Input]
     components: [Component]

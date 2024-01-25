@@ -24,7 +24,7 @@ export const addCanvas = async (name, height, width, top, left) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addCanvas;
   } catch (error) {
     console.error('Error adding new component:', error);
@@ -64,7 +64,7 @@ export const addGroup = async (parentId, group) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addGroup;
   } catch (error) {
     console.error('Error adding new group:', error);
@@ -91,7 +91,7 @@ export const updateCanvasHeight = async (id, height) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateCanvas;
   } catch (error) {
     console.error('Error adding new component:', error);
@@ -118,7 +118,7 @@ export const updateCanvasWidth = async (id, width) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateCanvas;
   } catch (error) {
     console.error('Error adding updating canvas width:', error);
@@ -145,7 +145,7 @@ export const updateCanvasTop = async (id, top) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateCanvas;
   } catch (error) {
     console.error('Error adding new component:', error);
@@ -172,7 +172,7 @@ export const updateCanvasLeft = async (id, left) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateCanvas;
   } catch (error) {
     console.error('Error adding new component:', error);
@@ -199,7 +199,7 @@ export const updateCanvasWit = async (id, left) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateCanvas;
   } catch (error) {
     console.error('Error adding new component:', error);
@@ -222,7 +222,7 @@ export const addNewComponent = async (name) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addComponent;
   } catch (error) {
     console.error('Error adding new component:', error);
@@ -242,7 +242,7 @@ export const deleteComponent = async (id) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.deleteComponent;
   } catch (error) {
     console.error('Error deleting component:', error);
@@ -266,7 +266,7 @@ export const updateGroup = async (id, align) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateGroup;
   } catch (error) {
     console.error('Error updating group:', error);
@@ -349,7 +349,7 @@ export const updateComponent = async (id, name) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateComponent;
   } catch (error) {
     console.error('Error updating component:', error);
@@ -417,7 +417,7 @@ export const addNewInput = async (parentId, input) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding new input:', error);
@@ -478,7 +478,7 @@ export const addNewButton = async (parentId, button) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addButton;
   } catch (error) {
     console.error('Error adding new button:', error);
@@ -525,7 +525,7 @@ export const addNewText = async (parentId, text) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addText;
   } catch (error) {
     console.error('Error adding text:', error);
@@ -567,7 +567,7 @@ export const updateInputHeight = async (id, height) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -606,7 +606,7 @@ export const updateButtonHeight = async (id, height) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -648,7 +648,7 @@ export const updateInputWidth = async (id, width) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -687,7 +687,7 @@ export const updateButtonWidth = async (id, width) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -727,7 +727,7 @@ export const updateInputStrokeWidth = async (id, strokeWidth) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -766,7 +766,7 @@ export const updateButtonStrokeWidth = async (id, strokeWidth) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -808,7 +808,7 @@ export const updateInputStrokeColor = async (id, strokeColor) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -847,7 +847,7 @@ export const updateButtonStrokeColor = async (id, strokeColor) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error  updating button:', error);
@@ -889,7 +889,7 @@ export const updateInputFillStyleColor = async (id, fillStyleColor) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -928,7 +928,7 @@ export const updateButtonFillStyleColor = async (id, fillStyleColor) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -975,7 +975,7 @@ export const updateInputBorderSides = async (id, borderSides) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1019,7 +1019,7 @@ export const updateButtonBorderSides = async (id, borderSides) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -1061,7 +1061,7 @@ export const updateInputBorderRadius = async (id, borderRadius) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1100,7 +1100,7 @@ export const updateButtonBorderRadius = async (id, borderRadius) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -1143,7 +1143,7 @@ export const updateInputPosition = async (id, x, y) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1183,7 +1183,7 @@ export const updateButtonPosition = async (id, x, y) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -1216,7 +1216,7 @@ export const updateTextPosition = async (id, x, y) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateText;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -1259,7 +1259,7 @@ export const updateInputSize = async (id, height, width) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1299,7 +1299,7 @@ export const updateButtonSize = async (id, height, width) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);
@@ -1320,7 +1320,7 @@ export const deleteInput = async (id) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.deleteInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1340,7 +1340,7 @@ export const deleteButton = async (id) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.deleteButton;
   } catch (error) {
     console.error('Error deleting button:', error);
@@ -1360,7 +1360,7 @@ export const deleteText = async (id) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.deleteText;
   } catch (error) {
     console.error('Error deleting button:', error);
@@ -1402,7 +1402,7 @@ export const updateInputPlaceholderText = async (id, placeholderText) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1444,7 +1444,7 @@ export const updateInputPlaceholderTextFont = async (id, placeholderTextFont) =>
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1476,7 +1476,7 @@ export const updateTextPlaceholderTextFont = async (id, placeholderTextFont) => 
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addText;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1508,7 +1508,7 @@ export const updateTextPlaceholderText = async (id, placeholderText) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addText;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1551,7 +1551,7 @@ export const updateInputPlaceholderTextSize = async (id, placeholderTextSize) =>
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1584,7 +1584,7 @@ export const updateTextPlaceholderTextSize = async (id, placeholderTextSize) => 
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1617,7 +1617,7 @@ export const updateTextPlaceholderTextStyle = async (id, placeholderTextFillStyl
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1659,7 +1659,7 @@ export const updateInputPlaceholderTextFillStyle = async (id, placeholderTextFil
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.addInput;
   } catch (error) {
     console.error('Error adding updating input:', error);
@@ -1698,7 +1698,7 @@ export const updateButtonText = async (id, placeholderText) => {
   `;
 
   try {
-    const response = await request('https://canvas-v3.alexandrosmatho.repl.co/graphql', mutation);
+    const response = await request('/graphql', mutation);
     return response.updateButton;
   } catch (error) {
     console.error('Error updating button:', error);

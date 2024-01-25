@@ -6,7 +6,7 @@ import crypto from 'crypto';
 import { shapesPromise } from '../db/queries.js';
 
 // Define the root resolver for GraphQL. Resolvers define how the data for GraphQL queries and mutations is fetched.
-const root = {
+export const root = {
   // Fetch all shapes
   shapes: () => {
     return shapesPromise();
