@@ -1,6 +1,8 @@
 // Import the request function from the 'graphql-request' library for making GraphQL requests
 import { request } from 'graphql-request';
 
+let url = 'https://091c38e0-8a35-4e4a-9896-9cade1fb32f2-00-1l7u3irpf53bq.worf.replit.dev/graphql'; 
+
 // Fetch all input shapes from the GraphQL server
 export const getAllShapes = async () => {
   
@@ -32,7 +34,7 @@ export const getAllShapes = async () => {
 
   try {
     // Execute the GraphQL query and return the response
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     // Log and return any errors that occur during the request
@@ -59,7 +61,7 @@ export const getGroupsOfComponent = async (componentId) => {
 }`;
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     console.error('Error getting groups:', error);
@@ -97,7 +99,7 @@ export const getAllComponents = async () => {
 `;
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     console.error('Error getting components:', error);
@@ -115,7 +117,7 @@ export const getAllComponentsNameAndId = async () => {
 }`;  
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     console.error('Error getting components:', error);
@@ -155,7 +157,7 @@ export const getAllInputsOfComponent = async (componentId) => {
   `;
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     console.error('Error getting inputs:', error);
@@ -192,7 +194,7 @@ export const getAllButtonsOfComponent = async (componentId) => {
   `;
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     console.error('Error getting buttons:', error);
@@ -222,7 +224,7 @@ export const getAllTextsOfComponent = async (componentId) => {
   `;
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     console.error('Error getting texts:', error);
@@ -243,7 +245,7 @@ query {
   `;
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response;
   } catch (error) {
     console.error('Error getting inputs:', error);
@@ -267,7 +269,7 @@ query {
   `;
 
   try {
-    const response = await request('/graphql', query);
+    const response = await request(url, query);
     return response.canvas;
   } catch (error) {
     console.error('Error getting canvas:', error);
